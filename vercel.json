@@ -1,13 +1,9 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
-      ]
-    }
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/inventory-network", "destination": "/inventory-network.html" },
+    { "source": "/in-app-chat", "destination": "/in-app-chat.html" },
+    { "source": "/suggestion-search", "destination": "/suggestion-search.html" },
+    { "source": "/auth-whatsapp-otp", "destination": "/auth-whatsapp-otp.html" }
   ]
 }

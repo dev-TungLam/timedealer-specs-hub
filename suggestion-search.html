@@ -534,19 +534,19 @@
 <nav class="specs-hub-nav" aria-label="Requirement Modules Switcher">
   <div class="specs-hub-inner">
     <a href="index.html" class="specs-hub-logo">
-      <span>⏱️ TimeDealer</span>
+      <span>TimeDealer</span>
       <span style="font-size:11px; opacity:0.7; font-weight:normal;">PRD Portal</span>
     </a>
     <div class="specs-hub-tabs">
-      <a href="index.html" class="specs-tab-btn "><span class="specs-tab-num">0</span> 📊 Hub Overview</a>
-        <a href="inventory-network.html" class="specs-tab-btn "><span class="specs-tab-num">1</span> 📦 Inventory Network</a>
-        <a href="in-app-chat.html" class="specs-tab-btn "><span class="specs-tab-num">2</span> 💬 In-App Chat</a>
-        <a href="suggestion-search.html" class="specs-tab-btn active"><span class="specs-tab-num">3</span> 🔍 Suggestion Search</a>
-        <a href="auth-whatsapp-otp.html" class="specs-tab-btn "><span class="specs-tab-num">4</span> 📱 WhatsApp OTP Auth</a>
+      <a href="index.html" class="specs-tab-btn "><span class="specs-tab-num">0</span> Hub Overview</a>
+        <a href="inventory-network.html" class="specs-tab-btn "><span class="specs-tab-num">1</span> Inventory Network</a>
+        <a href="in-app-chat.html" class="specs-tab-btn "><span class="specs-tab-num">2</span> In-App Chat</a>
+        <a href="suggestion-search.html" class="specs-tab-btn active"><span class="specs-tab-num">3</span> Suggestion Search</a>
+        <a href="auth-whatsapp-otp.html" class="specs-tab-btn "><span class="specs-tab-num">4</span> WhatsApp OTP Auth</a>
     </div>
     <div class="specs-hub-actions">
-      <button class="specs-action-btn" id="portalThemeBtn" type="button" title="Chuyển Dark/Light Mode">🌓 Giao diện</button>
-      <a href="javascript:window.print()" class="specs-action-btn" title="In / Xuất PDF">🖨️ PDF</a>
+      <button class="specs-action-btn" id="portalThemeBtn" type="button" title="Chuyển Dark/Light Mode">Giao diện</button>
+      <a href="javascript:window.print()" class="specs-action-btn" title="In / Xuất PDF">PDF</a>
     </div>
   </div>
 </nav>
@@ -599,10 +599,9 @@
       <li><a href="#s3-pham-vi"><span class="n">03</span> Phạm vi (Scope)</a></li>
       <li><a href="#s4-user-stories"><span class="n">04</span> Chân dung người dùng &amp; User Stories</a></li>
       <li><a href="#s5-tinh-nang"><span class="n">05</span> Yêu cầu tính năng &amp; Sơ đồ luồng (FR &amp; Flows)</a></li>
-      <li><a href="#s6-phi-chuc-nang"><span class="n">06</span> Yêu cầu phi chức năng (Non-Functional Requirements)</a></li>
-      <li><a href="#s7-ux-ui"><span class="n">07</span> Thiết kế giao diện &amp; Trải nghiệm (UX/UI Constraints)</a></li>
-      <li><a href="#s8-ke-hoach"><span class="n">08</span> Kế hoạch triển khai &amp; Phát hành (Milestones)</a></li>
-      <li><a href="#s9-rui-ro"><span class="n">09</span> Rủi ro, Giả định &amp; Phụ thuộc (Risks &amp; Dependencies)</a></li>
+      <li><a href="#s6-ux-ui"><span class="n">06</span> Thiết kế giao diện &amp; Trải nghiệm (UX/UI Constraints)</a></li>
+      <li><a href="#s7-ke-hoach"><span class="n">07</span> Kế hoạch triển khai &amp; Phát hành (Milestones)</a></li>
+      <li><a href="#s8-rui-ro"><span class="n">08</span> Rủi ro, Giả định &amp; Phụ thuộc (Risks &amp; Dependencies)</a></li>
     </ol>
   </nav>
 
@@ -786,7 +785,7 @@
 flowchart TB
   subgraph ClientApp["Tầng Trình Duyệt / Ứng Dụng (timedealer-v2)"]
     INPUT["SearchMarketPlace Input"]
-    HOOK["useSWR(['/api/suggest', searchKeyword])"]
+    HOOK["useSWR('/api/suggest', searchKeyword)"]
     AUTO["AutoComplete Popover Component"]
   end
 
@@ -802,24 +801,25 @@ flowchart TB
 
   subgraph DataEngine["Tầng Dữ Liệu & Tìm Kiếm (Data Processing Services)"]
     ES_SERVICE["Go/Python Masterfile Service<br/>(backend_api / DATA_API_URL_2)"]
-    REDIS_CACHE[("Redis Cache<br/>Key: suggest:{ref}:{limit}")]
+    REDIS_CACHE[("Redis Cache<br/>Key: suggest:ref:limit")]
     ES_INDEX[("Elasticsearch Index<br/>masterfile_v2")]
   end
 
-  INPUT -->|Debounce 250ms| HOOK
-  HOOK -->|Fetch POST { ref, limit: 10 }| BFF_EP
+  INPUT -->|"Debounce 250ms"| HOOK
+  HOOK -->|"Fetch POST (ref, limit: 10)"| BFF_EP
   BFF_EP --> AUTH_CHECK
-  AUTH_CHECK -- Hợp lệ --> GW_ROUTE
-  AUTH_CHECK -- Không có token --> ERR_AUTH["403 Must login"]
+  AUTH_CHECK -->|"Hợp lệ"| GW_ROUTE
+  AUTH_CHECK -->|"Không có token"| ERR_AUTH["403 Must login"]
   GW_ROUTE --> WRAP
-  WRAP -->|Proxy HTTP Request| ES_SERVICE
-  ES_SERVICE <-->|Check / Set Cache| REDIS_CACHE
-  ES_SERVICE -->|Prefix & Fuzzy Match| ES_INDEX
-  ES_INDEX -.->|Trả về mảng kết quả| ES_SERVICE
-  ES_SERVICE -.->|JSON response| WRAP
-  WRAP -.->|HTTP 200| BFF_EP
-  BFF_EP -.->|status: success, data: [...]| HOOK
-  HOOK -->|Render List & Highlight| AUTO
+  WRAP -->|"Proxy HTTP Request"| ES_SERVICE
+  ES_SERVICE -->|"Check & Set Cache"| REDIS_CACHE
+  REDIS_CACHE -->|"Cache Hit"| ES_SERVICE
+  ES_SERVICE -->|"Prefix & Fuzzy Match"| ES_INDEX
+  ES_INDEX -.->|"Trả về mảng kết quả"| ES_SERVICE
+  ES_SERVICE -.->|"JSON response"| WRAP
+  WRAP -.->|"HTTP 200"| BFF_EP
+  BFF_EP -.->|"status: success, data: list"| HOOK
+  HOOK -->|"Render List & Highlight"| AUTO
       </script>
       <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
       <pre class="mmd-code" hidden></pre>
@@ -846,9 +846,9 @@ sequenceDiagram
   BFF->>API: POST /masterfile_v2/suggest + Bearer Token
   API->>ES: Truy vấn Elasticsearch (Prefix & N-gram Match "1266*")
   ES-->>API: Trả về danh sách 10 mẫu đồng hồ (Rolex Submariner 126610LN...)
-  API-->>BFF: Trả về { status: "success", data: [...] }
+  API-->>BFF: Trả về JSON { status: "success", data: list }
   BFF-->>UI: Response JSON
-  UI->>UI: Tô đậm từ khóa trùng khớp (Regex <b>1266</b>)
+  UI->>UI: Tô đậm từ khóa trùng khớp (Regex Ref 1266)
   UI->>UI: Mở Popover hiển thị danh sách 10 dòng có ảnh và tên hãng
   
   alt Người dùng bấm vào 1 dòng gợi ý
@@ -900,14 +900,14 @@ stateDiagram-v2
       <div class="mmd-host"></div>
       <script type="text/plain" class="mmd-src">
 flowchart TD
-  START(["Người dùng bấm nút Track trên dòng gợi ý"]) --> CHECK_LIMIT{"Kiểm tra số lượng đã theo dõi?<br/>totalTrackQuantity >= 20"}
+  START(["Người dùng bấm nút Track trên dòng gợi ý"]) --> CHECK_LIMIT{"Kiểm tra số lượng đã theo dõi?<br/>totalTrackQuantity &ge; 20"}
   
-  CHECK_LIMIT -- Đã đạt 20 mẫu --> ALERT_MAX["Báo lỗi Pop-up:<br/>You have reached maximum 20 tracking watches.<br/>Please remove old reference number."]
+  CHECK_LIMIT -->|"Đã đạt 20 mẫu"| ALERT_MAX["Báo lỗi Pop-up:<br/>You have reached maximum 20 tracking watches.<br/>Please remove old reference number."]
   
-  CHECK_LIMIT -- Dưới 20 mẫu --> CHECK_TYPE{"Bấm nút Track Ref cụ thể hay Track Text tự do?"}
+  CHECK_LIMIT -->|"Dưới 20 mẫu"| CHECK_TYPE{"Bấm nút Track Ref cụ thể hay Track Text tự do?"}
   
-  CHECK_TYPE -- Track Ref cụ thể --> MODAL_REF["Dispatch: setInfoTracking(item)<br/>Mở Modal Cấu Hình Theo Dõi Ref (ModalCreateTrackingRule)"]
-  CHECK_TYPE -- Track Text tự do --> MODAL_TEXT["Dispatch: setOpenModalAutoTrackingTextSetting<br/>Mở Modal Theo Dõi Từ Khóa Tự Do"]
+  CHECK_TYPE -->|"Track Ref cụ thể"| MODAL_REF["Dispatch: setInfoTracking(item)<br/>Mở Modal Cấu Hình Theo Dõi Ref (ModalCreateTrackingRule)"]
+  CHECK_TYPE -->|"Track Text tự do"| MODAL_TEXT["Dispatch: setOpenModalAutoTrackingTextSetting<br/>Mở Modal Theo Dõi Từ Khóa Tự Do"]
   
   MODAL_REF --> SAVE_RULE["Người dùng cài ngưỡng giá cảnh báo & Lưu"]
   MODAL_TEXT --> SAVE_RULE
@@ -1051,32 +1051,9 @@ flowchart TD
     </div>
   </section>
 
-  <!-- ============================================================ 6. NFR -->
-  <section id="s6-phi-chuc-nang">
-    <h2><span class="hn">6</span>Yêu cầu phi chức năng (Non-Functional Requirements)</h2>
-
-    <h3>6.1 Hiệu năng &amp; Khả năng chịu tải (Performance &amp; Scale)</h3>
-    <ul>
-      <li><strong>Debounce tối ưu:</strong> Client áp dụng debounce 250ms. Chỉ gửi request lên server sau khi người dùng dừng bấm phím 250ms, giảm 70% số lượng request lãng phí.</li>
-      <li><strong>Client-Side SWR Deduplication:</strong> Thư viện SWR lưu cache kết quả tìm kiếm cục bộ trong vòng 5 phút (<code>stale-while-revalidate</code>). Khi người dùng gõ lại từ khóa cũ, kết quả hiển thị tức thì (0ms).</li>
-      <li><strong>Tải đồng thời:</strong> Cụm Elasticsearch và BFF hỗ trợ tối thiểu <strong>2,000 lượt gợi ý mỗi giây (RPS)</strong> với độ trễ p99 &le; 200ms.</li>
-    </ul>
-
-    <h3>6.2 Bảo mật &amp; Toàn vẹn (Security &amp; Sanitization)</h3>
-    <ul>
-      <li><strong>XSS &amp; Regex Injection Prevention:</strong> Phía client bắt buộc bọc từ khóa tìm kiếm qua hàm <code>escapeRegExp(search)</code> trước khi nhúng vào <code>dangerouslySetInnerHTML</code> để tô đậm từ khóa, ngăn chặn tấn công XSS.</li>
-      <li><strong>Kiểm soát Cookie Token:</strong> Request đi qua Next.js BFF luôn kiểm tra tính hợp lệ của JWT token trước khi chuyển tiếp vào hệ thống Core Microservice.</li>
-    </ul>
-
-    <h3>6.3 Độ tin cậy &amp; Dự phòng (Reliability &amp; Fallback)</h3>
-    <ul>
-      <li><strong>Graceful Degradation:</strong> Nếu cụm Elasticsearch tạm thời quá tải hoặc timeout (&gt; 1s), BFF trả về fallback là danh sách các Thương hiệu phổ biến (lấy từ endpoint <code>/masterfile_v2/all_brands</code>) thay vì để giao diện bị crash.</li>
-    </ul>
-  </section>
-
-  <!-- ============================================================ 7. UX/UI -->
-  <section id="s7-ux-ui">
-    <h2><span class="hn">7</span>Thiết kế giao diện &amp; Trải nghiệm (UX/UI Constraints)</h2>
+  <!-- ============================================================ 6. UX/UI -->
+  <section id="s6-ux-ui">
+    <h2><span class="hn">6</span>Thiết kế giao diện &amp; Trải nghiệm (UX/UI Constraints)</h2>
 
     <div class="scroll">
       <table>
@@ -1128,9 +1105,9 @@ flowchart TD
     </div>
   </section>
 
-  <!-- ============================================================ 8. MILESTONES -->
-  <section id="s8-ke-hoach">
-    <h2><span class="hn">8</span>Kế hoạch triển khai &amp; Phát hành (Milestones)</h2>
+  <!-- ============================================================ 7. MILESTONES -->
+  <section id="s7-ke-hoach">
+    <h2><span class="hn">7</span>Kế hoạch triển khai &amp; Phát hành (Milestones)</h2>
 
     <div class="scroll">
       <table>
@@ -1172,9 +1149,9 @@ flowchart TD
     </div>
   </section>
 
-  <!-- ============================================================ 9. RISKS -->
-  <section id="s9-rui-ro">
-    <h2><span class="hn">9</span>Rủi ro, Giả định &amp; Phụ thuộc (Risks &amp; Dependencies)</h2>
+  <!-- ============================================================ 8. RISKS -->
+  <section id="s8-rui-ro">
+    <h2><span class="hn">8</span>Rủi ro, Giả định &amp; Phụ thuộc (Risks &amp; Dependencies)</h2>
 
     <div class="scroll">
       <table>
