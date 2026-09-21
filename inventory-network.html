@@ -1,0 +1,1978 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Inventory Network — Đặc tả luồng dữ liệu &amp; PRD Kỹ thuật</title>
+  <meta name="description" content="Tài liệu đặc tả kỹ thuật và PRD chuẩn 9 mục tính năng Inventory Network của TimeDealer: 12 sơ đồ mermaid, hiện trạng ba kho dữ liệu và đặc tả bảng mới.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+  <style>
+    :root {
+      --ground: #f4f6f8;
+      --surface: #ffffff;
+      --surface-2: #eaedf1;
+      --surface-3: #dfe4ea;
+      --ink: #151920;
+      --ink-2: #414a57;
+      --ink-3: #6d7784;
+      --line: #dce0e6;
+      --line-strong: #bfc6d0;
+      --brass: #8a5f18;
+      --brass-2: #b8862c;
+      --brass-wash: #f7f1e4;
+      --brass-border: #e2cfa7;
+      --danger: #a12b20;
+      --danger-wash: #fbeeec;
+      --danger-border: #f0c3be;
+      --good: #26614d;
+      --good-wash: #e9f2ee;
+      --good-border: #b8dcce;
+      --blue: #1c5b96;
+      --blue-wash: #eaf2fa;
+      --blue-border: #b8d4f0;
+      --violet: #5b3d8f;
+      --violet-wash: #f1ecf9;
+      --violet-border: #d3c4ea;
+      --shadow: 0 1px 2px rgba(21,25,32,.05), 0 8px 24px -16px rgba(21,25,32,.25);
+      --nav-bg: rgba(244, 246, 248, 0.9);
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ground: #0f1217;
+        --surface: #161a21;
+        --surface-2: #1e232b;
+        --surface-3: #262c36;
+        --ink: #e7eaef;
+        --ink-2: #b2bbc8;
+        --ink-3: #848f9e;
+        --line: #282e38;
+        --line-strong: #3a424f;
+        --brass: #dcae55;
+        --brass-2: #ecc98a;
+        --brass-wash: #241d10;
+        --brass-border: #4a3a1b;
+        --danger: #e8877a;
+        --danger-wash: #2b1a17;
+        --danger-border: #522923;
+        --good: #74c3a0;
+        --good-wash: #13241e;
+        --good-border: #22473a;
+        --blue: #5ba2e6;
+        --blue-wash: #13202e;
+        --blue-border: #233e5c;
+        --violet: #b69ae4;
+        --violet-wash: #1c1630;
+        --violet-border: #3a2f57;
+        --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+        --nav-bg: rgba(15, 18, 23, 0.9);
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --ground: #0f1217;
+      --surface: #161a21;
+      --surface-2: #1e232b;
+      --surface-3: #262c36;
+      --ink: #e7eaef;
+      --ink-2: #b2bbc8;
+      --ink-3: #848f9e;
+      --line: #282e38;
+      --line-strong: #3a424f;
+      --brass: #dcae55;
+      --brass-2: #ecc98a;
+      --brass-wash: #241d10;
+      --brass-border: #4a3a1b;
+      --danger: #e8877a;
+      --danger-wash: #2b1a17;
+      --danger-border: #522923;
+      --good: #74c3a0;
+      --good-wash: #13241e;
+      --good-border: #22473a;
+      --blue: #5ba2e6;
+      --blue-wash: #13202e;
+      --blue-border: #233e5c;
+      --violet: #b69ae4;
+      --violet-wash: #1c1630;
+      --violet-border: #3a2f57;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+      --nav-bg: rgba(15, 18, 23, 0.9);
+      color-scheme: dark;
+    }
+
+    :root[data-theme="light"] {
+      --ground: #f4f6f8;
+      --surface: #ffffff;
+      --surface-2: #eaedf1;
+      --surface-3: #dfe4ea;
+      --ink: #151920;
+      --ink-2: #414a57;
+      --ink-3: #6d7784;
+      --line: #dce0e6;
+      --line-strong: #bfc6d0;
+      --brass: #8a5f18;
+      --brass-2: #b8862c;
+      --brass-wash: #f7f1e4;
+      --brass-border: #e2cfa7;
+      --danger: #a12b20;
+      --danger-wash: #fbeeec;
+      --danger-border: #f0c3be;
+      --good: #26614d;
+      --good-wash: #e9f2ee;
+      --good-border: #b8dcce;
+      --blue: #1c5b96;
+      --blue-wash: #eaf2fa;
+      --blue-border: #b8d4f0;
+      --violet: #5b3d8f;
+      --violet-wash: #f1ecf9;
+      --violet-border: #d3c4ea;
+      --nav-bg: rgba(244, 246, 248, 0.9);
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: "Newsreader", Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; animation: none !important; }
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .top-bar-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .top-brand {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--brass);
+    }
+    .top-sep { flex: 1 1 auto; }
+    .btn {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-2);
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      padding: 5px 11px;
+      cursor: pointer;
+    }
+    .btn:hover { color: var(--ink); border-color: var(--brass-border); }
+    .btn:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding-inline: 20px;
+      padding-block: 0 72px;
+    }
+
+    .masthead { padding-block: 36px 22px; border-bottom: 2px solid var(--ink); }
+    .eyebrow {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11.5px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin: 0 0 12px;
+    }
+    h1 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(28px, 5.5vw, 42px);
+      line-height: 1.12;
+      font-weight: 600;
+      margin: 0 0 10px;
+      text-wrap: balance;
+      letter-spacing: -0.015em;
+    }
+    .standfirst {
+      font-size: 17.5px;
+      color: var(--ink-2);
+      max-width: 62ch;
+      margin: 0 0 18px;
+    }
+    .meta {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12.5px;
+      color: var(--ink-3);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px 20px;
+      margin: 0;
+    }
+    .meta div { border-top: 1px solid var(--line); padding-top: 7px; }
+    .meta b { color: var(--ink-2); font-weight: 600; display: block; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2px; }
+
+    .toc {
+      margin-block: 24px 0;
+      padding: 16px 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+    .toc h2 { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 10px; border: 0; padding: 0; }
+    .toc ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px 18px; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 13.5px; max-width: none; }
+    .toc li { margin: 0; }
+    .toc a { color: var(--ink-2); text-decoration: none; display: flex; gap: 8px; }
+    .toc a:hover { color: var(--brass); }
+    .toc .n { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--brass); min-width: 24px; }
+
+    section { padding-block: 32px 6px; }
+    h2 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(22px, 3.8vw, 28px);
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line-strong);
+      text-wrap: balance;
+    }
+    h2 .hn { font-family: "IBM Plex Mono", monospace; font-size: .6em; color: var(--brass); margin-right: 8px; vertical-align: 1px; }
+    h3 {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 22px 0 8px;
+    }
+    h4 {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin: 18px 0 7px;
+    }
+    p { margin: 0 0 11px; max-width: 68ch; }
+    .lede { font-size: 17px; color: var(--ink-2); max-width: 64ch; margin-bottom: 14px; }
+    ul, ol { max-width: 68ch; padding-left: 20px; margin-top: 4px; margin-bottom: 12px; }
+    li { margin-bottom: 4px; }
+    a { color: var(--brass); }
+    strong { font-weight: 600; }
+    code, .mono {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: .86em;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1px 4px;
+      word-break: break-word;
+    }
+
+    .dgm {
+      margin: 0 0 20px;
+      padding: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .dgm figcaption {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface-2);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-2);
+    }
+    .dgm-id {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      color: var(--brass);
+      background: var(--brass-wash);
+      border: 1px solid var(--brass-border);
+      border-radius: 4px;
+      padding: 1px 6px;
+    }
+    .dgm-note { font-weight: 400; color: var(--ink-3); font-size: 12px; }
+    .mmd-host { overflow-x: auto; padding: 18px 14px; text-align: center; }
+    .mmd-host svg { max-width: 100%; height: auto; }
+    .dgm-actions { padding: 0 14px 10px; }
+    .mmd-code {
+      margin: 0;
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+      background: var(--surface-2);
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--ink-2);
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .mmd-host svg g.node.err > rect,
+    .mmd-host svg g.node.err > polygon,
+    .mmd-host svg g.node.err > path { fill: var(--danger-wash) !important; stroke: var(--danger) !important; }
+    .mmd-host svg g.node.err .nodeLabel { color: var(--danger) !important; }
+    .mmd-host svg g.node.err text { fill: var(--danger) !important; }
+
+    .mmd-host svg g.node.warn > rect,
+    .mmd-host svg g.node.warn > polygon,
+    .mmd-host svg g.node.warn > path { fill: var(--brass-wash) !important; stroke: var(--brass-2) !important; }
+    .mmd-host svg g.node.warn .nodeLabel { color: var(--brass) !important; }
+    .mmd-host svg g.node.warn text { fill: var(--brass) !important; }
+
+    .mmd-host svg g.node.ok > rect,
+    .mmd-host svg g.node.ok > polygon,
+    .mmd-host svg g.node.ok > path { fill: var(--good-wash) !important; stroke: var(--good) !important; }
+    .mmd-host svg g.node.ok .nodeLabel { color: var(--good) !important; }
+    .mmd-host svg g.node.ok text { fill: var(--good) !important; }
+
+    .mmd-host svg g.node.acc > rect,
+    .mmd-host svg g.node.acc > polygon,
+    .mmd-host svg g.node.acc > path { fill: var(--brass-wash) !important; stroke: var(--brass) !important; stroke-width: 2px !important; }
+    .mmd-host svg g.node.acc .nodeLabel { color: var(--brass) !important; font-weight: 600 !important; }
+    .mmd-host svg g.node.acc text { fill: var(--brass) !important; }
+
+    .seq { list-style: none; margin: 0 0 16px; padding: 0; max-width: none; }
+    .seq > li {
+      position: relative;
+      margin: 0;
+      padding: 0 0 12px 32px;
+      border-left: 2px solid var(--line-strong);
+    }
+    .seq > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+    .seq > li::before {
+      content: attr(data-step);
+      position: absolute;
+      left: -12px;
+      top: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--line-strong);
+      color: var(--ink-2);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .seq-head { display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; margin-bottom: 2px; }
+    .seq-title { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 14px; font-weight: 600; }
+    .seq-body { font-size: 15.5px; color: var(--ink-2); margin: 0; max-width: 62ch; }
+    .seq-tech {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+      color: var(--ink-3);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 7px 10px;
+      margin: 6px 0 14px;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .seq .seq-tech { margin-bottom: 0; }
+
+    .who {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 16px;
+      border: 1px solid var(--line-strong);
+      color: var(--ink-3);
+      background: var(--surface-2);
+      white-space: nowrap;
+    }
+    .who.dealer  { color: var(--brass);  background: var(--brass-wash);  border-color: var(--brass-border); }
+    .who.web     { color: var(--blue);   background: var(--blue-wash);   border-color: var(--blue-border); }
+    .who.api     { color: var(--ink-2);  background: var(--surface-3);   border-color: var(--line-strong); }
+    .who.data    { color: var(--good);   background: var(--good-wash);   border-color: var(--good-border); }
+    .who.guest   { color: var(--violet); background: var(--violet-wash); border-color: var(--violet-border); }
+
+    .call {
+      border: 1px solid var(--line-strong);
+      border-left: 3px solid var(--ink-3);
+      background: var(--surface);
+      border-radius: 0 8px 8px 0;
+      padding: 11px 14px;
+      margin: 0 0 16px;
+      max-width: 72ch;
+    }
+    .call p { margin: 0; font-size: 15.5px; }
+    .call p + p { margin-top: 6px; }
+    .call ul, .call ol { margin: 5px 0 0; font-size: 15.5px; }
+    .call .call-label {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .call.warn   { border-left-color: var(--danger); background: var(--danger-wash); }
+    .call.warn .call-label { color: var(--danger); }
+    .call.rule   { border-left-color: var(--brass); background: var(--brass-wash); }
+    .call.rule .call-label { color: var(--brass); }
+    .call.info   { border-left-color: var(--blue); background: var(--blue-wash); }
+    .call.info .call-label { color: var(--blue); }
+    .call.ok     { border-left-color: var(--good); background: var(--good-wash); }
+    .call.ok .call-label { color: var(--good); }
+
+    .scroll { overflow-x: auto; margin: 0 0 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+    table { border-collapse: collapse; width: 100%; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 13px; min-width: 520px; }
+    thead th {
+      text-align: left;
+      font-size: 10.5px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 600;
+      padding: 8px 12px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--line-strong);
+      white-space: nowrap;
+    }
+    tbody td { padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); line-height: 1.45; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody td:first-child { color: var(--ink); font-weight: 500; white-space: nowrap; }
+    tbody td.wrap:first-child { white-space: normal; }
+    td code { font-size: 11.5px; }
+    .yes { color: var(--good); font-weight: 600; }
+    .no  { color: var(--ink-3); }
+    .tag-new { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--brass); background: var(--brass-wash); border: 1px solid var(--brass-border); border-radius: 4px; padding: 1px 5px; white-space: nowrap; }
+    .tag-old { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--good); background: var(--good-wash); border: 1px solid var(--good-border); border-radius: 4px; padding: 1px 5px; white-space: nowrap; }
+    .tag-off { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--ink-3); background: var(--surface-2); border: 1px solid var(--line-strong); border-radius: 4px; padding: 1px 5px; white-space: nowrap; }
+    .p0 { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--danger); background: var(--danger-wash); border: 1px solid var(--danger-border); border-radius: 4px; padding: 1px 5px; }
+    .p1 { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--brass); background: var(--brass-wash); border: 1px solid var(--brass-border); border-radius: 4px; padding: 1px 5px; }
+
+    .branch {
+      border: 1px dashed var(--line-strong);
+      border-radius: 7px;
+      background: var(--surface-2);
+      padding: 10px 12px;
+      margin: 0 0 16px;
+    }
+    .branch-label {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 6px;
+    }
+    .branch dl { margin: 0; display: grid; grid-template-columns: minmax(120px, auto) 1fr; gap: 4px 12px; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 13px; }
+    .branch dt { color: var(--danger); font-weight: 600; font-family: "IBM Plex Mono", monospace; font-size: 11.5px; }
+    .branch dd { margin: 0; color: var(--ink-2); }
+    @media (max-width: 560px) {
+      .branch dl { grid-template-columns: 1fr; gap: 2px; }
+      .branch dd { margin-bottom: 6px; }
+    }
+
+    .scope-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; margin-bottom: 18px; }
+    .scope-box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; box-shadow: var(--shadow); }
+    .scope-box h4 { margin-top: 0; }
+    .scope-box.in { border-top: 3px solid var(--good); }
+    .scope-box.in h4 { color: var(--good); }
+    .scope-box.out { border-top: 3px solid var(--danger); }
+    .scope-box.out h4 { color: var(--danger); }
+    .scope-box ul { margin: 0; padding-left: 18px; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 13.5px; color: var(--ink-2); max-width: none; }
+
+    .story {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--brass);
+      border-radius: 0 7px 7px 0;
+      padding: 10px 14px;
+      margin: 0 0 10px;
+      max-width: 72ch;
+    }
+    .story-id { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--brass); letter-spacing: .06em; display: block; margin-bottom: 3px; font-weight: 600; }
+    .story p { margin: 0; font-size: 15px; }
+    .story .ac { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 12.5px; color: var(--ink-3); margin-top: 5px; line-height: 1.45; }
+
+    .tech {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--ink-2);
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px 12px;
+      margin: 0 0 16px;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .phase { position: relative; padding: 0 0 16px 28px; border-left: 2px solid var(--line-strong); margin: 0; }
+    .phase:last-child { border-left-color: transparent; padding-bottom: 0; }
+    .phase::before {
+      content: "";
+      position: absolute;
+      left: -6px; top: 5px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--brass);
+      border: 2px solid var(--ground);
+    }
+    .phase-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 4px; }
+    .phase-id { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--brass); font-weight: 600; }
+    .phase-name { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 14px; font-weight: 600; }
+    .phase-when { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 12px; color: var(--ink-3); }
+    .phase p { font-size: 15px; color: var(--ink-2); margin: 0 0 4px; }
+    .phase .out { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 13px; color: var(--good); }
+
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 0 0 18px; padding: 0; list-style: none; max-width: none; }
+    .legend li { margin: 0; display: flex; align-items: center; gap: 6px; font-family: "IBM Plex Sans", sans-serif; font-size: 12px; color: var(--ink-3); }
+
+    footer {
+      border-top: 1px solid var(--line-strong);
+      margin-top: 36px;
+      padding-top: 16px;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12.5px;
+      color: var(--ink-3);
+    }
+    footer p { max-width: 70ch; }
+  
+    /* Universal Module Switcher Bar */
+    .specs-hub-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 18, 23, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(220, 224, 230, 0.15);
+      color: #e7eaef;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 13px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    :root[data-theme="light"] .specs-hub-nav {
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid #dce0e6;
+      color: #151920;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .specs-hub-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .specs-hub-logo {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--brass, #dcae55);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-right: 12px;
+      border-right: 1px solid rgba(120,130,140,0.3);
+      white-space: nowrap;
+    }
+    .specs-hub-logo:hover { opacity: 0.9; }
+    .specs-hub-tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      flex: 1 1 auto;
+    }
+    .specs-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-2, #b2bbc8);
+      background: transparent;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    :root[data-theme="light"] .specs-tab-btn {
+      color: #414a57;
+    }
+    .specs-tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    :root[data-theme="light"] .specs-tab-btn:hover {
+      color: #151920;
+      background: #f0f2f5;
+      border-color: #dce0e6;
+    }
+    .specs-tab-btn.active {
+      color: #fff;
+      background: #8a5f18;
+      border-color: #b8862c;
+      font-weight: 600;
+    }
+    :root[data-theme="light"] .specs-tab-btn.active {
+      color: #ffffff;
+      background: #8a5f18;
+      border-color: #724e13;
+    }
+    .specs-tab-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      font-size: 10px;
+      font-family: "IBM Plex Mono", monospace;
+    }
+    .specs-tab-btn.active .specs-tab-num {
+      background: rgba(0,0,0,0.25);
+    }
+    .specs-hub-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .specs-action-btn {
+      font-size: 11.5px;
+      padding: 5px 9px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    :root[data-theme="light"] .specs-action-btn {
+      background: #ffffff;
+      border-color: #dce0e6;
+      color: #414a57;
+    }
+    .specs-action-btn:hover {
+      border-color: var(--brass, #dcae55);
+      color: var(--brass, #dcae55);
+    }
+
+  </style>
+</head>
+<body>
+
+
+<nav class="specs-hub-nav" aria-label="Requirement Modules Switcher">
+  <div class="specs-hub-inner">
+    <a href="index.html" class="specs-hub-logo">
+      <span>⏱️ TimeDealer</span>
+      <span style="font-size:11px; opacity:0.7; font-weight:normal;">PRD Portal</span>
+    </a>
+    <div class="specs-hub-tabs">
+      <a href="index.html" class="specs-tab-btn "><span class="specs-tab-num">0</span> 📊 Hub Overview</a>
+        <a href="inventory-network.html" class="specs-tab-btn active"><span class="specs-tab-num">1</span> 📦 Inventory Network</a>
+        <a href="in-app-chat.html" class="specs-tab-btn "><span class="specs-tab-num">2</span> 💬 In-App Chat</a>
+        <a href="suggestion-search.html" class="specs-tab-btn "><span class="specs-tab-num">3</span> 🔍 Suggestion Search</a>
+        <a href="auth-whatsapp-otp.html" class="specs-tab-btn "><span class="specs-tab-num">4</span> 📱 WhatsApp OTP Auth</a>
+    </div>
+    <div class="specs-hub-actions">
+      <button class="specs-action-btn" id="portalThemeBtn" type="button" title="Chuyển Dark/Light Mode">🌓 Giao diện</button>
+      <a href="javascript:window.print()" class="specs-action-btn" title="In / Xuất PDF">🖨️ PDF</a>
+    </div>
+  </div>
+</nav>
+<script>
+  (function(){
+    var b = document.getElementById('portalThemeBtn');
+    if (b) {
+      b.addEventListener('click', function() {
+        var r = document.documentElement;
+        var cur = r.getAttribute('data-theme');
+        if (!cur) {
+          var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          cur = dark ? 'dark' : 'light';
+        }
+        var next = cur === 'dark' ? 'light' : 'dark';
+        r.setAttribute('data-theme', next);
+        try { localStorage.setItem('td-specs-theme', next); } catch(e){}
+        // trigger theme switch for page mermaid if exists
+        var pageThemeBtn = document.getElementById('themeBtn');
+        if (pageThemeBtn && pageThemeBtn !== b) pageThemeBtn.click();
+      });
+    }
+    // Apply saved theme
+    try {
+      var saved = localStorage.getItem('td-specs-theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch(e){}
+  })();
+</script>
+
+
+<div class="page">
+
+  <header class="masthead">
+    <p class="eyebrow">Product Requirements Document &amp; Technical Spec · 12 sơ đồ mermaid · 21/09/2026</p>
+    <h1>Inventory Network — Đặc tả luồng dữ liệu &amp; PRD Kỹ thuật</h1>
+    <p class="standfirst">
+      Cập nhật một nơi, chia sẻ một link, đối tác tự tra cứu. Tài liệu chuẩn hoá <strong>9 mục PRD</strong>, tích hợp <strong>12 sơ đồ Mermaid tương tác</strong>, đối chiếu hiện trạng 3 cơ sở dữ liệu và đặc tả kỹ thuật triển khai.
+    </p>
+    <div class="meta">
+      <div><b>Task</b> TEC-2026-09-18-002</div>
+      <div><b>Khung thời gian</b> 18/09 → 18/10/2026</div>
+      <div><b>A (Chịu trách nhiệm)</b> Nghiêm Phú Đức</div>
+      <div><b>R (Thực thi)</b> TEC + Outsource · <b>C/I</b> BOD</div>
+      <div><b>Repo</b> timedealer-v2 · apiTimeDealer · timedealer_data</div>
+      <div><b>Đối chiếu</b> DDL &amp; content type checkout 18/09/2026</div>
+      <div><b>Nguồn tài liệu</b> inventory-network-prd.md &amp; Đề_xuất_tính_năng_Inventory.pdf</div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <h2>Mục lục nội dung (9 cấu phần chuẩn)</h2>
+    <ol>
+      <li><a href="#s1-tong-quan"><span class="n">1</span> Tổng quan (Overview)</a></li>
+      <li><a href="#s2-muc-tieu"><span class="n">2</span> Mục tiêu &amp; Chỉ số (Goals &amp; Metrics)</a></li>
+      <li><a href="#s3-pham-vi"><span class="n">3</span> Phạm vi dự án (Scope: In/Out)</a></li>
+      <li><a href="#s4-nguoi-dung"><span class="n">4</span> Người dùng &amp; User Stories</a></li>
+      <li><a href="#s5-chuc-nang"><span class="n">5</span> Yêu cầu tính năng &amp; 12 sơ đồ luồng (FR &amp; S1–S12)</a></li>
+      <li><a href="#s6-phi-chuc-nang"><span class="n">6</span> Yêu cầu phi chức năng (NFR)</a></li>
+      <li><a href="#s7-giao-dien"><span class="n">7</span> Giao diện &amp; Thiết kế (UX/UI &amp; Wireframes)</a></li>
+      <li><a href="#s8-ke-hoach"><span class="n">8</span> Kế hoạch phát hành (Milestones &amp; Release Plan)</a></li>
+      <li><a href="#s9-rui-ro"><span class="n">9</span> Rủi ro &amp; Giả định (Risks &amp; Assumptions)</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============================================================ 1. OVERVIEW -->
+  <section id="s1-tong-quan">
+    <h2><span class="hn">1</span>Tên dự án và tổng quan (Overview)</h2>
+    <p class="lede">
+      <strong>Inventory Network</strong> (My Inventory &amp; Partner Inventory): Chuyển đổi danh mục hàng sẵn có (stock) của Dealer từ tin nhắn chat phân mảnh thành <strong>bản ghi cố định có URL tĩnh, tự động cập nhật và kết nối hệ sinh thái TimeDealer</strong>.
+    </p>
+
+    <h3>1.1 Vấn đề cần giải quyết</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Điểm nghẽn</th><th>Thực trạng qua chat WhatsApp</th><th>Hệ quả kỹ thuật &amp; vận hành</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Gửi lại (Re-send)</strong></td>
+            <td>Stock lưu trong tin nhắn; mỗi thay đổi phải gửi lại toàn bộ danh sách text/ảnh.</td>
+            <td>Không có bản ghi trạng thái duy nhất (single source of truth); dữ liệu lỗi thời nhanh.</td>
+          </tr>
+          <tr>
+            <td><strong>Đi hỏi (Pull)</strong></td>
+            <td>Phải nhắn tin hỏi từng đối tác để biết hàng tồn; kiểm tra thủ công bằng mắt.</td>
+            <td>Chi phí liên lạc tăng tuyến tính theo quy mô mạng lưới đối tác.</td>
+          </tr>
+          <tr>
+            <td><strong>Ngõ cụt (Dead-end)</strong></td>
+            <td>Tin nhắn text cô lập; không liên kết với công cụ tìm kiếm giá hay theo dõi thị trường.</td>
+            <td>Phải nhập lại mã ref để tra Marketplace và đặt Auto Tracking.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>1.2 Bốn khối tính năng cốt lõi</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>#</th><th>Khối tính năng</th><th>Yêu cầu nghiệp vụ</th><th>Ưu tiên</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="wrap"><strong>Paste a Whole List (F1)</strong></td><td class="wrap">Dán văn bản stock tự do → AI bóc tách danh mục chuẩn (ref, brand, price, year, condition). Bắt buộc soát xét trước khi commit.</td><td><span class="p0">P0</span></td></tr>
+          <tr><td>2</td><td class="wrap"><strong>Inventory Link (F3–F4)</strong></td><td class="wrap">Khởi tạo 1 URL duy nhất (slug ngẫu nhiên 22 ký tự); đọc công khai không cần đăng nhập; có thể đổi link hoặc tắt tức thì.</td><td><span class="p0">P0</span></td></tr>
+          <tr><td>3</td><td class="wrap"><strong>Search &amp; Save Partner (F5)</strong></td><td class="wrap">Tra cứu kho đối tác qua số điện thoại; lưu theo dõi; hiển thị huy hiệu đếm item mới bổ sung.</td><td><span class="p0">P0</span></td></tr>
+          <tr><td>4</td><td class="wrap"><strong>Highlight &amp; Hot Deal (F6)</strong></td><td class="wrap">Ghim tối đa 5 item tiêu biểu lên đầu kho; tự động gom các item Highlight của Partner đã lưu vào mục Hot Deal (sắp xếp giá rẻ nhất trước).</td><td><span class="p0">P0</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="call rule">
+      <span class="call-label">6 Quyết định kiến trúc bắt buộc</span>
+      <ol>
+        <li>Trích xuất bằng thư viện AI độc lập; <strong>tuyệt đối không ghi</strong> vào cơ sở dữ liệu Marketplace (<code>messages_raw</code>, ES index, liquidity).</li>
+        <li>Luồng Paste luôn là <strong>review-then-commit</strong>; cấm tự động commit ngầm vào kho.</li>
+        <li>Inventory v1 chỉ quản lý hàng chào bán <strong>(for-sale only)</strong>; tin tìm mua (WTB) thuộc Marketplace.</li>
+        <li>Link công khai dùng <strong>slug ngẫu nhiên 22 ký tự base62 (CSPRNG)</strong>; cấm dùng số điện thoại làm đường dẫn.</li>
+        <li>Giới hạn tối đa 5 Highlight được <strong>chặn cứng tại backend (409 Conflict)</strong>; không phụ thuộc giao diện.</li>
+        <li>Search in Marketplace và Auto Tracking là <strong>deep link tham số</strong> vào màn hình sẵn có; không viết engine mới.</li>
+      </ol>
+    </div>
+
+    <div class="call warn">
+      <span class="call-label">Quyết định chốt với BOD (D1)</span>
+      <p>
+        Dữ liệu kho cá nhân Dealer <strong>không được nạp vào thị trường Marketplace</strong> ở v1 để tránh tính trùng số liệu và bảo toàn tính khách quan của dữ liệu thanh khoản sàn.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ 2. GOALS & METRICS -->
+  <section id="s2-muc-tieu">
+    <h2><span class="hn">2</span>Mục tiêu kinh doanh và chỉ số đo lường (Goals &amp; Metrics)</h2>
+    <p class="lede">
+      Thước đo thành công là <strong>tần suất cập nhật kho của Dealer</strong>, không phải số lượng item nhập một lần rồi bỏ hoang.
+    </p>
+
+    <h3>2.1 Mục tiêu sản phẩm (G1 – G6)</h3>
+    <ul>
+      <li><strong>G1:</strong> Nhập toàn bộ kho bằng 1 lần dán + 1 lần review, không nhập tay từng chiếc.</li>
+      <li><strong>G2:</strong> 1 URL ổn định phản ánh kho hiện tại, chủ kho toàn quyền thu hồi/đổi mới.</li>
+      <li><strong>G3:</strong> Người nhận xem kho ngay trên trình duyệt web, không bắt buộc tạo tài khoản hay cài app.</li>
+      <li><strong>G4:</strong> Tìm kho đối tác bằng số điện thoại, lưu theo dõi tập trung tại một danh mục.</li>
+      <li><strong>G5:</strong> Ghim ≤5 chiếc tiêu biểu; tự động xuất hiện tại Hot Deal của toàn bộ đối tác đã lưu.</li>
+      <li><strong>G6:</strong> 1 click từ item bất kỳ mở tìm kiếm Marketplace hoặc tạo quy tắc Auto Tracking.</li>
+    </ul>
+
+    <h3>2.2 Chỉ số đo lường sau 30 ngày (KPIs/OKRs)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Chỉ số</th><th>Mục tiêu</th><th>Nguồn dữ liệu / Cách đo</th></tr></thead>
+        <tbody>
+          <tr><td>Tỷ lệ Dealer kích hoạt kho</td><td>≥ 40% tài khoản có gói dịch vụ active</td><td><code>inventories.item_count &gt; 0</code></td></tr>
+          <tr><td>Độ tươi kho hàng (Update recency)</td><td>≥ 60% kho có cập nhật trong 7 ngày gần nhất</td><td><code>inventory_items.updated_at &gt;= NOW() - 7d</code></td></tr>
+          <tr><td>Tỷ lệ dán stock thành công</td><td>≥ 80% số block dán tạo ra item commit</td><td><code>inventory_paste_logs</code></td></tr>
+          <tr><td>Độ chính xác bóc tách (Precision)</td><td>≥ 95% (kiểm thử mẫu 200 item)</td><td>QA nghiệm thu: đúng ref và đúng giá</td></tr>
+          <tr><td>Tỷ lệ dòng phải sửa trước commit</td><td>≤ 20% tổng số dòng (trung vị)</td><td><code>items_edited / items_extracted</code></td></tr>
+          <tr><td>Lượt mở link chia sẻ</td><td>≥ 3 lượt xem / kho chia sẻ / tuần</td><td><code>inventory_link_views</code></td></tr>
+          <tr><td>Kho đối tác đã lưu</td><td>≥ 3 kho / Dealer hoạt động</td><td><code>saved_inventories</code></td></tr>
+          <tr><td>CTR từ Hot Deal sang Marketplace/Tracking</td><td>≥ 15% tổng phiên xem Hot Deal</td><td>Analytics event tracking</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="call warn">
+      <span class="call-label">Anti-Metric bắt buộc kiểm tra tự động (AC-10)</span>
+      <p>
+        Số lượng item Marketplace, số liệu trending và thanh khoản phải <strong>giống hệt nhau từng byte</strong> trước và sau khi triển khai tính năng với cùng khung truy vấn.
+      </p>
+    </div>
+
+    <h3>2.3 Hai chỉ số Dashboard giám sát từ Ngày 1</h3>
+    <ul>
+      <li><strong><code>edited_ratio</code> khi commit:</strong> Đánh giá chất lượng mô hình AI (tỷ lệ Dealer phải sửa tay càng thấp càng tốt).</li>
+      <li><strong>Số kho cập nhật trong 7 ngày:</strong> Đánh giá mức độ gắn kết và tính sống động của mạng lưới đối tác.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ 3. SCOPE -->
+  <section id="s3-pham-vi">
+    <h2><span class="hn">3</span>Phạm vi dự án (Scope: In/Out)</h2>
+
+    <div class="scope-grid">
+      <div class="scope-box in">
+        <h4>Trong phạm vi (In-Scope v1)</h4>
+        <ul>
+          <li><strong>My Inventory:</strong> Thêm, sửa, xoá mềm (30 ngày), thao tác bulk, đánh dấu sold (7 ngày), gắn cờ hàng cũ (14 ngày).</li>
+          <li><strong>Paste a Whole List:</strong> Cắt block client (≤80 dòng/1500 ký tự), gọi extract API, bảng review, quota log.</li>
+          <li><strong>Inventory Link:</strong> Slug 22 ký tự base62, trang đọc công khai SSR, whitelist trường, thu hồi (410 Gone).</li>
+          <li><strong>Partner Network:</strong> Tìm qua SĐT (chuẩn E.164), lưu/bỏ lưu, huy hiệu đếm item mới.</li>
+          <li><strong>Highlight &amp; Hot Deal:</strong> Ghim ≤5 item (chặn backend), gom deal rẻ nhất, loại trừ đại lý bị chặn.</li>
+          <li><strong>Tích hợp hệ sinh thái:</strong> Deep link Marketplace search và modal Auto Tracking điền sẵn ref/giá.</li>
+          <li><strong>Quản trị:</strong> Quản lý dữ liệu trực tiếp trên Strapi Admin Panel.</li>
+        </ul>
+      </div>
+      <div class="scope-box out">
+        <h4>Ngoài phạm vi (Out-of-Scope v1)</h4>
+        <ul>
+          <li>Không xây cổng thanh toán, giỏ hàng, đặt cọc, escrow hay chat web (tiếp tục qua WhatsApp).</li>
+          <li>Không hỗ trợ danh sách tìm mua (WTB).</li>
+          <li>Không đưa hàng cá nhân lên sàn Marketplace công cộng.</li>
+          <li>Không hỗ trợ upload ảnh cá nhân từng item (chỉ dùng ảnh chuẩn Masterfile).</li>
+          <li>Không phân quyền đa nhân viên (1 tài khoản đại lý = 1 kho).</li>
+          <li>Không so sánh chênh lệch giá kho với giá trung vị thị trường.</li>
+          <li>Không công bố danh bạ kho công khai (chỉ mở qua link hoặc tra đúng SĐT).</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>3.1 Danh mục tài sản tái sử dụng</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Tài sản</th><th>Vị trí mã nguồn</th><th>Chức năng cung cấp</th></tr></thead>
+        <tbody>
+          <tr><td>LLM Extractor</td><td><code>extract_messages_v2.py:166</code> (<code>analyze_message</code>)</td><td>Bóc tách text thô thành cấu trúc chuẩn (ref, brand, price, year, condition).</td></tr>
+          <tr><td>Lọc tin stock</td><td><code>extract_messages_v2.py:136</code> (<code>check_dealer_message</code>)</td><td>Loại bỏ tin chào hỏi, chat rác trước khi gọi AI.</td></tr>
+          <tr><td>Chuẩn hoá mã ref</td><td><code>ref_normalization.py</code></td><td>Tạo mã chuẩn hoá <code>ref_mf</code> đồng nhất biến thể ký tự.</td></tr>
+          <tr><td>Gợi ý Masterfile</td><td><code>/masterfile_v2/suggest</code> (Strapi)</td><td>Lấy thông tin thương hiệu và hình ảnh chính thức (<code>image_url</code>).</td></tr>
+          <tr><td>Dropdown thương hiệu</td><td><code>/masterfile_v2/all_brands</code></td><td>Danh mục hãng đồng hồ chuẩn.</td></tr>
+          <tr><td>Marketplace search</td><td><code>POST /search-items</code> qua <code>search-item.js</code></td><td>Đích đến của nút "Search in Marketplace".</td></tr>
+          <tr><td>Modal Auto Tracking</td><td><code>ModalCreateTrackingRule.js</code></td><td>Đã hỗ trợ sẵn <code>initialRef</code> và <code>initialPrice</code>.</td></tr>
+          <tr><td>Thẻ hiển thị item</td><td><code>itemExtract.js</code></td><td>Tái sử dụng layout card đồng hồ tinh gọn.</td></tr>
+          <tr><td>Nút gọi WhatsApp</td><td><code>goToWhatsApp.js</code></td><td>Mở chat WhatsApp không in SĐT thô ra HTML.</td></tr>
+          <tr><td>Chặn đại lý</td><td>Bảng <code>block_dealers</code> (MySQL)</td><td>Lọc bỏ đại lý bị chặn khỏi tìm kiếm và Hot Deal.</td></tr>
+          <tr><td>Đổi ngoại tệ</td><td><code>currency-convert.js</code></td><td>Tính toán <code>usd_price</code> phục vụ sắp xếp giá Hot Deal.</td></tr>
+          <tr><td>Khai báo public route</td><td>Strapi <code>config: { auth: false }</code></td><td>Mở route xem kho công khai không đòi cookie.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>3.2 Thành phần tuyệt đối KHÔNG tái sử dụng</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Thành phần</th><th>Lý do cấm dùng lại</th></tr></thead>
+        <tbody>
+          <tr><td><code>POST /import_messages</code> (Celery Ingest)</td><td class="wrap">Ghi vào <code>messages_raw</code>, <code>message_items</code> và đánh index ES thị trường; làm lộ kho riêng và đếm trùng số liệu sàn.</td></tr>
+          <tr><td>Bảng <code>saves</code> (Strapi)</td><td class="wrap">Lưu snapshot bài đăng Marketplace; khác hoàn toàn quan hệ theo dõi kho giữa 2 đại lý.</td></tr>
+          <tr><td>Bảng <code>favourites</code></td><td class="wrap">Lưu bài đăng cố định; không đồng bộ theo vòng đời kho của chủ sở hữu.</td></tr>
+          <tr><td>Content type <code>watch</code></td><td class="wrap">Dữ liệu catalog bài viết CMS marketing; không mang thuộc tính thương mại kho vận.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 4. USERS & STORIES -->
+  <section id="s4-nguoi-dung">
+    <h2><span class="hn">4</span>Chân dung người dùng và bài toán (Target Users &amp; User Stories)</h2>
+
+    <h3>4.1 Nhóm người dùng (Personas)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Persona</th><th>Vai trò &amp; Nhu cầu</th><th>Giao diện</th><th>Quyền truy cập</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Stock Provider</strong></td><td>Chủ kho: cần số hoá danh mục nhanh và chia sẻ 1 link duy nhất cho khách sỉ.</td><td><code>timedealer-v2</code> → My Inventory</td><td>Đăng nhập + Gói active</td></tr>
+          <tr><td><strong>Stock Consumer</strong></td><td>Đối tác săn hàng: cần theo dõi hàng mới của partner và săn deal rẻ mạng lưới.</td><td><code>timedealer-v2</code> → Partner Inventory &amp; Hot Deal</td><td>Đăng nhập + Gói active</td></tr>
+          <tr><td><strong>Recipient</strong></td><td>Guest: mở link xem hàng tức thì trên mobile, không muốn bị ép đăng ký.</td><td>Web public <code>/inventory/{slug}</code></td><td>Không cần tài khoản</td></tr>
+          <tr><td><strong>Ops / QA</strong></td><td>Quản trị viên: theo dõi quota AI, xử lý bóc tách lỗi và quản lý kiểm duyệt.</td><td>Strapi Admin Panel</td><td>Quyền Strapi Admin</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>4.2 Kịch bản người dùng (User Stories &amp; Acceptance Criteria)</h3>
+    <div class="story">
+      <span class="story-id">US-01 [G1 · FR-1.1–1.7] Dán danh sách nhập kho hàng loạt</span>
+      <p>Là Dealer có sẵn danh sách text 200 chiếc, tôi muốn dán vào hệ thống để máy tự bóc tách và soát xét nhanh trước khi đưa vào kho.</p>
+      <div class="ac"><strong>AC:</strong> Mọi dòng dán vào phải phân loại rõ: hoặc thành item nháp trên bảng review, hoặc vào mục "Không nhập được" kèm lý do. Không dòng nào biến mất âm thầm.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-02 [G2 · FR-2.1] Chia sẻ qua URL tĩnh</span>
+      <p>Là Dealer, tôi muốn có 1 link duy nhất gửi đối tác để họ luôn thấy kho mới nhất mà tôi không phải gửi lại tin nhắn khi có hàng đổi.</p>
+      <div class="ac"><strong>AC:</strong> Khi đổi giá hoặc đánh dấu đã bán, link public cập nhật trong vòng ≤60 giây mà không cần xoá cache thủ công.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-03 [G2 · FR-2.1] Thu hồi và đổi link bảo mật</span>
+      <p>Là Dealer phát hiện link bị gửi ra ngoài nhóm kín, tôi muốn bấm Đổi link hoặc Tắt chia sẻ để thu hồi bảng giá lập tức.</p>
+      <div class="ac"><strong>AC:</strong> Bấm Đổi link → link cũ trả về <code>410 Gone</code> ngay lập tức; chỉ link mới hoạt động.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-04 [FR-1.11] Cảnh báo hàng tồn quá hạn</span>
+      <p>Là Dealer, tôi muốn hệ thống cảnh báo đồng hồ quá 14 ngày chưa xác nhận để tránh báo nhầm hàng đã bán.</p>
+      <div class="ac"><strong>AC:</strong> Item quá 14 ngày không tương tác sẽ mang cờ hàng cũ, tự xếp sau hàng mới; tuyệt đối không tự xoá của Dealer.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-05 [G5 · FR-4.1] Ghim hàng trọng điểm Highlight</span>
+      <p>Là Dealer cần đẩy hàng gấp, tôi muốn ghim tối đa 5 chiếc lên đầu kho và phát sóng vào mục Hot Deal của các partner đã lưu kho tôi.</p>
+      <div class="ac"><strong>AC:</strong> Backend chặn cứng ở chiếc thứ 6 (409 Conflict); giao diện hỏi người dùng chọn 1 chiếc hiện có để thay thế.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-06 [G3 · FR-2.2–2.3] Guest xem kho không ma sát</span>
+      <p>Là khách nhận được link trong chat, tôi muốn mở link xem ngay danh sách và giá mà không cần đăng ký tài khoản.</p>
+      <div class="ac"><strong>AC:</strong> Trình duyệt không cookie mở xem mượt mà, đầy đủ ảnh, giá, nút WhatsApp; không popup chặn đăng nhập.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-07 [G4 · FR-3.1–3.2] Tìm kho đối tác qua số WhatsApp</span>
+      <p>Là Dealer, tôi muốn gõ số WhatsApp của đối tác quen để tìm kho và lưu theo dõi.</p>
+      <div class="ac"><strong>AC:</strong> Chuẩn hoá số E.164 đồng nhất; tìm đúng kho dù nhập dạng <code>+852 1234 5678</code> hay <code>85212345678</code>.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-08 [G4 · FR-3.3–3.4] Theo dõi hàng mới của đối tác</span>
+      <p>Là Dealer theo dõi 15 partner, tôi muốn mở tab Partner Inventory là biết ai vừa có hàng mới.</p>
+      <div class="ac"><strong>AC:</strong> Thẻ partner hiển thị huy hiệu "N mới" tương ứng số item bổ sung kể từ lần cuối tôi truy cập kho đó.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-09 [G5 · FR-4.3–4.4] Săn deal rẻ tại Hot Deal</span>
+      <p>Là Dealer, tôi muốn trang Hot Deal gom toàn bộ hàng Highlight của các đối tác đã lưu để so giá và nhập hàng nhanh.</p>
+      <div class="ac"><strong>AC:</strong> Hot Deal chỉ gom hàng của partner đã lưu, tự xếp deal có giá USD thấp hơn lên đầu, loại trừ đại lý bị chặn.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-10 [G6 · FR-5.1–5.2] Tra cứu thị trường &amp; Đặt tracking</span>
+      <p>Là Dealer thấy 1 mã trong kho partner, tôi muốn tra nhanh giá sàn hoặc đặt tracking giá chỉ bằng 1 cú click.</p>
+      <div class="ac"><strong>AC:</strong> Nút Marketplace mở tab mới lọc sẵn mã ref; nút Auto Tracking mở modal điền sẵn mã ref và giá tham chiếu.</div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 5. FUNCTIONAL REQUIREMENTS & FLOWS -->
+  <section id="s5-chuc-nang">
+    <h2><span class="hn">5</span>Yêu cầu tính năng chi tiết &amp; Luồng xử lý dữ liệu (FR &amp; S1–S12)</h2>
+
+    <h3>5.1 Chỉ mục yêu cầu chức năng (FR Index)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã FR</th><th>Tên yêu cầu chức năng</th><th>Ưu tiên</th><th>Mô đun kỹ thuật</th></tr></thead>
+        <tbody>
+          <tr><td><strong>FR-1.1</strong></td><td class="wrap">Dán văn bản tự do, AI trích xuất cấu trúc danh mục nháp</td><td><span class="p0">P0</span></td><td>F1 · Extraction Pipeline</td></tr>
+          <tr><td><strong>FR-1.2</strong></td><td class="wrap">Cắt block client (≤80 dòng/1500 ký tự); khắc phục điểm nghẽn nuốt tin dài B1</td><td><span class="p0">P0</span></td><td>F1 · Block Splitter</td></tr>
+          <tr><td><strong>FR-1.3</strong></td><td class="wrap">Bảng review cho phép sửa mọi trường trước khi xác nhận commit</td><td><span class="p0">P0</span></td><td>F1 · Review Table</td></tr>
+          <tr><td><strong>FR-1.4</strong></td><td class="wrap">Báo trạng thái chi tiết theo block (ok / too_long / not_dealer / error)</td><td><span class="p0">P0</span></td><td>F1 · Status Handler</td></tr>
+          <tr><td><strong>FR-1.5</strong></td><td class="wrap">Tự động loại bỏ dòng không phải đồng hồ (túi xách, trang sức, chào hỏi)</td><td><span class="p0">P0</span></td><td>F1 · Item Classification</td></tr>
+          <tr><td><strong>FR-1.6</strong></td><td class="wrap">Phát hiện và từ chối dòng WTB kèm hướng dẫn sang Marketplace (D3)</td><td><span class="p0">P0</span></td><td>F1 · WTB Guard</td></tr>
+          <tr><td><strong>FR-1.7</strong></td><td class="wrap">Hỗ trợ mã chưa khớp Masterfile: commit với <code>ref_mf = null</code>, ảnh placeholder</td><td><span class="p0">P0</span></td><td>F1 · Masterfile Fallback (B7)</td></tr>
+          <tr><td><strong>FR-1.8</strong></td><td class="wrap">Xử lý trùng lặp: cập nhật giá hoặc lưu bản sao thứ hai (<code>variant_seq</code>)</td><td><span class="p1">P1</span></td><td>F1 · Deduplication</td></tr>
+          <tr><td><strong>FR-1.9</strong></td><td class="wrap">CRUD kho thủ công: thêm có gợi ý ref, sửa, xoá mềm 30 ngày, thao tác bulk</td><td><span class="p0">P0</span></td><td>F2 · Inventory CRUD</td></tr>
+          <tr><td><strong>FR-1.10</strong></td><td class="wrap">Đánh dấu đã bán (sold giữ 7 ngày), hỗ trợ hàng không niêm yết giá (POA)</td><td><span class="p1">P1</span></td><td>F2 · Sold &amp; POA Handler</td></tr>
+          <tr><td><strong>FR-1.11</strong></td><td class="wrap">Gắn cờ cảnh báo hàng cũ sau 14 ngày không tương tác; cấm tự xoá</td><td><span class="p1">P1</span></td><td>F2 · Staleness Engine</td></tr>
+          <tr><td><strong>FR-1.12</strong></td><td class="wrap">Kiểm soát quota dán text hàng ngày/giờ; lưu nhật ký vào <code>inventory_paste_logs</code></td><td><span class="p0">P0</span></td><td>F1 · Quota Ledger (B3)</td></tr>
+          <tr><td><strong>FR-2.1</strong></td><td class="wrap">Khởi tạo slug 22 ký tự base62, copy link, mã QR, đổi slug hoặc tắt link tức thì</td><td><span class="p0">P0</span></td><td>F3 · Inventory Link</td></tr>
+          <tr><td><strong>FR-2.2</strong></td><td class="wrap">Mặt đọc công khai SSR không yêu cầu đăng nhập hay cookie phiên</td><td><span class="p0">P0</span></td><td>F4 · Public Storefront</td></tr>
+          <tr><td><strong>FR-2.3</strong></td><td class="wrap">Serializer whitelist nghiêm ngặt, lọc bỏ triệt để SĐT, email và user ID thô</td><td><span class="p0">P0</span></td><td>F4 · Data Whitelist</td></tr>
+          <tr><td><strong>FR-2.4</strong></td><td class="wrap">Link thu hồi trả về HTTP 410 Gone và <code>Cache-Control: no-store</code></td><td><span class="p0">P0</span></td><td>F4 · Revocation Guard</td></tr>
+          <tr><td><strong>FR-2.5</strong></td><td class="wrap">Ghi nhận bộ đếm lượt xem (<code>view_count</code>) và thời điểm xem gần nhất cho chủ kho</td><td><span class="p1">P1</span></td><td>F3 · View Analytics</td></tr>
+          <tr><td><strong>FR-2.6</strong></td><td class="wrap">Chống cào dữ liệu: gắn thẻ <code>noindex,nofollow</code>, áp dụng rate limit theo IP</td><td><span class="p0">P0</span></td><td>F4 · Anti-Scraping</td></tr>
+          <tr><td><strong>FR-3.1</strong></td><td class="wrap">Tìm kiếm kho đối tác qua số điện thoại trực tiếp</td><td><span class="p0">P0</span></td><td>F5 · Partner Search</td></tr>
+          <tr><td><strong>FR-3.2</strong></td><td class="wrap">Chuẩn hoá E.164; tra cứu đồng thời cả <code>up_users</code> và <code>whatsapps</code> (B4)</td><td><span class="p0">P0</span></td><td>F5 · Phone Normalizer</td></tr>
+          <tr><td><strong>FR-3.3</strong></td><td class="wrap">Lưu và Bỏ lưu kho đối tác (Save/Unsave); đảm bảo tính lũy nghiệm (idempotent)</td><td><span class="p0">P0</span></td><td>F5 · Follow Relation</td></tr>
+          <tr><td><strong>FR-3.4</strong></td><td class="wrap">Tab Partner Inventory hiển thị ngày cập nhật và đếm số item mới bổ sung</td><td><span class="p1">P1</span></td><td>F5 · Partner Inventory Tab</td></tr>
+          <tr><td><strong>FR-3.5</strong></td><td class="wrap">Số chưa đăng ký trả về "Số này chưa có trên TimeDealer", không văng lỗi</td><td><span class="p0">P0</span></td><td>F5 · Unregistered Handling</td></tr>
+          <tr><td><strong>FR-3.6</strong></td><td class="wrap">Cơ chế Login-Resume: chuyển hướng đăng nhập kèm returnUrl về đúng slug</td><td><span class="p0">P0</span></td><td>F4–F5 · Auth Handshake</td></tr>
+          <tr><td><strong>FR-4.1</strong></td><td class="wrap">Ghim Highlight tối đa 5 item/kho; backend trả về 409 Conflict ở chiếc thứ 6</td><td><span class="p0">P0</span></td><td>F6 · Highlight Guard (D5)</td></tr>
+          <tr><td><strong>FR-4.2</strong></td><td class="wrap">Ghim item Highlight lên đầu trang trên cả giao diện chủ kho và link public</td><td><span class="p0">P0</span></td><td>F6 · Pinned Card</td></tr>
+          <tr><td><strong>FR-4.3</strong></td><td class="wrap">Tổng hợp Hot Deal từ toàn bộ các đối tác đã lưu; sắp xếp deal rẻ nhất trước</td><td><span class="p0">P0</span></td><td>F6 · Hot Deal Aggregator</td></tr>
+          <tr><td><strong>FR-4.4</strong></td><td class="wrap">Tự động loại trừ đại lý bị chặn (<code>block_dealers</code>), kho đã tắt link và item đã bán</td><td><span class="p0">P0</span></td><td>F6 · Deal Filtering</td></tr>
+          <tr><td><strong>FR-4.5</strong></td><td class="wrap">Huỷ ghim hoặc xoá item lập tức loại sản phẩm khỏi Hot Deal trong vòng 60s</td><td><span class="p0">P0</span></td><td>F6 · Cache Invalidation</td></tr>
+          <tr><td><strong>FR-5.1</strong></td><td class="wrap">Nút "Search in Marketplace" mở tab tìm kiếm điền sẵn mã ref và khoảng giá</td><td><span class="p0">P0</span></td><td>F7 · Marketplace Bridge</td></tr>
+          <tr><td><strong>FR-5.2</strong></td><td class="wrap">Nút "Auto Tracking" mở modal tạo luật điền sẵn mã ref và giá tham chiếu</td><td><span class="p0">P0</span></td><td>F7 · Tracking Bridge</td></tr>
+          <tr><td><strong>FR-5.3</strong></td><td class="wrap">Ưu tiên dùng <code>ref_mf</code> chuẩn; nếu chưa có thì dùng ref thô kèm chú thích kết quả rộng</td><td><span class="p0">P0</span></td><td>F7 · Ref Mapping Logic</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- S1 -->
+    <h3>5.2 S1 · Vòng lặp sản phẩm (Core Product Loop)</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S1</span> Vòng lặp sản phẩm <span class="dgm-note">Dealer vừa cung cấp vừa tiêu thụ stock</span></figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart LR
+  A["Dealer cập nhật My Inventory"] --> B["Share Inventory Link"]
+  B --> C["Partner xem hoặc Save"]
+  C --> D["Partner cập nhật kho của họ"]
+  D --> E["Dealer theo dõi Saved Partner"]
+  E --> F["Highlight tối đa 5 Watch"]
+  F --> G["Hot Deal"]
+  G --> H["Search Marketplace / Auto Tracking"]
+  H -->|"tiếp tục tìm và trao đổi stock"| A
+  classDef acc fill:#f7f1e4,stroke:#8a5f18,color:#6b4a12
+  class A,F,G acc
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <ul class="legend">
+      <li><span class="who dealer">Dealer</span> chủ kho, đã đăng nhập</li>
+      <li><span class="who guest">Người nhận</span> mở link, chưa đăng nhập</li>
+      <li><span class="who web">Web</span> timedealer-v2 (Next.js)</li>
+      <li><span class="who api">Strapi</span> apiTimeDealer · MySQL</li>
+      <li><span class="who data">Data</span> timedealer_data · Postgres</li>
+    </ul>
+
+    <!-- S2 -->
+    <h3>5.3 S2 · F1: Luồng bóc tách Paste a Whole List</h3>
+    <div class="seq-tech">POST /inventory/me/paste/preview     Strapi kiểm quota rồi gọi:
+  - POST /inventory/extract           data platform · extract theo block · KHÔNG ghi DB
+  - POST /inventory/map-refs          masterfile_v2 · lấy ref_mf + brand chuẩn + ảnh
+POST /inventory/me/paste/commit       ghi inventory_items, giữ raw_line + extract_payload</div>
+
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S2</span> Nhánh rẽ bóc tách văn bản thô thành item kho hàng</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart TD
+  P["Text Dealer dán vào"] --> SPLIT["Web cắt thành block theo ranh giới dòng"]
+  SPLIT --> Q1{"Block trong ngưỡng? 2000 ký tự · 500 từ · 100 dòng"}
+  Q1 -->|"Vượt ngưỡng"| TL["too_long — vào mục Không nhập được, kèm nút Cắt nhỏ block"]
+  Q1 -->|"Trong ngưỡng"| Q2{"Có phải tin stock?"}
+  Q2 -->|"Không"| NDM["not_dealer_message"]
+  Q2 -->|"Có"| EX["Extract thành item có cấu trúc"]
+  EX --> Q3{"Là đồng hồ?"}
+  Q3 -->|"Túi, trang sức, chat"| NAW["not_a_watch"]
+  Q3 -->|"Đồng hồ"| Q4{"forsale hay WTB?"}
+  Q4 -->|"WTB / looking for / NTQ"| WTB["wtb_not_supported"]
+  Q4 -->|"forsale"| MF{"Khớp masterfile_v2?"}
+  MF -->|"Không khớp"| NOMF["ref_mf để trống, ảnh mặc định, nhãn mã chưa đối chiếu"]
+  MF -->|"Khớp"| OKMF["Gắn ref_mf, brand chuẩn, ảnh"]
+  NOMF --> REV["Bảng review — Dealer sửa và duyệt"]
+  OKMF --> REV
+  REV --> Q5{"Trùng item đang có?"}
+  Q5 -->|"Trùng, giá giống"| R1["Đánh dấu vừa xác nhận — refreshed_at"]
+  Q5 -->|"Trùng, giá khác"| R2["Cập nhật giá, thêm mốc price_history"]
+  Q5 -->|"Dealer chọn Giữ cả hai"| R3["Item thứ hai, variant_seq + 1"]
+  Q5 -->|"Không trùng"| R4["Thêm item mới"]
+  R1 --> C["Commit vào My Inventory"]
+  R2 --> C
+  R3 --> C
+  R4 --> C
+  classDef err fill:#fbeeec,stroke:#a12b20,color:#7b1f14
+  classDef warn fill:#f7f1e4,stroke:#b8862c,color:#6b4a12
+  classDef acc fill:#f7f1e4,stroke:#8a5f18,color:#6b4a12
+  class TL,NDM,NAW,WTB err
+  class NOMF warn
+  class C acc
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <div class="branch">
+      <div class="branch-label">Cờ cảnh báo trên từng dòng bảng review</div>
+      <dl>
+        <dt>no masterfile</dt><dd>Không có <code>ref_mf</code> → Lưu bình thường, ảnh giữ chỗ mặc định, nhãn <em>mã chưa đối chiếu</em>.</dd>
+        <dt>brand inferred</dt><dd>Thương hiệu suy luận từ ngữ cảnh dòng tiêu đề block trước do ranh giới cắt khối.</dd>
+        <dt>no price</dt><dd>Hàng không niêm yết giá (POA) → Xếp cuối kho, không tham gia so giá Hot Deal.</dd>
+        <dt>duplicate</dt><dd>Trùng item sẵn có trong kho → Mặc định cập nhật giá, có tuỳ chọn <em>Giữ cả hai</em>.</dd>
+        <dt>price odd</dt><dd>Lệch bất thường so với <code>avg_usd_price</code> của mã ref trong DB → Cảnh báo kiểm tra, không chặn.</dd>
+      </dl>
+    </div>
+
+    <h4>Bảng xử lý ngoại lệ nhánh bóc tách (A1 – A10)</h4>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã</th><th>Tình huống ngoại lệ</th><th>Hệ thống xử lý</th></tr></thead>
+        <tbody>
+          <tr><td>A1</td><td>Block vượt ngưỡng độ dài</td><td>Báo <code>too_long</code> + nút <em>Cắt nhỏ block</em>. Cấm trả về 0 item âm thầm.</td></tr>
+          <tr><td>A2</td><td>Không phải tin nhắn stock</td><td>Báo <code>not_dealer_message</code>, gom vào danh sách bỏ qua kèm lý do.</td></tr>
+          <tr><td>A3</td><td>Túi xách, trang sức</td><td>Báo <code>not_a_watch</code> và đưa vào danh sách bỏ qua.</td></tr>
+          <tr><td>A4</td><td>Dòng tìm mua (WTB/NTQ)</td><td>Báo <code>wtb_not_supported</code> kèm lời nhắn mời đăng lên Marketplace.</td></tr>
+          <tr><td>A5</td><td>Không khớp Masterfile</td><td>Commit bình thường với <code>ref_mf = null</code>, nhãn <em>mã chưa đối chiếu</em>.</td></tr>
+          <tr><td>A6</td><td>Timeout / lỗi ở 1 block</td><td>Block đó báo <code>error</code> + nút <em>Thử lại block này</em>; các block khác không ảnh hưởng.</td></tr>
+          <tr><td>A7</td><td>Cả request bị lỗi</td><td>Giữ nguyên text trong khung dán ở client; không ghi dở dang vào cơ sở dữ liệu.</td></tr>
+          <tr><td>A8</td><td>Hết quota ngày</td><td>Trả về <code>429 Quota Exceeded</code> kèm giờ reset; thêm thủ công vẫn hoạt động.</td></tr>
+          <tr><td>A9</td><td>Có giá, không tiền tệ</td><td>Lấy <code>default_currency</code> của kho <strong>và gắn cờ cảnh báo</strong> trên dòng.</td></tr>
+          <tr><td>A10</td><td>Rời trang khi đang review</td><td>Dữ liệu nháp chỉ ở client; hiển thị popup xác nhận cảnh báo trước khi thoát.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- S3 -->
+    <h3>5.4 S3 · F2: Vòng đời sản phẩm (Item Lifecycle)</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S3</span> Máy trạng thái vòng đời một item <span class="dgm-note">xoá mềm 30 ngày, sold giữ 7 ngày</span></figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+stateDiagram-v2
+  direction TB
+  state "draft — chờ review, chỉ ở client" as draft
+  state "active — đang bán" as active
+  state "active + cờ hàng cũ" as stale
+  state "sold — giữ 7 ngày" as sold
+  state "hidden — tự ẩn" as hidden
+  state "deleted — giữ 30 ngày" as deleted
+  [*] --> draft: extract xong
+  draft --> active: Dealer commit
+  [*] --> active: thêm tay
+  active --> stale: quá 14 ngày không ai chạm
+  stale --> active: Xác nhận còn hàng — làm mới refreshed_at
+  active --> sold: Đánh dấu đã bán
+  sold --> hidden: sau 7 ngày
+  active --> deleted: xoá mềm
+  deleted --> active: phục hồi trong 30 ngày
+  deleted --> [*]: hết 30 ngày
+  hidden --> [*]
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <ul>
+      <li><strong>Bulk Actions:</strong> Xoá mềm · Đánh dấu sold · Bỏ ghim Highlight · Xác nhận còn hàng.</li>
+      <li><strong>Hàng cũ:</strong> Quá 14 ngày không tương tác gắn cờ <code>stale</code>; nút "Xác nhận toàn bộ còn hàng" làm mới cả kho.</li>
+    </ul>
+
+    <!-- S4 -->
+    <h3>5.5 S4 · F3: Chia sẻ Inventory Link</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S4</span> Máy trạng thái của Inventory Link <span class="dgm-note">slug cũ trả về 410 Gone và no-store</span></figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+stateDiagram-v2
+  direction LR
+  state "chưa chia sẻ — không có slug" as off
+  state "đang chia sẻ — một slug đang sống" as on
+  [*] --> off
+  off --> on: Bật chia sẻ — sinh slug 22 ký tự
+  on --> on: Cập nhật kho — link không đổi
+  on --> on: Đổi link — sinh slug mới, slug cũ chết ngay
+  on --> off: Tắt chia sẻ — mọi link đã phát đều chết
+  note right of on: Slug cũ sau khi đổi hoặc tắt sẽ trả 410 Gone và no-store
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <div class="seq-tech">POST /inventory/me/link   { action: "enable" | "rotate" | "disable" }   →   https://timedealer.io/inventory/{slug}</div>
+
+    <!-- S5 -->
+    <h3>5.6 S5 · F4: Xem kho không cần đăng nhập</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S5</span> Luồng xem công khai, 4 cửa kiểm soát và cơ chế Login-Resume</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart TD
+  G["Người nhận mở /inventory/:slug — không cookie"] --> Q1{"slug tồn tại?"}
+  Q1 -->|"Không"| E404["404 — trang Link không còn hiệu lực"]
+  Q1 -->|"Có"| Q2{"link_enabled?"}
+  Q2 -->|"Đã tắt hoặc đã đổi slug"| E410["410 Gone — Cache-Control no-store"]
+  Q2 -->|"Có"| Q3{"Vượt rate limit theo IP?"}
+  Q3 -->|"Có"| E429["429 — kèm Retry-After"]
+  Q3 -->|"Không"| SER["Serializer tay theo whitelist — không populate quan hệ user"]
+  SER --> Q4{"Kho có item active?"}
+  Q4 -->|"Trống"| EMPTY["Dealer này hiện chưa đăng hàng — là trạng thái, không phải lỗi"]
+  Q4 -->|"Có hàng"| PAGE["Trang đọc — Highlight ghim đầu, noindex nofollow"]
+  PAGE --> FREE["Không cần tài khoản: Copy mã · WhatsApp · Chia sẻ"]
+  PAGE --> Q5{"Bấm Save / Marketplace / Auto Tracking?"}
+  Q5 -->|"Chưa đăng nhập"| LOGIN["Đăng nhập kèm returnUrl về đúng slug"]
+  LOGIN --> RESUME["Hành động tự chạy tiếp sau đăng nhập"]
+  Q5 -->|"Đã đăng nhập"| RESUME
+  classDef err fill:#fbeeec,stroke:#a12b20,color:#7b1f14
+  classDef warn fill:#f7f1e4,stroke:#b8862c,color:#6b4a12
+  classDef ok fill:#e9f2ee,stroke:#26614d,color:#1b4a3a
+  classDef acc fill:#f7f1e4,stroke:#8a5f18,color:#6b4a12
+  class E404,E410,E429 err
+  class EMPTY warn
+  class FREE ok
+  class RESUME acc
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <div class="call warn">
+      <span class="call-label">Bảo mật Whitelist: Tuyệt đối không lộ ra trang public</span>
+      <p>
+        Cấm lộ: SĐT thô, email, user ID, gói cước, <code>raw_line</code>, <code>extract_payload</code>, <code>price_history</code>, ghi chú riêng, item xoá mềm, đối tác đã lưu. Bắt buộc dùng serializer tay, cấm dùng <code>populate</code> quan hệ user.
+      </p>
+    </div>
+
+    <!-- S6 -->
+    <h3>5.7 S6 · F5: Tìm kiếm &amp; Lưu kho Partner</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S6</span> Tìm kiếm đối tác theo số điện thoại — năm trạng thái kết quả</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart TD
+  S["Dealer nhập số điện thoại Partner"] --> N["Chuẩn hoá E.164 — một bộ dùng chung client và server"]
+  N --> L["Tra up_users.username VÀ whatsapps.whatsapp_phone"]
+  L --> Q1{"Có tài khoản TimeDealer?"}
+  Q1 -->|"Không có"| R4["Số này chưa có trên TimeDealer"]
+  Q1 -->|"Số của chính mình"| R5["Đây là kho của bạn"]
+  Q1 -->|"Có"| Q2{"link_enabled?"}
+  Q2 -->|"Đã tắt chia sẻ"| R2["Dealer này chưa chia sẻ kho — không tiết lộ số item, không tiết lộ Highlight"]
+  Q2 -->|"Đang chia sẻ"| Q3{"Kho có hàng?"}
+  Q3 -->|"Trống"| R3["Hiện 0 item — vẫn Save được"]
+  Q3 -->|"Có hàng"| R1["Thẻ xem trước — item_count, last_item_update, 3 Highlight đầu"]
+  R1 --> SAVE["Save — unique theo cặp user và inventory"]
+  R3 --> SAVE
+  SAVE --> LIST["Tab Partner Inventory — N item mới từ last_visited_at"]
+  LIST --> OFF{"Partner tắt chia sẻ sau khi đã lưu?"}
+  OFF -->|"Có"| KEEP["Dòng vẫn ở lại, trạng thái không còn chia sẻ"]
+  classDef err fill:#fbeeec,stroke:#a12b20,color:#7b1f14
+  classDef warn fill:#f7f1e4,stroke:#b8862c,color:#6b4a12
+  classDef ok fill:#e9f2ee,stroke:#26614d,color:#1b4a3a
+  classDef acc fill:#f7f1e4,stroke:#8a5f18,color:#6b4a12
+  class R4 err
+  class R2,R5,KEEP warn
+  class R1 ok
+  class SAVE acc
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S7 & S8 -->
+    <h3>5.8 S7 &amp; S8 · F6: Highlight (≤5) &amp; Tổng hợp Hot Deal</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S7</span> Chặn cứng giới hạn 5 Highlight tại backend</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart LR
+  H["Dealer bấm Highlight một item"] --> API{"Server đếm: đang ghim mấy cái?"}
+  API -->|"Dưới 5"| OKH["Ghim + ghi highlighted_at"]
+  API -->|"Đã đủ 5"| C409["409 highlight_limit — trả kèm 5 item đang ghim"]
+  C409 --> ASK["UI hỏi: thay chiếc nào?"]
+  ASK --> SWAP["Bỏ ghim 1 rồi ghim item mới"]
+  OKH --> PIN["Ghim đầu kho — trang chủ kho và trang public"]
+  SWAP --> PIN
+  classDef err fill:#fbeeec,stroke:#a12b20,color:#7b1f14
+  classDef ok fill:#e9f2ee,stroke:#26614d,color:#1b4a3a
+  classDef acc fill:#f7f1e4,stroke:#8a5f18,color:#6b4a12
+  class C409 err
+  class OKH ok
+  class PIN acc
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S8</span> Tổng hợp Hot Deal trực tiếp, cache 60s, không tạo bảng vật hoá</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart LR
+  subgraph SAVED["saved_inventories của người xem"]
+    P1["Partner A — Highlight ≤ 5"]
+    P2["Partner B — Highlight ≤ 5"]
+    P3["Partner C — Highlight ≤ 5"]
+  end
+  P1 --> F["Bộ lọc"]
+  P2 --> F
+  P3 --> F
+  F -->|"loại trừ"| X["block_dealers.whatsapp_phone · link_enabled = false · status sold hoặc deleted"]
+  F -->|"còn lại"| G["Gom theo ref_mf — nhiều Partner cùng mã thì rẻ nhất trước, so theo usd_price"]
+  G --> HD["Hot Deal — tối đa 100 thẻ, mỗi thẻ ghi tên Partner"]
+  HD --> TTL["Bỏ Highlight, bán hoặc xoá — rời mọi Hot Deal trong 60 giây"]
+  classDef err fill:#fbeeec,stroke:#a12b20,color:#7b1f14
+  classDef acc fill:#f7f1e4,stroke:#8a5f18,color:#6b4a12
+  class X err
+  class HD acc
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S9 -->
+    <h3>5.9 S9 · F7: Kết nối hệ sinh thái (Marketplace &amp; Auto Tracking)</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S9</span> Deep link từ item trong kho sang Marketplace và Auto Tracking</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart LR
+  I["Item trong Inventory — của mình, của Partner, hoặc Hot Deal"] --> R{"Item có ref_mf?"}
+  R -->|"Có"| M["Dùng ref_mf"]
+  R -->|"Chưa đối chiếu"| M2["Dùng ref thô + chú thích kết quả rộng hơn"]
+  M --> A["Search in Marketplace — tab mới, điền sẵn mã, lọc giá quanh giá item"]
+  M --> B["Auto Tracking — form tạo rule điền sẵn mã và giá"]
+  M2 --> A
+  M2 --> B
+  A --> A2["POST /search-items — đường hiện tại, using_normalization = 1"]
+  B --> B2["POST /tracking — hợp đồng không đổi, ghi vào tracking_rules"]
+  classDef warn fill:#f7f1e4,stroke:#b8862c,color:#6b4a12
+  classDef acc fill:#f7f1e4,stroke:#8a5f18,color:#6b4a12
+  class M2 warn
+  class A,B acc
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S10 -->
+    <h3>5.10 S10 · Luồng suy giảm an toàn (Degraded Paths)</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S10</span> Ứng phó sự cố từng thành phần hệ thống</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart TD
+  X1["Dịch vụ extract chết"] --> R1["Tắt riêng khung Paste — thêm tay, sửa, link, Hot Deal vẫn chạy"]
+  X2["masterfile_v2 không truy cập được"] --> R2["Commit với ref_mf để trống, ảnh mặc định"]
+  R2 --> R2b["Job đêm map lại các mã còn thiếu"]
+  X3["Strapi chết"] --> R3["Trang public trả trang tạm thời không truy cập được, không phải khung trắng"]
+  X4["API tracking chết"] --> R4["Nút Auto Tracking báo lỗi bằng toast, kho không ảnh hưởng"]
+  classDef err fill:#fbeeec,stroke:#a12b20,color:#7b1f14
+  classDef ok fill:#e9f2ee,stroke:#26614d,color:#1b4a3a
+  classDef warn fill:#f7f1e4,stroke:#b8862c,color:#6b4a12
+  class X1,X2,X3,X4 err
+  class R1,R4 ok
+  class R2,R2b,R3 warn
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S11 -->
+    <h3>5.11 S11 · Hiện trạng ba kho dữ liệu</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S11</span> Ba kho dữ liệu hiện có và ranh giới với Inventory Network</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart LR
+  subgraph MY["MySQL — apiTimeDealer (Strapi)"]
+    U["up_users · whatsapps · block_dealers · packages"]
+    OLD["saves · favourites · hides · ref_trackings · raw_data_marketplaces"]
+    NEW["MỚI: inventories · inventory_items · saved_inventories · inventory_link_views · inventory_paste_logs"]
+  end
+  subgraph PG["Postgres — timedealer_data"]
+    MF["masterfile_v2 — ref_norm là generated column"]
+    MI["message_items · messages_raw · messages_posted_time · ES index"]
+    TR["tracking_rules · tracking_matches"]
+  end
+  subgraph OS["Postgres — task_dashboard (TimeDealer OS, nội bộ)"]
+    FIN["fin_watch_inventory · master_dealers"]
+  end
+  NEW --> U
+  NEW -->|"đọc qua API /masterfile_v2/suggest và map-refs"| MF
+  NEW -->|"chỉ mở tìm kiếm, không đọc trực tiếp"| MI
+  NEW -->|"tạo rule qua POST /tracking"| TR
+  NEW -.->|"KHÔNG ghi một dòng nào"| MI
+  FIN -.->|"trùng tên, khác hệ thống, không dùng lại"| NEW
+  classDef acc fill:#f7f1e4,stroke:#8a5f18,color:#6b4a12
+  classDef err fill:#fbeeec,stroke:#a12b20,color:#7b1f14
+  class NEW acc
+  class FIN err
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <h4>Bốn phát hiện kỹ thuật thay đổi spec (H1 – H4)</h4>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã</th><th>Hiện trạng hệ thống</th><th>Ràng buộc kỹ thuật</th></tr></thead>
+        <tbody>
+          <tr><td>H1</td><td><code>masterfile_v2.ref_norm</code> là generated column Postgres: <code>regexp_replace(lower(ref), '[^a-z0-9]', '', 'g')</code></td><td><code>inventory_items.ref_norm</code> phải dùng <strong>đúng biểu thức này</strong> để DB tự sinh; cấm viết lại ở app.</td></tr>
+          <tr><td>H2</td><td><code>message_items</code> lưu năm qua cặp trường: <code>release_date DATE</code> + <code>precision CHECK IN ('day','month','year')</code></td><td>Inventory <strong>dùng đúng cặp trường này</strong>; cấm ép về ngày mùng 1.</td></tr>
+          <tr><td>H3</td><td><code>message_items.price</code> và <code>usd_price</code> là <code>DOUBLE PRECISION</code> lưu ở đơn vị lớn (143k → 143000)</td><td>Inventory lưu <strong>đơn vị lớn</strong> (USD, VND), cấm chia nhỏ thành cent/xu.</td></tr>
+          <tr><td>H4</td><td>Một user có nhiều số WhatsApp trong bảng <code>whatsapps</code>, tách biệt với <code>up_users.username</code></td><td>Tìm kiếm đối tác bắt buộc tra cứu trên <strong>cả 2 bảng</strong>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- S12 -->
+    <h3>5.12 S12 · Đặc tả dữ liệu mới (New Data Specs)</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S12</span> Lược đồ thực thể quan hệ ERD</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+erDiagram
+  UP_USERS ||--o| INVENTORIES : "1 kho mỗi tài khoản"
+  UP_USERS ||--o{ WHATSAPPS : "đã có — số liên hệ"
+  UP_USERS ||--o{ BLOCK_DEALERS : "đã có — lọc Hot Deal"
+  INVENTORIES ||--o{ INVENTORY_ITEMS : "chứa"
+  INVENTORIES ||--o{ SAVED_INVENTORIES : "được lưu bởi"
+  UP_USERS ||--o{ SAVED_INVENTORIES : "lưu kho Partner"
+  INVENTORIES ||--o{ INVENTORY_LINK_VIEWS : "lượt xem link"
+  UP_USERS ||--o{ INVENTORY_PASTE_LOGS : "sổ quota và chất lượng extract"
+  INVENTORY_ITEMS }o..o| MASTERFILE_V2 : "ref_mf — DB khác, gọi qua API"
+  INVENTORIES {
+    string slug "22 ký tự, unique, rotate được"
+    boolean link_enabled "mặc định false"
+    string default_currency
+    int item_count "denormalise"
+    datetime last_item_update
+    int view_count
+  }
+  INVENTORY_ITEMS {
+    string ref "như Dealer nhập"
+    string ref_norm "generated — giống masterfile_v2"
+    string ref_mf "null là hợp lệ"
+    decimal price "đơn vị lớn, null là POA"
+    date release_date "kèm precision"
+    enum status "active sold hidden deleted"
+    boolean highlighted "tối đa 5 mỗi kho"
+    text raw_line "dòng gốc để đối chiếu"
+  }
+  SAVED_INVENTORIES {
+    datetime saved_at
+    datetime last_visited_at "tính N item mới"
+  }
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <h4>Năm content type mới trong Strapi MySQL (draftAndPublish: false)</h4>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Content type</th><th>Các trường thuộc tính</th><th>Quy tắc nghiệp vụ</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>inventories</code></td>
+            <td class="wrap"><code>user</code> (1-1), <code>slug</code> (string unique index), <code>link_enabled</code> (bool default false), <code>slug_rotated_at</code>, <code>display_name</code>, <code>default_currency</code>, <code>contact_note</code>, <code>item_count</code> (int denorm), <code>last_item_update</code>, <code>view_count</code>, <code>last_viewed_at</code></td>
+            <td class="wrap">Mỗi user 1 kho. Slug CSPRNG 22 ký tự base62. <code>item_count</code> tự cập nhật khi ghi/xoá item.</td>
+          </tr>
+          <tr>
+            <td><code>inventory_items</code></td>
+            <td class="wrap"><code>inventory</code> (N-1), <code>ref</code> (string req), <code>ref_norm</code> (string index generated), <code>ref_mf</code> (nullable index), <code>masterfile_id</code>, <code>brand</code>, <code>image_url</code>, <code>brand_inferred</code>, <code>color</code>, <code>release_date</code> + <code>precision</code> (day/month/year), <code>condition</code> (new/used), <code>price</code> (decimal), <code>currency</code>, <code>usd_price</code>, <code>note</code>, <code>status</code> (active/sold/hidden/deleted), <code>highlighted</code>, <code>highlighted_at</code>, <code>source</code> (paste/manual), <code>raw_line</code>, <code>extract_payload</code>, <code>refreshed_at</code>, <code>price_history</code> (json), <code>variant_seq</code></td>
+            <td class="wrap">Giá lưu đơn vị lớn, null = POA. Xoá mềm giữ 30 ngày. Cờ Highlight tối đa 5 chiếc chặn ở server. Cấm lộ <code>raw_line</code> và <code>extract_payload</code> ra public.</td>
+          </tr>
+          <tr>
+            <td><code>saved_inventories</code></td>
+            <td class="wrap"><code>user</code> (N-1), <code>inventory</code> (N-1), <code>saved_at</code>, <code>last_visited_at</code>, <code>nickname</code></td>
+            <td class="wrap">Quan hệ theo dõi. Unique cặp <code>(user, inventory)</code>. <code>last_visited_at</code> làm mốc tính N item mới.</td>
+          </tr>
+          <tr>
+            <td><code>inventory_link_views</code></td>
+            <td class="wrap"><code>inventory</code> (N-1), <code>viewed_at</code>, <code>ip_hash</code> (string salt xoay vòng), <code>ua_family</code>, <code>referer_host</code>, <code>is_authenticated</code></td>
+            <td class="wrap">Append-only. Cấm lưu IP thô. Lưu chi tiết 90 ngày sau đó aggregate.</td>
+          </tr>
+          <tr>
+            <td><code>inventory_paste_logs</code></td>
+            <td class="wrap"><code>user</code> (N-1), <code>submitted_at</code>, <code>blocks</code>, <code>lines</code>, <code>chars</code>, <code>items_extracted</code>, <code>items_committed</code>, <code>items_edited</code>, <code>skipped_reasons</code> (json), <code>input_tokens</code>, <code>output_tokens</code>, <code>elapsed_ms</code></td>
+            <td class="wrap">Sổ cái quota dán text hàng ngày + dataset thẩm định chất lượng bóc tách AI.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5.13 API Endpoint chi tiết</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Method</th><th>Endpoint</th><th>Auth</th><th>Chức năng &amp; Tham số</th></tr></thead>
+        <tbody>
+          <tr><td>GET</td><td><code>/inventory/me</code></td><td>Bearer</td><td>Lấy thông tin kho của chính mình, settings, stats</td></tr>
+          <tr><td>PUT</td><td><code>/inventory/me</code></td><td>Bearer</td><td>Cập nhật <code>display_name</code>, <code>default_currency</code>, <code>contact_note</code></td></tr>
+          <tr><td>GET</td><td><code>/inventory/me/items</code></td><td>Bearer</td><td>Danh sách item kho mình: phân trang, lọc status, search ref</td></tr>
+          <tr><td>POST</td><td><code>/inventory/me/items</code></td><td>Bearer</td><td>Thêm thủ công 1 hoặc nhiều item</td></tr>
+          <tr><td>PUT</td><td><code>/inventory/me/items/:id</code></td><td>Bearer</td><td>Sửa thông tin 1 item</td></tr>
+          <tr><td>DELETE</td><td><code>/inventory/me/items/:id</code></td><td>Bearer</td><td>Xoá mềm item (chuyển status <code>deleted</code>, giữ 30 ngày)</td></tr>
+          <tr><td>POST</td><td><code>/inventory/me/items/bulk</code></td><td>Bearer</td><td>Thao tác hàng loạt: <code>{ action: "delete"|"sold"|"refresh", ids: [] }</code></td></tr>
+          <tr><td>POST</td><td><code>/inventory/me/items/:id/highlight</code></td><td>Bearer</td><td>Bật ghim; trả <code>409 highlight_limit</code> nếu đã đủ 5 chiếc</td></tr>
+          <tr><td>DELETE</td><td><code>/inventory/me/items/:id/highlight</code></td><td>Bearer</td><td>Gỡ ghim Highlight</td></tr>
+          <tr><td>POST</td><td><code>/inventory/me/paste/preview</code></td><td>Bearer</td><td>Kiểm quota, gọi extract độc lập, map masterfile. <strong>Không ghi DB</strong></td></tr>
+          <tr><td>POST</td><td><code>/inventory/me/paste/commit</code></td><td>Bearer</td><td>Commit danh sách nháp đã review vào kho chính thức</td></tr>
+          <tr><td>POST</td><td><code>/inventory/me/link</code></td><td>Bearer</td><td>Điều khiển link: <code>{ action: "enable"|"rotate"|"disable" }</code></td></tr>
+          <tr><td><strong>GET</strong></td><td><strong><code>/inventory/public/:slug</code></strong></td><td><strong><code>auth: false</code></strong></td><td><strong>Mặt đọc công khai:</strong> Chỉ trường trong Whitelist; rate limit theo IP</td></tr>
+          <tr><td>GET</td><td><code>/inventory/search?phone=</code></td><td>Bearer</td><td>Tìm kho đối tác qua số điện thoại chuẩn hoá E.164</td></tr>
+          <tr><td>GET</td><td><code>/inventory/saved</code></td><td>Bearer</td><td>Lấy danh sách kho đã lưu kèm số item mới kể từ lần xem trước</td></tr>
+          <tr><td>POST</td><td><code>/inventory/saved</code></td><td>Bearer</td><td>Lưu kho: <code>{ inventory_id }</code> (idempotent)</td></tr>
+          <tr><td>DELETE</td><td><code>/inventory/saved/:inventory_id</code></td><td>Bearer</td><td>Bỏ theo dõi kho đối tác</td></tr>
+          <tr><td>GET</td><td><code>/inventory/hot-deals?limit=</code></td><td>Bearer</td><td>Tổng hợp các item Highlight từ các kho đã lưu; sắp xếp rẻ nhất trước</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5.14 Ma trận phân quyền</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Thao tác</th>
+            <th>Guest</th>
+            <th>Đã login (hết gói)</th>
+            <th>Đã login (gói active)</th>
+            <th>Chủ kho</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Xem kho công khai qua link</td><td class="yes">Có</td><td class="yes">Có</td><td class="yes">Có</td><td class="yes">Có</td></tr>
+          <tr><td>Paste / Thêm / Sửa item</td><td class="no">Không</td><td class="no">Không</td><td class="yes">Có (kho mình)</td><td class="yes">Có</td></tr>
+          <tr><td>Bật / Đổi / Tắt link chia sẻ</td><td class="no">Không</td><td class="no">Không</td><td class="yes">Có (kho mình)</td><td class="yes">Có</td></tr>
+          <tr><td>Tìm kiếm kho qua SĐT</td><td class="no">Không</td><td class="no">Không</td><td class="yes">Có</td><td>—</td></tr>
+          <tr><td>Lưu / Bỏ lưu kho đối tác</td><td class="no">Mời login</td><td class="no">Không</td><td class="yes">Có</td><td>—</td></tr>
+          <tr><td>Xem Hot Deal</td><td class="no">Không</td><td class="no">Không</td><td class="yes">Có</td><td>—</td></tr>
+          <tr><td>Ghim Highlight sản phẩm</td><td class="no">Không</td><td class="no">Không</td><td class="yes">Có (kho mình)</td><td class="yes">Có</td></tr>
+          <tr><td>Search Marketplace / Auto Tracking</td><td class="no">Mời login</td><td class="no">Mời nâng gói</td><td class="yes">Có</td><td class="yes">Có</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5.15 Tiêu chí nghiệm thu cốt lõi (Core AC)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã AC</th><th>Kịch bản kiểm thử</th><th>Yêu cầu đạt</th></tr></thead>
+        <tbody>
+          <tr><td>AC-01</td><td>Dán danh sách 250 dòng</td><td>Mọi dòng xuất hiện chính xác 1 lần trong nháp hoặc danh sách bỏ qua. Không dòng nào mất.</td></tr>
+          <tr><td>AC-02</td><td>Dán block vượt 100 dòng / 2000 ký tự</td><td>Trả về <code>too_long</code> + stats + gợi ý cắt nhỏ. <strong>Cấm trả về mảng rỗng 0 item</strong>.</td></tr>
+          <tr><td>AC-10</td><td>Commit 200 item vào kho</td><td>Chạy lại Marketplace query: <code>real_total</code> và bài đăng giống hệt 100%; ES index tăng 0 dòng.</td></tr>
+          <tr><td>AC-12</td><td>Kiểm tra phản hồi <code>GET /inventory/public/:slug</code></td><td>Không chứa SĐT, email, user ID, <code>raw_line</code>, <code>extract_payload</code>, <code>price_history</code>.</td></tr>
+          <tr><td>AC-20</td><td>Kho đã có 5 Highlight, gọi API bật cái thứ 6</td><td>Server trả về mã <code>409 Conflict</code>; danh sách ghim giữ nguyên.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 6. NON-FUNCTIONAL REQUIREMENTS -->
+  <section id="s6-phi-chuc-nang">
+    <h2><span class="hn">6</span>Yêu cầu phi chức năng (Non-Functional Requirements)</h2>
+    <h3>6.1 Hiệu năng &amp; Hạn mức Quota (system-config)</h3>
+    <ul>
+      <li><strong>Ngân sách p95:</strong> TTFB public SSR ≤ 800ms; Commit 200 items ≤ 3s; Preview 100 dòng ≤ 8s; Search SĐT ≤ 600ms; Hot Deal ≤ 1.2s (cache 60s).</li>
+      <li><strong>Hạn mức dán text:</strong> Tối đa 2.000 dòng / 60.000 ký tự mỗi lần dán; 5.000 dòng/user/ngày (kiểm tra qua <code>inventory_paste_logs</code>).</li>
+      <li><strong>Hạn mức kho:</strong> Tối đa 1.000 item/kho; 5 Highlights/kho (chặn backend); 100 kho đã lưu/user.</li>
+      <li><strong>Rate limit:</strong> 60 req/phút theo IP trên link public (vượt trả 429 Retry-After).</li>
+    </ul>
+
+    <h3>6.2 Bảo mật, Dữ liệu &amp; Lưu trữ</h3>
+    <ul>
+      <li><strong>Bảo mật Whitelist:</strong> Nút liên hệ mở deep link WhatsApp; cấm in SĐT/email/userID thô ra HTML; không lập danh bạ kho công khai.</li>
+      <li><strong>Ẩn danh &amp; Chống quét:</strong> Băm IP kèm salt xoay vòng trong <code>inventory_link_views</code>; slug CSPRNG 22 ký tự base62 (entropy ≥ 128 bit); gắn thẻ <code>noindex,nofollow</code>.</li>
+      <li><strong>Quy chuẩn dữ liệu:</strong> Giá lưu <code>decimal</code> đơn vị lớn (USD, VND); năm giữ chuỗi <code>M/YYYY</code> kèm <code>precision</code> (cấm ép kiểu date).</li>
+      <li><strong>Vòng đời lưu trữ:</strong> Xoá mềm 30 ngày; paste log 180 ngày; view log chi tiết 90 ngày.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ 7. UX/UI & WIREFRAMES -->
+  <section id="s7-giao-dien">
+    <h2><span class="hn">7</span>Giao diện và thiết kế (UX/UI &amp; Wireframes)</h2>
+
+    <div class="call warn">
+      <span class="call-label">Điểm chặn thiết kế</span>
+      <p>
+        Chưa có file Figma chính thức; đây là hạng mục <strong>chặn tiến độ tuần 1 của P0</strong>.
+      </p>
+    </div>
+
+    <h3>7.1 Cấu trúc điều hướng</h3>
+    <ul>
+      <li>Storefront header có menu cấp cao <strong>Inventory</strong> gồm 3 tab: <code>My Inventory</code> · <code>Partner Inventory</code> · <code>Hot Deal</code>.</li>
+      <li>Trang link public (<code>/inventory/:slug</code>) chạy standalone: không app menu, không sidebar; chỉ có header shop, danh sách sản phẩm và CTA "Tạo kho hàng trên TimeDealer".</li>
+    </ul>
+
+    <h3>7.2 Chín màn hình bắt buộc thiết kế</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>#</th><th>Màn hình</th><th>Yêu cầu thành phần chính</th><th>Giai đoạn</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="wrap">My Inventory — Danh sách kho</td><td class="wrap">Bảng/lưới item, bộ lọc status, tìm ref, menu bulk actions, empty state dẫn vào Paste.</td><td>P0</td></tr>
+          <tr><td>2</td><td class="wrap">Form thêm / sửa item</td><td class="wrap">Autocomplete mã ref, dropdown brand, chọn tình trạng (New/Used), nhập giá + tiền tệ hoặc POA.</td><td>P0</td></tr>
+          <tr><td>3</td><td class="wrap">Modal chia sẻ link</td><td class="wrap">URL + nút Copy, mã QR mobile, nút gửi WhatsApp, cảnh báo link lộ, nút Đổi/Tắt link.</td><td>P0</td></tr>
+          <tr><td>4</td><td class="wrap">Trang public <code>/inventory/:slug</code></td><td class="wrap">Header đại lý (shop, avatar, country, verified), dải Highlight ghim đầu, lưới item, nút WhatsApp.</td><td>P0</td></tr>
+          <tr><td>5</td><td class="wrap">Trang link hết hiệu lực</td><td class="wrap">Thông báo thân thiện "Link kho không còn hiệu lực hoặc đã đổi", nút về trang chủ (410).</td><td>P0</td></tr>
+          <tr><td>6</td><td class="wrap">Khung dán &amp; Bảng review</td><td class="wrap">Textarea đếm live dòng/ký tự/block; bảng review có cờ cảnh báo từng dòng; mục "Không nhập được" có thể đóng/mở.</td><td>P1</td></tr>
+          <tr><td>7</td><td class="wrap">Tìm kiếm Partner</td><td class="wrap">Ô nhập SĐT + chọn quốc gia; hiển thị thẻ xem trước kết quả 5 trạng thái tra cứu.</td><td>P2</td></tr>
+          <tr><td>8</td><td class="wrap">Tab Partner Inventory</td><td class="wrap">Danh sách kho đã lưu, ngày cập nhật, huy hiệu "N mới", nút bỏ lưu nhanh.</td><td>P2</td></tr>
+          <tr><td>9</td><td class="wrap">Trung tâm Hot Deal</td><td class="wrap">Lưới thẻ deal rẻ nhất có tên đại lý; banner chân trang khi xem kho đối tác.</td><td>P2</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 8. MILESTONES & RELEASE PLAN -->
+  <section id="s8-ke-hoach">
+    <h2><span class="hn">8</span>Kế hoạch phát hành và mốc thời gian (Milestones &amp; Release Plan)</h2>
+    <p class="lede">
+      Khung thời gian 30 ngày (18/09 → 18/10/2026). Mỗi chặng có sản phẩm chạy được; AI extract <strong>không nằm trên đường găng</strong> làm nghẽn tiến độ.
+    </p>
+
+    <div style="margin: 20px 0 8px;">
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-id">P0</span>
+          <span class="phase-name">Nền tảng &amp; Chia sẻ kho hàng</span>
+          <span class="phase-when">Tuần 1–2 (18/09 → 30/09) · Bản chạy được tối thiểu</span>
+        </div>
+        <p>Tạo content type Strapi · CRUD My Inventory · Gợi ý Masterfile · Bật/tắt/rotate link · Trang public SSR (whitelist, rate limit) · Ma trận quyền.</p>
+        <div class="out">→ <strong>Bàn giao:</strong> Dealer nhập kho tay và chia sẻ link thật. Thay thế hoàn toàn ảnh chụp màn hình.</div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-id">P1</span>
+          <span class="phase-name">Bóc tách Paste a Whole List</span>
+          <span class="phase-when">Tuần 2–3 (30/09 → 07/10) · Tính năng đinh &amp; Trọng tâm rủi ro</span>
+        </div>
+        <p>Endpoint extract không ghi DB trong <code>timedealer_data</code> · Cắt block client · Bảng review có cờ · Deduplication · Quota paste log.</p>
+        <div class="out">→ <strong>Bàn giao:</strong> Đạt mục tiêu G1. Đóng gói sau Feature Flag; dogfood trên 5 danh sách thật trước khi mở.</div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-id">P2</span>
+          <span class="phase-name">Mạng lưới kết nối đối tác</span>
+          <span class="phase-when">Tuần 3–4 (07/10 → 14/10)</span>
+        </div>
+        <p>Tìm kho qua SĐT · Lưu/bỏ lưu kho · Tab Partner Inventory + nhãn "N mới" · Ghim Highlight ≤5 chặn backend · Tổng hợp Hot Deal · Lọc danh sách chặn.</p>
+        <div class="out">→ <strong>Bàn giao:</strong> Khép kín vòng lặp sản phẩm (Core Product Loop).</div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-id">P3</span>
+          <span class="phase-name">Tích hợp hệ sinh thái &amp; Hoàn thiện</span>
+          <span class="phase-when">Tuần 4 (14/10 → 18/10)</span>
+        </div>
+        <p>Deep link Marketplace · Điền sẵn Auto Tracking · Analytics dashboard · Cảnh báo hàng cũ 14 ngày · Bộ đếm lượt xem · i18n EN/VN.</p>
+        <div class="out">→ <strong>Bàn giao:</strong> Đạt mục tiêu G6. Sẵn sàng theo dõi KPIs sau launch.</div>
+      </div>
+    </div>
+
+    <h3>8.1 Hạng mục hoãn lại sau v1</h3>
+    <p>
+      Upload ảnh riêng từng item · Link chia sẻ theo nhóm đối tác (D11) · Thông báo đẩy khi partner có hàng mới (D13) · Mời số điện thoại chưa có tài khoản · Console riêng trên <code>adminTimeDealer</code> (D12) · Chia sẻ link qua bot autoposting · So sánh giá kho với giá sàn.
+    </p>
+
+    <h3>8.2 Kế hoạch dự phòng cắt giảm tiến độ</h3>
+    <p>
+      Nếu P1 (Paste) bị chậm: <strong>bàn giao P0 + P2 trước và giữ lại Paste</strong>. Không bao giờ cắt bớt bước review của Paste để kịp tiến độ — kho hàng sai phát tán ra ngoài dưới tên Dealer gây thiệt hại uy tín lớn hơn việc chậm phát hành.
+    </p>
+  </section>
+
+  <!-- ============================================================ 9. RISKS & ASSUMPTIONS -->
+  <section id="s9-rui-ro">
+    <h2><span class="hn">9</span>Rủi ro và giả định (Risks &amp; Assumptions)</h2>
+
+    <h3>9.1 Bảy giả định nền tảng (Assumptions)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã</th><th>Nội dung giả định</th><th>Kịch bản ứng phó nếu giả định sai</th></tr></thead>
+        <tbody>
+          <tr><td>A-1</td><td>Bộ extract đạt độ chính xác ≥95% trên văn bản đã cắt nhỏ đúng chuẩn.</td><td>G1 không đạt; phải tinh chỉnh prompt hoặc nâng model. Phát hiện sớm qua Golden Corpus.</td></tr>
+          <tr><td>A-2</td><td>Data team bàn giao endpoint <code>/inventory/extract</code> trong tuần 1–2.</td><td>P1 trượt; storefront xây dựng mock/stub để tiếp tục phát triển không bị nghẽn.</td></tr>
+          <tr><td>A-3</td><td>Dealer chấp nhận thao tác soát xét (review) trước khi commit kho.</td><td>Nếu Dealer bỏ qua review, chất lượng dữ liệu giảm; cần đo thời gian trên bảng review để tinh gọn UX.</td></tr>
+          <tr><td>A-4</td><td>Dealer sẵn sàng chia sẻ toàn bộ bảng giá qua một link công khai.</td><td>Nếu e ngại, tính năng chia sẻ giảm hiệu quả; giải pháp lâu dài là link phân nhóm (D11).</td></tr>
+          <tr><td>A-5</td><td>Hệ thống phân quyền gói hiện có (<code>package</code> + <code>expiration</code>) đủ dùng.</td><td>Nếu BOD muốn bán gói Inventory riêng, phải tái cấu trúc lại bảng phân quyền.</td></tr>
+          <tr><td>A-6</td><td>Phần lớn đối tác Dealer cần tìm đã có tài khoản TimeDealer.</td><td>Nếu tỷ lệ thấp, tra cứu sẽ liên tục báo chưa có tài khoản; phải đẩy sớm luồng gửi lời mời tham gia (P3).</td></tr>
+          <tr><td>A-7</td><td>Khung 30 ngày là mục tiêu kỹ thuật, không phải cam kết pháp lý với khách.</td><td>Nếu là cam kết cứng, cắt giảm phạm vi theo phương án P0 + P2 ngay từ đầu.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>9.2 Chín rủi ro trọng yếu và phương án giảm thiểu (Risks)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã</th><th>Rủi ro tiềm ẩn</th><th>Mức độ</th><th>Phương án giảm thiểu kỹ thuật</th></tr></thead>
+        <tbody>
+          <tr><td>R1</td><td>Bộ extract không đọc được text dài do ngưỡng cắt bỏ im lặng (B1).</td><td><span class="p0">Nghiêm trọng</span></td><td>Cắt block client (≤80 dòng/1500 ký tự) + báo lỗi theo block + test Golden Corpus trước P1.</td></tr>
+          <tr><td>R2</td><td>Dữ liệu kho rò rỉ vào phân tích thị trường Marketplace.</td><td><span class="p0">Nghiêm trọng</span></td><td>Chốt D1; viết API extract hoàn toàn không ghi DB; test tự động AC-10 trong CI/CD.</td></tr>
+          <tr><td>R3</td><td>Link kho hàng bị phát tán ngoài nhóm đối tác mong muốn.</td><td>Trung bình</td><td>Cảnh báo rõ trong hộp chia sẻ; nút Đổi/Tắt link tức thì; bộ đếm lượt xem; không in SĐT ra HTML.</td></tr>
+          <tr><td>R4</td><td>Dealer không cập nhật kho, dữ liệu mạng lưới bị cũ và sai lệch.</td><td>Cao</td><td>Gắn cờ hàng cũ sau 14 ngày; nút 1 chạm "Xác nhận toàn bộ còn hàng"; lấy độ tươi làm KPI.</td></tr>
+          <tr><td>R5</td><td>Bùng nổ chi phí gọi AI khi Dealer liên tục dán danh sách khổng lồ.</td><td>Cao</td><td>Giới hạn quota 5.000 dòng/ngày qua <code>inventory_paste_logs</code>; tài khoản Trial cấm dùng Paste (D7).</td></tr>
+          <tr><td>R6</td><td>Phụ thuộc chéo tiến độ bàn giao API của Data team.</td><td>Cao</td><td>Chốt hợp đồng API trong tuần 1; đội giao diện xây mock data để phát triển độc lập.</td></tr>
+          <tr><td>R7</td><td>Áp lực 30 ngày cho 4 luồng việc trên 3 repository.</td><td>Trung bình</td><td>Phương án dự phòng: hoàn thành bàn giao P0 + P2 trước, giữ lại Paste trau chuốt thêm.</td></tr>
+          <tr><td>R8</td><td>Lệch định dạng số điện thoại giữa các bảng dữ liệu.</td><td>Trung bình</td><td>Một hàm chuẩn hoá E.164 duy nhất ở client và server; truy vấn chéo cả <code>up_users</code> và <code>whatsapps</code>.</td></tr>
+          <tr><td>R9</td><td>Nhầm lẫn giữa đơn vị tiền tệ lớn và đơn vị nhỏ nhất tại ranh giới API.</td><td>Cao</td><td>Toàn bộ hệ thống lưu <code>decimal</code> theo đơn vị lớn; ghi chú cảnh báo tại mọi ranh giới API.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>9.3 Bảng 13 quyết định chính sách (D1 – D13)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã</th><th>Nội dung quyết định</th><th>Khuyến nghị chốt</th><th>Thẩm quyền</th><th>Hạn chốt</th></tr></thead>
+        <tbody>
+          <tr><td>D1</td><td>Stock tự dán có nạp vào Marketplace/liquidity không?</td><td><strong>Tuyệt đối không ở v1.</strong> Hàng tự khai chưa kiểm chứng và gây đếm trùng.</td><td>BOD</td><td>Trước khi dev</td></tr>
+          <tr><td>D2</td><td>Extract: Dùng pipeline ingest hay gọi thư viện độc lập?</td><td><strong>Thư viện độc lập.</strong> Dùng ingest phá vỡ D1 và không đồng bộ.</td><td>TEC + Data</td><td>Trước khi dev</td></tr>
+          <tr><td>D3</td><td>Kho cá nhân có hỗ trợ dòng tìm mua (WTB) không?</td><td><strong>Không ở v1.</strong> Kho chỉ dành cho hàng sẵn bán; WTB ở Marketplace.</td><td>BA</td><td>Trước khi dev</td></tr>
+          <tr><td>D4</td><td>Định dạng link: Dùng slug ngẫu nhiên hay số điện thoại?</td><td><strong>Slug 22 ký tự.</strong> Link theo SĐT dễ bị cào quét, không thu hồi được và lộ PII.</td><td>TEC</td><td>P0</td></tr>
+          <tr><td>D5</td><td>Vị trí kiểm soát trần 5 Highlight ở đâu?</td><td><strong>Chặn cứng ở Backend (409 Conflict).</strong> Chặn ở UI dễ bị vượt qua.</td><td>TEC</td><td>P0</td></tr>
+          <tr><td>D6</td><td>Quy chuẩn đơn vị lưu trữ giá trong DB?</td><td><strong>Lưu đơn vị lớn (decimal).</strong> Khớp với bóc tách AI và <code>message_items</code>.</td><td>TEC</td><td>P0</td></tr>
+          <tr><td>D7</td><td>Tài khoản dùng thử (Trial) có được dùng Paste không?</td><td><strong>Không.</strong> Paste tốn phí token AI; Trial chỉ thêm tay và chia sẻ link.</td><td>BOD</td><td>P1</td></tr>
+          <tr><td>D8</td><td>Giá bán có bắt buộc không?</td><td><strong>Không bắt buộc (cho phép POA).</strong> Hàng hiếm cho phép thoả thuận.</td><td>BA</td><td>P0</td></tr>
+          <tr><td>D9</td><td>Ngưỡng thời gian xác định hàng cũ tồn đọng?</td><td><strong>14 ngày không tương tác.</strong> Gắn cờ cảnh báo, không tự xoá.</td><td>BA + BOD</td><td>P1</td></tr>
+          <tr><td>D10</td><td>Trang public có hiển thị hàng đã bán (Sold) không?</td><td><strong>Có hiển thị trong 7 ngày có nhãn Sold.</strong> Tăng uy tín bán chạy.</td><td>BA</td><td>P1</td></tr>
+          <tr><td>D11</td><td>Có hỗ trợ chia sẻ link phân nhóm đối tác không?</td><td><strong>Chưa hỗ trợ ở v1.</strong> Một kho - Một link; xem xét ở v2.</td><td>BOD</td><td>Sau v1</td></tr>
+          <tr><td>D12</td><td>Công cụ kiểm duyệt nội dung thực hiện ở đâu?</td><td><strong>Strapi Admin Panel.</strong> Do <code>adminTimeDealer</code> chưa build được.</td><td>TEC</td><td>P2</td></tr>
+          <tr><td>D13</td><td>Thông báo khi partner có hàng mới?</td><td><strong>Chỉ nhãn đếm trên web ở v1.</strong> Chưa làm push notification.</td><td>BOD</td><td>Sau v1</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>9.4 Bảy điểm chặn kỹ thuật tiên quyết (B1 – B7)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã</th><th>Điểm chặn phát hiện trong hệ thống</th><th>Giải pháp kỹ thuật bắt buộc</th></tr></thead>
+        <tbody>
+          <tr><td>B1</td><td>Bộ extract tự nuốt tin dài (&gt;100 dòng / &gt;2000 ký tự) trả về 0 item.</td><td>Client chia nhỏ thành các block ≤80 dòng / ≤1500 ký tự trước khi gọi API.</td></tr>
+          <tr><td>B2</td><td>Chưa có API bóc tách text đồng bộ không ghi DB.</td><td>Tạo endpoint mới <code>POST /inventory/extract</code> trong <code>timedealer_data</code>.</td></tr>
+          <tr><td>B3</td><td>Chưa có hạ tầng quản lý quota gọi AI theo user.</td><td>Tạo bảng <code>inventory_paste_logs</code> làm sổ cái kiểm soát và trừ quota.</td></tr>
+          <tr><td>B4</td><td>Số điện thoại lưu rải rác ở 2 bảng (<code>up_users</code> và <code>whatsapps</code>).</td><td>Dùng chuẩn E.164 thống nhất và thực hiện truy vấn chéo ở cả 2 bảng.</td></tr>
+          <tr><td>B5</td><td>Ứng dụng <code>adminTimeDealer</code> lỗi không build được.</td><td>Quản trị kho và xem log trực tiếp trên Strapi Admin Panel hiện có.</td></tr>
+          <tr><td>B6</td><td>TimeDealer chưa từng có mặt đọc công khai nào không cần login.</td><td>Xây dựng route SSR độc lập, serializer whitelist chặt chẽ, rate limit theo IP.</td></tr>
+          <tr><td>B7</td><td>Masterfile suggest chỉ tìm theo prefix, mã lạ sẽ không có kết quả.</td><td>Cho phép lưu hợp lệ với <code>ref_mf = null</code>, ảnh placeholder và nhãn chưa đối chiếu.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ FOOTER -->
+  <footer>
+    <p>
+      <strong>Inventory Network — Đặc tả luồng dữ liệu &amp; PRD Kỹ thuật</strong> · Task TEC-2026-09-18-002 · A: Nghiêm Phú Đức.
+      Bao gồm 12 sơ đồ mermaid tương tác và đầy đủ 9 cấu phần chuẩn PRD; bấm <em>Xem mã mermaid</em> dưới mỗi sơ đồ để copy mã nguồn sang Confluence, GitHub hoặc draw.io.
+    </p>
+    <p>
+      Đối chiếu: <code>timedealer_data/src/migration/migrate_schema_v2.py</code>, <code>apiTimeDealer/src/api/</code>, <code>OpenClaw_Project/task_dashboard/backend/prisma/schema.prisma</code>, <code>inventory-network-prd.md</code> và <code>data/Đề_xuất_tính_năng_Inventory.pdf</code>.
+    </p>
+  </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>
+  (function () {
+    var root = document.documentElement;
+
+    function stored(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    var saved = stored("inv-flows-theme");
+    if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
+
+    var figures = [].slice.call(document.querySelectorAll(".dgm"));
+    var diagrams = figures.map(function (fig, i) {
+      var srcEl = fig.querySelector(".mmd-src");
+      return {
+        index: i,
+        host: fig.querySelector(".mmd-host"),
+        code: fig.querySelector(".mmd-code"),
+        toggle: fig.querySelector(".mmd-toggle"),
+        source: srcEl ? srcEl.textContent.trim() : ""
+      };
+    });
+
+    diagrams.forEach(function (d) {
+      if (!d.toggle || !d.code) return;
+      d.code.textContent = d.source;
+      d.toggle.addEventListener("click", function () {
+        var show = d.code.hidden;
+        d.code.hidden = !show;
+        d.toggle.textContent = show ? "Ẩn mã mermaid" : "Xem mã mermaid";
+      });
+    });
+
+    function themeVars() {
+      var cs = getComputedStyle(root);
+      function v(name, fallback) {
+        var out = cs.getPropertyValue(name);
+        return (out && out.trim()) || fallback;
+      }
+      var surface = v("--surface", "#ffffff");
+      var ink = v("--ink", "#151920");
+      var ink2 = v("--ink-2", "#414a57");
+      var ink3 = v("--ink-3", "#6d7784");
+      var line = v("--line-strong", "#bfc6d0");
+      var brass = v("--brass", "#8a5f18");
+      return {
+        background: surface,
+        primaryColor: v("--surface-2", "#eaedf1"),
+        primaryTextColor: ink,
+        primaryBorderColor: line,
+        secondaryColor: v("--surface-3", "#dfe4ea"),
+        tertiaryColor: surface,
+        tertiaryTextColor: ink2,
+        mainBkg: v("--surface-2", "#eaedf1"),
+        nodeBorder: line,
+        lineColor: ink3,
+        textColor: ink2,
+        edgeLabelBackground: surface,
+        clusterBkg: v("--ground", "#f4f6f8"),
+        clusterBorder: v("--line", "#dce0e6"),
+        titleColor: ink,
+        fontFamily: '"IBM Plex Sans", system-ui, sans-serif',
+        fontSize: "14px",
+        actorBkg: v("--surface-2", "#eaedf1"),
+        actorBorder: line,
+        actorTextColor: ink,
+        actorLineColor: ink3,
+        signalColor: ink2,
+        signalTextColor: ink2,
+        sequenceNumberColor: surface,
+        labelBoxBkgColor: v("--brass-wash", "#f7f1e4"),
+        labelBoxBorderColor: v("--brass-border", "#e2cfa7"),
+        labelTextColor: brass,
+        loopTextColor: ink2,
+        noteBkgColor: v("--brass-wash", "#f7f1e4"),
+        noteBorderColor: v("--brass-border", "#e2cfa7"),
+        noteTextColor: brass,
+        attributeBackgroundColorOdd: surface,
+        attributeBackgroundColorEven: v("--surface-2", "#eaedf1")
+      };
+    }
+
+    var pass = 0;
+    function draw() {
+      if (typeof window.mermaid === "undefined") {
+        diagrams.forEach(function (d) { fallback(d); });
+        return;
+      }
+      pass += 1;
+      window.mermaid.initialize({
+        startOnLoad: false,
+        theme: "base",
+        themeVariables: themeVars(),
+        flowchart: { curve: "basis", useMaxWidth: true, padding: 12 },
+        sequence: { useMaxWidth: true, wrap: true, width: 190 },
+        state: { useMaxWidth: true },
+        er: { useMaxWidth: true }
+      });
+      diagrams.forEach(function (d) {
+        if (!d.host || !d.source) return;
+        var id = "mmd-" + d.index + "-" + pass;
+        try {
+          var out = window.mermaid.render(id, d.source);
+          if (out && typeof out.then === "function") {
+            out.then(function (res) { d.host.innerHTML = res.svg; })
+               .catch(function () { fallback(d); });
+          } else if (typeof out === "string") {
+            d.host.innerHTML = out;
+          }
+        } catch (e) {
+          fallback(d);
+        }
+      });
+    }
+
+    function fallback(d) {
+      if (d.host) d.host.innerHTML = "";
+      if (d.code) d.code.hidden = false;
+      if (d.toggle) d.toggle.textContent = "Ẩn mã mermaid";
+    }
+
+    draw();
+
+    var btn = document.getElementById("themeBtn");
+    btn.addEventListener("click", function () {
+      var current = root.getAttribute("data-theme");
+      if (!current) {
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        current = prefersDark ? "dark" : "light";
+      }
+      var next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      save("inv-flows-theme", next);
+      draw();
+    });
+  })();
+</script>
+
+</body>
+</html>

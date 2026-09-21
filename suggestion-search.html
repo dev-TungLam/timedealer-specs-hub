@@ -1,0 +1,1344 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Suggestion Search &amp; Masterfile Auto-Suggest PRD · TimeDealer</title>
+  <meta name="description" content="Tài liệu mô tả yêu cầu chức năng (PRD) hệ thống Tìm kiếm Gợi ý (Suggestion Search &amp; AutoComplete) đa tầng cho TimeDealer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+  <style>
+    :root {
+      --ground: #f4f6f8;
+      --surface: #ffffff;
+      --surface-2: #eaedf1;
+      --surface-3: #dfe4ea;
+      --ink: #151920;
+      --ink-2: #414a57;
+      --ink-3: #6d7784;
+      --line: #dce0e6;
+      --line-strong: #bfc6d0;
+      --brass: #8a5f18;
+      --brass-2: #b8862c;
+      --brass-wash: #f7f1e4;
+      --brass-border: #e2cfa7;
+      --danger: #a12b20;
+      --danger-wash: #fbeeec;
+      --danger-border: #f0c3be;
+      --good: #26614d;
+      --good-wash: #e9f2ee;
+      --good-border: #b8dcce;
+      --blue: #1c5b96;
+      --blue-wash: #eaf2fa;
+      --blue-border: #b8d4f0;
+      --violet: #5b3d8f;
+      --violet-wash: #f1ecf9;
+      --violet-border: #d3c4ea;
+      --shadow: 0 1px 2px rgba(21,25,32,.05), 0 8px 24px -16px rgba(21,25,32,.25);
+      --nav-bg: rgba(244, 246, 248, 0.9);
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ground: #0f1217;
+        --surface: #161a21;
+        --surface-2: #1e232b;
+        --surface-3: #262c36;
+        --ink: #e7eaef;
+        --ink-2: #b2bbc8;
+        --ink-3: #848f9e;
+        --line: #282e38;
+        --line-strong: #3a424f;
+        --brass: #dcae55;
+        --brass-2: #ecc98a;
+        --brass-wash: #241d10;
+        --brass-border: #4a3a1b;
+        --danger: #e8877a;
+        --danger-wash: #2b1a17;
+        --danger-border: #522923;
+        --good: #74c3a0;
+        --good-wash: #13241e;
+        --good-border: #22473a;
+        --blue: #5ba2e6;
+        --blue-wash: #13202e;
+        --blue-border: #233e5c;
+        --violet: #b69ae4;
+        --violet-wash: #1c1630;
+        --violet-border: #3a2f57;
+        --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+        --nav-bg: rgba(15, 18, 23, 0.9);
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --ground: #0f1217;
+      --surface: #161a21;
+      --surface-2: #1e232b;
+      --surface-3: #262c36;
+      --ink: #e7eaef;
+      --ink-2: #b2bbc8;
+      --ink-3: #848f9e;
+      --line: #282e38;
+      --line-strong: #3a424f;
+      --brass: #dcae55;
+      --brass-2: #ecc98a;
+      --brass-wash: #241d10;
+      --brass-border: #4a3a1b;
+      --danger: #e8877a;
+      --danger-wash: #2b1a17;
+      --danger-border: #522923;
+      --good: #74c3a0;
+      --good-wash: #13241e;
+      --good-border: #22473a;
+      --blue: #5ba2e6;
+      --blue-wash: #13202e;
+      --blue-border: #233e5c;
+      --violet: #b69ae4;
+      --violet-wash: #1c1630;
+      --violet-border: #3a2f57;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+      --nav-bg: rgba(15, 18, 23, 0.9);
+      color-scheme: dark;
+    }
+
+    :root[data-theme="light"] {
+      --ground: #f4f6f8;
+      --surface: #ffffff;
+      --surface-2: #eaedf1;
+      --surface-3: #dfe4ea;
+      --ink: #151920;
+      --ink-2: #414a57;
+      --ink-3: #6d7784;
+      --line: #dce0e6;
+      --line-strong: #bfc6d0;
+      --brass: #8a5f18;
+      --brass-2: #b8862c;
+      --brass-wash: #f7f1e4;
+      --brass-border: #e2cfa7;
+      --danger: #a12b20;
+      --danger-wash: #fbeeec;
+      --danger-border: #f0c3be;
+      --good: #26614d;
+      --good-wash: #e9f2ee;
+      --good-border: #b8dcce;
+      --blue: #1c5b96;
+      --blue-wash: #eaf2fa;
+      --blue-border: #b8d4f0;
+      --violet: #5b3d8f;
+      --violet-wash: #f1ecf9;
+      --violet-border: #d3c4ea;
+      --nav-bg: rgba(244, 246, 248, 0.9);
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: "Newsreader", Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .top-bar-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 13px;
+    }
+    .brand {
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: .02em;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--brass-wash);
+      color: var(--brass);
+      border: 1px solid var(--brass-border);
+    }
+    .badge-blue {
+      background: var(--blue-wash);
+      color: var(--blue);
+      border-color: var(--blue-border);
+    }
+    .badge-good {
+      background: var(--good-wash);
+      color: var(--good);
+      border-color: var(--good-border);
+    }
+    .doc-id {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--brass);
+    }
+    .top-sep { flex: 1 1 auto; }
+    .btn {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-2);
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      padding: 5px 11px;
+      cursor: pointer;
+    }
+    .btn:hover { color: var(--ink); border-color: var(--brass-border); }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding-inline: 20px;
+      padding-block: 0 72px;
+    }
+
+    .masthead { padding-block: 36px 22px; border-bottom: 2px solid var(--ink); }
+    .eyebrow {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11.5px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin: 0 0 12px;
+    }
+    h1 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(28px, 5.5vw, 42px);
+      line-height: 1.12;
+      font-weight: 600;
+      margin: 0 0 10px;
+      text-wrap: balance;
+      letter-spacing: -0.015em;
+    }
+    .standfirst {
+      font-size: 17.5px;
+      color: var(--ink-2);
+      max-width: 62ch;
+      margin: 0 0 18px;
+    }
+    .meta {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12.5px;
+      color: var(--ink-3);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px 20px;
+      margin: 0;
+    }
+    .meta div { border-top: 1px solid var(--line); padding-top: 7px; }
+    .meta b { color: var(--ink-2); font-weight: 600; display: block; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2px; }
+
+    .toc {
+      margin-block: 24px 0;
+      padding: 16px 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+    .toc h2 { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 10px; border: 0; padding: 0; }
+    .toc ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px 18px; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 13.5px; max-width: none; }
+    .toc li { margin: 0; }
+    .toc a { color: var(--ink-2); text-decoration: none; display: flex; gap: 8px; }
+    .toc a:hover { color: var(--brass); }
+    .toc .n { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--brass); min-width: 24px; }
+
+    section { padding-block: 32px 6px; }
+    h2 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(22px, 3.8vw, 28px);
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line-strong);
+      text-wrap: balance;
+    }
+    h2 .hn { font-family: "IBM Plex Mono", monospace; font-size: .6em; color: var(--brass); margin-right: 8px; vertical-align: 1px; }
+    h3 {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 24px 0 8px;
+    }
+    h4 {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin: 18px 0 7px;
+    }
+    p { margin: 0 0 11px; max-width: 72ch; }
+    .lede { font-size: 17px; color: var(--ink-2); max-width: 68ch; margin-bottom: 14px; }
+    ul, ol { max-width: 72ch; padding-left: 20px; margin-top: 4px; margin-bottom: 12px; }
+    li { margin-bottom: 5px; }
+    a { color: var(--brass); }
+    strong { font-weight: 600; }
+    code, .mono {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: .86em;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1px 4px;
+      word-break: break-word;
+    }
+
+    .dgm {
+      margin: 0 0 24px;
+      padding: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    figcaption {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12px;
+      color: var(--ink-2);
+      padding: 10px 14px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--line);
+    }
+    figcaption .dgm-id {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10.5px;
+      background: var(--brass-wash);
+      color: var(--brass);
+      border: 1px solid var(--brass-border);
+      border-radius: 3px;
+      padding: 1px 6px;
+      margin-right: 6px;
+      font-weight: 600;
+    }
+    .mmd-host { padding: 18px 12px; overflow-x: auto; background: var(--surface); }
+    .mmd-host svg { max-width: 100%; height: auto; display: block; margin: 0 auto; }
+    .dgm-actions { padding: 6px 12px; background: var(--surface-2); border-top: 1px solid var(--line); text-align: right; }
+    .mmd-code {
+      margin: 0;
+      padding: 12px 14px;
+      background: var(--surface-2);
+      border-top: 1px solid var(--line);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      color: var(--ink-2);
+      white-space: pre-wrap;
+      word-break: break-word;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+
+    .scroll { overflow-x: auto; margin: 0 0 16px; border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); background: var(--surface); }
+    table { width: 100%; border-collapse: collapse; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 12.5px; text-align: left; }
+    thead { background: var(--surface-2); border-bottom: 2px solid var(--line-strong); }
+    th { padding: 8px 11px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+    td { padding: 8px 11px; border-bottom: 1px solid var(--line); color: var(--ink-2); vertical-align: top; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: var(--surface-2); }
+    td.yes { color: var(--good); font-weight: 600; }
+    td.no { color: var(--danger); }
+
+    .callout {
+      border-left: 3px solid var(--brass);
+      background: var(--brass-wash);
+      padding: 12px 14px;
+      border-radius: 0 6px 6px 0;
+      margin: 14px 0 18px;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 13px;
+      color: var(--ink-2);
+    }
+    .callout-blue {
+      border-left-color: var(--blue);
+      background: var(--blue-wash);
+      color: var(--ink);
+    }
+    .callout-good {
+      border-left-color: var(--good);
+      background: var(--good-wash);
+      color: var(--ink);
+    }
+  
+    /* Universal Module Switcher Bar */
+    .specs-hub-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 18, 23, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(220, 224, 230, 0.15);
+      color: #e7eaef;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 13px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    :root[data-theme="light"] .specs-hub-nav {
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid #dce0e6;
+      color: #151920;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .specs-hub-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .specs-hub-logo {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--brass, #dcae55);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-right: 12px;
+      border-right: 1px solid rgba(120,130,140,0.3);
+      white-space: nowrap;
+    }
+    .specs-hub-logo:hover { opacity: 0.9; }
+    .specs-hub-tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      flex: 1 1 auto;
+    }
+    .specs-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-2, #b2bbc8);
+      background: transparent;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    :root[data-theme="light"] .specs-tab-btn {
+      color: #414a57;
+    }
+    .specs-tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    :root[data-theme="light"] .specs-tab-btn:hover {
+      color: #151920;
+      background: #f0f2f5;
+      border-color: #dce0e6;
+    }
+    .specs-tab-btn.active {
+      color: #fff;
+      background: #8a5f18;
+      border-color: #b8862c;
+      font-weight: 600;
+    }
+    :root[data-theme="light"] .specs-tab-btn.active {
+      color: #ffffff;
+      background: #8a5f18;
+      border-color: #724e13;
+    }
+    .specs-tab-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      font-size: 10px;
+      font-family: "IBM Plex Mono", monospace;
+    }
+    .specs-tab-btn.active .specs-tab-num {
+      background: rgba(0,0,0,0.25);
+    }
+    .specs-hub-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .specs-action-btn {
+      font-size: 11.5px;
+      padding: 5px 9px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    :root[data-theme="light"] .specs-action-btn {
+      background: #ffffff;
+      border-color: #dce0e6;
+      color: #414a57;
+    }
+    .specs-action-btn:hover {
+      border-color: var(--brass, #dcae55);
+      color: var(--brass, #dcae55);
+    }
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+
+<nav class="specs-hub-nav" aria-label="Requirement Modules Switcher">
+  <div class="specs-hub-inner">
+    <a href="index.html" class="specs-hub-logo">
+      <span>⏱️ TimeDealer</span>
+      <span style="font-size:11px; opacity:0.7; font-weight:normal;">PRD Portal</span>
+    </a>
+    <div class="specs-hub-tabs">
+      <a href="index.html" class="specs-tab-btn "><span class="specs-tab-num">0</span> 📊 Hub Overview</a>
+        <a href="inventory-network.html" class="specs-tab-btn "><span class="specs-tab-num">1</span> 📦 Inventory Network</a>
+        <a href="in-app-chat.html" class="specs-tab-btn "><span class="specs-tab-num">2</span> 💬 In-App Chat</a>
+        <a href="suggestion-search.html" class="specs-tab-btn active"><span class="specs-tab-num">3</span> 🔍 Suggestion Search</a>
+        <a href="auth-whatsapp-otp.html" class="specs-tab-btn "><span class="specs-tab-num">4</span> 📱 WhatsApp OTP Auth</a>
+    </div>
+    <div class="specs-hub-actions">
+      <button class="specs-action-btn" id="portalThemeBtn" type="button" title="Chuyển Dark/Light Mode">🌓 Giao diện</button>
+      <a href="javascript:window.print()" class="specs-action-btn" title="In / Xuất PDF">🖨️ PDF</a>
+    </div>
+  </div>
+</nav>
+<script>
+  (function(){
+    var b = document.getElementById('portalThemeBtn');
+    if (b) {
+      b.addEventListener('click', function() {
+        var r = document.documentElement;
+        var cur = r.getAttribute('data-theme');
+        if (!cur) {
+          var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          cur = dark ? 'dark' : 'light';
+        }
+        var next = cur === 'dark' ? 'light' : 'dark';
+        r.setAttribute('data-theme', next);
+        try { localStorage.setItem('td-specs-theme', next); } catch(e){}
+        // trigger theme switch for page mermaid if exists
+        var pageThemeBtn = document.getElementById('themeBtn');
+        if (pageThemeBtn && pageThemeBtn !== b) pageThemeBtn.click();
+      });
+    }
+    // Apply saved theme
+    try {
+      var saved = localStorage.getItem('td-specs-theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch(e){}
+  })();
+</script>
+
+
+<div class="page">
+  <header class="masthead">
+    <div class="eyebrow">Tài liệu yêu cầu chức năng &amp; Kỹ thuật · Marketplace &amp; Auto-Tracking</div>
+    <h1>Hệ thống Tìm Kiếm Gợi Ý (Suggestion Search &amp; Masterfile Auto-Suggest)</h1>
+    <p class="standfirst">Đặc tả toàn diện cơ chế tìm kiếm gợi ý thời gian thực đa tầng (Next.js BFF &rarr; Strapi Gateway &rarr; Masterfile Elasticsearch) phục vụ tìm kiếm mã Reference, Thương hiệu, hỗ trợ ghim Auto-Tracking và tối ưu hóa chuyển đổi giao dịch.</p>
+    <div class="meta">
+      <div><b>Mã tài liệu</b> PRD-TD-SEARCH-01</div>
+      <div><b>Phiên bản</b> 1.1.0 (Live Codebase Aligned)</div>
+      <div><b>Ngày phê duyệt</b> 21/09/2026</div>
+      <div><b>Trạng thái</b> Approved / Ready for QA</div>
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Mục lục">
+    <h2>Mục lục tài liệu</h2>
+    <ol>
+      <li><a href="#s1-tong-quan"><span class="n">01</span> Tổng quan (Overview)</a></li>
+      <li><a href="#s2-muc-tieu"><span class="n">02</span> Mục tiêu &amp; Chỉ số đo lường (Goals &amp; Metrics)</a></li>
+      <li><a href="#s3-pham-vi"><span class="n">03</span> Phạm vi (Scope)</a></li>
+      <li><a href="#s4-user-stories"><span class="n">04</span> Chân dung người dùng &amp; User Stories</a></li>
+      <li><a href="#s5-tinh-nang"><span class="n">05</span> Yêu cầu tính năng &amp; Sơ đồ luồng (FR &amp; Flows)</a></li>
+      <li><a href="#s6-phi-chuc-nang"><span class="n">06</span> Yêu cầu phi chức năng (Non-Functional Requirements)</a></li>
+      <li><a href="#s7-ux-ui"><span class="n">07</span> Thiết kế giao diện &amp; Trải nghiệm (UX/UI Constraints)</a></li>
+      <li><a href="#s8-ke-hoach"><span class="n">08</span> Kế hoạch triển khai &amp; Phát hành (Milestones)</a></li>
+      <li><a href="#s9-rui-ro"><span class="n">09</span> Rủi ro, Giả định &amp; Phụ thuộc (Risks &amp; Dependencies)</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============================================================ 1. OVERVIEW -->
+  <section id="s1-tong-quan">
+    <h2><span class="hn">1</span>Tổng quan (Overview)</h2>
+    <p class="lede">TimeDealer xử lý hàng chục nghìn bài đăng Marketplace, tin chào mua (WTB) và chào bán (For Sale) đồng hồ xa xỉ từ các Dealer quốc tế. Hệ thống tìm kiếm gợi ý (Suggestion Search) là chốt chặn quan trọng đầu tiên quyết định trải nghiệm tìm kiếm và khả năng chốt đơn của Dealer.</p>
+    
+    <div class="callout callout-blue">
+      <strong>Vấn đề thực tế trong ngành đồng hồ cao cấp:</strong> Mã số tham chiếu (Reference Number) thường dài và phức tạp (ví dụ: <code>126610LN</code>, <code>26240ST.OO.1320ST.01</code>, <code>5711/1A-010</code>). Người mua có thể nhớ không đủ ký tự hoặc gõ sai định dạng dấu gạch. Tính năng Suggestion Search chuẩn hóa từ khóa người dùng nhập về đúng danh mục chuẩn quốc tế (Masterfile Catalog) ngay trong khi đang gõ.
+    </div>
+
+    <ul>
+      <li><strong>Mục tiêu sản phẩm:</strong> Phản hồi danh sách gợi ý mẫu đồng hồ kèm hình ảnh thu nhỏ, thương hiệu và mã Ref chuẩn trong vòng &le; 100ms ngay khi người dùng gõ từ 1 ký tự.</li>
+      <li><strong>Điểm chạm tích hợp:</strong> Thanh tìm kiếm Header Marketplace (<code>SearchMarketPlace</code>), Trang chủ Home, Modal tạo quy tắc theo dõi tự động (<code>ModalCreateTrackingRule</code>), và Mobile App iOS/Android.</li>
+      <li><strong>Giá trị mang lại:</strong> Rút ngắn 85% thời gian tìm kiếm sản phẩm, loại bỏ tỷ lệ tìm kiếm rỗng (Zero-Result), và thúc đẩy người dùng kích hoạt tính năng Theo Dõi Tự Động (Auto-Tracking).</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ 2. GOALS & METRICS -->
+  <section id="s2-muc-tieu">
+    <h2><span class="hn">2</span>Mục tiêu kinh doanh &amp; Chỉ số đo lường (Goals &amp; Metrics)</h2>
+
+    <h3>2.1 Chỉ số kinh doanh (Business KPIs)</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Chỉ số (KPI)</th>
+            <th>Ngưỡng kỳ vọng</th>
+            <th>Phương pháp đo lường &amp; Nguồn dữ liệu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Suggestion Click-Through Rate (CTR)</strong></td>
+            <td>&ge; 45%</td>
+            <td>Tỷ lệ người dùng nhấp vào một mục trong danh sách Popover trên tổng số phiên có kích hoạt gõ tìm kiếm.</td>
+          </tr>
+          <tr>
+            <td><strong>Zero-Result Search Rate</strong></td>
+            <td>&le; 2.5%</td>
+            <td>Tỷ lệ các lượt gõ tìm kiếm trả về danh sách rỗng (được giảm thiểu nhờ thuật toán Prefix &amp; N-gram matching).</td>
+          </tr>
+          <tr>
+            <td><strong>Auto-Tracking Conversion</strong></td>
+            <td>&ge; 20%</td>
+            <td>Tỷ lệ người dùng từ danh sách gợi ý bấm nút ghim theo dõi biến động giá (Auto-Tracking Ref/Text).</td>
+          </tr>
+          <tr>
+            <td><strong>Search-to-Detail Transition</strong></td>
+            <td>&ge; 35%</td>
+            <td>Người dùng bấm vào gợi ý đi thẳng tới danh sách tin đăng sản phẩm hoặc thông tin chi tiết đồng hồ.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>2.2 Chỉ số kỹ thuật (Technical Metrics)</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Chỉ số kỹ thuật</th>
+            <th>Ngưỡng cam kết (SLA)</th>
+            <th>Giải pháp kỹ thuật đáp ứng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>End-to-End Latency (p95)</strong></td>
+            <td>&le; 100 ms</td>
+            <td>Tra cứu Elasticsearch Index tối ưu + Redis In-Memory Caching trên BFF.</td>
+          </tr>
+          <tr>
+            <td><strong>Debounce Threshold</strong></td>
+            <td>250 ms – 300 ms</td>
+            <td>Trì hoãn gửi request khi người dùng đang gõ phím liên tục, tránh nghẽn server.</td>
+          </tr>
+          <tr>
+            <td><strong>BFF SWR Deduplication</strong></td>
+            <td>100% deduplicated</td>
+            <td>Thư viện SWR phía Next.js tự động gộp và cache các query trùng lặp trong bộ nhớ client.</td>
+          </tr>
+          <tr>
+            <td><strong>Elasticsearch Cluster Uptime</strong></td>
+            <td>&ge; 99.9%</td>
+            <td>Cơ chế Circuit Breaker tự động fallback về danh mục Brand tĩnh nếu ES gián đoạn.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 3. SCOPE -->
+  <section id="s3-pham-vi">
+    <h2><span class="hn">3</span>Phạm vi (Scope)</h2>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 50%;">Nằm trong phạm vi (In-Scope · Giai đoạn 1)</th>
+            <th style="width: 50%;">Ngoài phạm vi (Out-of-Scope · Giai đoạn sau)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              • Tự động gợi ý mã Reference Number và Tên Thương hiệu (Brand) theo thời gian thực.<br>
+              • Popover hiển thị tối đa 10 kết quả chuẩn: Ảnh đại diện 56x56, Mã Ref tô đậm từ khóa, Tên Brand.<br>
+              • Tích hợp luồng Next.js BFF (<code>/api/suggest</code>) &rarr; Strapi Gateway (<code>/masterfile_v2/suggest</code>) &rarr; Backend Engine.<br>
+              • Tích hợp nhanh tính năng Ghim Theo Dõi Giá (Auto-Tracking) trực tiếp từ popover gợi ý.<br>
+              • Highlight từ khóa khớp chính xác và hỗ trợ Regex Escape an toàn.<br>
+              • Điều hướng bằng chuột và bàn phím (Phím mũi tên, Enter, Escape).
+            </td>
+            <td>
+              • Tìm kiếm sản phẩm bằng hình ảnh (Reverse Image Search).<br>
+              • Bộ lọc nhiều chiều nâng cao (Facet filter đường kính, màu mặt, chất liệu bezel trực tiếp trong popup).<br>
+              • Tìm kiếm bằng giọng nói (Voice Search).<br>
+              • Tìm kiếm nội dung bài đăng cá nhân trong nhóm chat riêng tư.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 4. USER STORIES -->
+  <section id="s4-user-stories">
+    <h2><span class="hn">4</span>Chân dung người dùng &amp; User Stories</h2>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Chân dung (Persona)</th>
+            <th>Mong muốn (As a / I want)</th>
+            <th>Mục đích (So that)</th>
+            <th>Tiêu chí chấp thuận (Acceptance Criteria)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>US-S1</strong></td>
+            <td>Dealer B2B chuyên nghiệp</td>
+            <td>Gõ 3-4 ký tự đầu của mã Ref (ví dụ "1266") và thấy ngay danh sách đầy đủ các biến thể.</td>
+            <td>Chọn đúng mẫu đồng hồ chuẩn quốc tế để đối soát giá thị trường ngay lập tức.</td>
+            <td>Hiện đúng biến thể kèm ảnh (ví dụ 126610LN, 126610LV); mã Ref khớp được in đậm; phản hồi &le; 100ms.</td>
+          </tr>
+          <tr>
+            <td><strong>US-S2</strong></td>
+            <td>Khách mua cá nhân</td>
+            <td>Gõ tên thương hiệu ("Rolex", "Patek") hoặc từ khóa phổ thông.</td>
+            <td>Xem các mẫu nổi bật của thương hiệu đó mà không cần nhớ chính xác số hiệu.</td>
+            <td>Hiển thị gợi ý các mẫu thịnh hành của thương hiệu; bấm vào sẽ tự động áp bộ lọc tìm kiếm trên Marketplace.</td>
+          </tr>
+          <tr>
+            <td><strong>US-S3</strong></td>
+            <td>Trader săn đồng hồ</td>
+            <td>Thấy nút "Track this text" hoặc nút cài đặt theo dõi ngay cạnh kết quả gợi ý.</td>
+            <td>Ghim mã Ref vào danh mục Auto-Tracking để nhận thông báo đẩy khi có ai đăng bán giá hời.</td>
+            <td>Kiểm tra hạn mức &le; 20 đồng hồ; nếu hợp lệ mở Modal cài đặt giá trần/sàn; nếu quá 20 báo thông báo nhắc gỡ bớt.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 5. FUNCTIONAL REQUIREMENTS -->
+  <section id="s5-tinh-nang">
+    <h2><span class="hn">5</span>Yêu cầu tính năng &amp; Sơ đồ luồng (FR &amp; Flows)</h2>
+
+    <!-- S1 -->
+    <h3>5.1 S1 · Sơ đồ Kiến trúc luồng Tìm kiếm gợi ý đa tầng</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S1</span> Kiến trúc Client Next.js &rarr; BFF &rarr; Strapi Gateway &rarr; Elasticsearch</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart TB
+  subgraph ClientApp["Tầng Trình Duyệt / Ứng Dụng (timedealer-v2)"]
+    INPUT["SearchMarketPlace Input"]
+    HOOK["useSWR(['/api/suggest', searchKeyword])"]
+    AUTO["AutoComplete Popover Component"]
+  end
+
+  subgraph BFF["Tầng Next.js API Routes (BFF)"]
+    BFF_EP["POST /api/suggest"]
+    AUTH_CHECK{"Kiểm tra AccessToken Cookie?"}
+  end
+
+  subgraph Gateway["Tầng Strapi Headless CMS (apiTimeDealer)"]
+    WRAP["Controller: masterfileSuggestV2<br/>(wrap-api.js)"]
+    GW_ROUTE["POST /api/timedealer/masterfile_v2/suggest"]
+  end
+
+  subgraph DataEngine["Tầng Dữ Liệu & Tìm Kiếm (Data Processing Services)"]
+    ES_SERVICE["Go/Python Masterfile Service<br/>(backend_api / DATA_API_URL_2)"]
+    REDIS_CACHE[("Redis Cache<br/>Key: suggest:{ref}:{limit}")]
+    ES_INDEX[("Elasticsearch Index<br/>masterfile_v2")]
+  end
+
+  INPUT -->|Debounce 250ms| HOOK
+  HOOK -->|Fetch POST { ref, limit: 10 }| BFF_EP
+  BFF_EP --> AUTH_CHECK
+  AUTH_CHECK -- Hợp lệ --> GW_ROUTE
+  AUTH_CHECK -- Không có token --> ERR_AUTH["403 Must login"]
+  GW_ROUTE --> WRAP
+  WRAP -->|Proxy HTTP Request| ES_SERVICE
+  ES_SERVICE <-->|Check / Set Cache| REDIS_CACHE
+  ES_SERVICE -->|Prefix & Fuzzy Match| ES_INDEX
+  ES_INDEX -.->|Trả về mảng kết quả| ES_SERVICE
+  ES_SERVICE -.->|JSON response| WRAP
+  WRAP -.->|HTTP 200| BFF_EP
+  BFF_EP -.->|status: success, data: [...]| HOOK
+  HOOK -->|Render List & Highlight| AUTO
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S2 -->
+    <h3>5.2 S2 · Sơ đồ Trình tự Người dùng gõ phím &amp; Nhận gợi ý</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S2</span> Trình tự tương tác từ gõ phím đến hiển thị kết quả và xử lý click</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+sequenceDiagram
+  autonumber
+  actor U as Người dùng (Dealer)
+  participant UI as Thanh Tìm Kiếm (AutoComplete.js)
+  participant BFF as Next.js BFF (/api/suggest)
+  participant API as Strapi Gateway (wrap-api.js)
+  participant ES as Elasticsearch Engine
+
+  U->>UI: Gõ ký tự "1266" vào ô tìm kiếm
+  Note over UI: Trì hoãn Debounce 250ms
+  UI->>BFF: POST /api/suggest { ref: "1266", limit: 10 }
+  BFF->>BFF: Đọc AccessToken từ Cookies
+  BFF->>API: POST /masterfile_v2/suggest + Bearer Token
+  API->>ES: Truy vấn Elasticsearch (Prefix & N-gram Match "1266*")
+  ES-->>API: Trả về danh sách 10 mẫu đồng hồ (Rolex Submariner 126610LN...)
+  API-->>BFF: Trả về { status: "success", data: [...] }
+  BFF-->>UI: Response JSON
+  UI->>UI: Tô đậm từ khóa trùng khớp (Regex <b>1266</b>)
+  UI->>UI: Mở Popover hiển thị danh sách 10 dòng có ảnh và tên hãng
+  
+  alt Người dùng bấm vào 1 dòng gợi ý
+    U->>UI: Click chọn "126610LN - Rolex"
+    UI->>UI: Đóng Popover, điền "126610LN" vào ô Search
+    UI->>UI: Kích hoạt Lọc Marketplace theo mã đã chọn
+  else Người dùng bấm phím Escape hoặc click ra ngoài
+    U->>UI: Bấm Escape / Click ngoài ô tìm kiếm
+    UI->>UI: Đóng Popover gợi ý ngay lập tức
+  end
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S3 -->
+    <h3>5.3 S3 · Máy trạng thái Vòng đời của Popover Gợi ý</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S3</span> Các trạng thái của khung hiển thị gợi ý (AutoComplete Popover)</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+stateDiagram-v2
+  direction LR
+  [*] --> Idle: Ô tìm kiếm trống
+  Idle --> Debouncing: Người dùng bắt đầu gõ ký tự
+  Debouncing --> Debouncing: Gõ tiếp trong vòng 250ms
+  Debouncing --> Fetching: Hết 250ms không gõ thêm -> Gọi API
+  Fetching --> EmptyResult: API trả về mảng rỗng []
+  Fetching --> PopoverOpen: API trả về danh sách có dữ liệu
+  Fetching --> ErrorState: Lỗi mạng / 500 Server Error
+  
+  PopoverOpen --> PopoverOpen: Cuộn danh sách xem thêm
+  PopoverOpen --> Selected: Người dùng Click chọn 1 mẫu
+  PopoverOpen --> TrackTriggered: Người dùng bấm Track Text/Ref
+  PopoverOpen --> Idle: Xóa trắng ô tìm kiếm / Bấm Escape / Click ngoài
+  EmptyResult --> Idle: Xóa ô tìm kiếm
+  ErrorState --> Idle: Xóa ô tìm kiếm
+  Selected --> [*]
+  TrackTriggered --> [*]
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S4 -->
+    <h3>5.4 S4 · Luồng Tích hợp Ghim Theo Dõi Giá (Auto-Tracking) từ Gợi ý</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S4</span> Quy trình kiểm tra giới hạn 20 đồng hồ và tạo quy tắc Auto-Tracking</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart TD
+  START(["Người dùng bấm nút Track trên dòng gợi ý"]) --> CHECK_LIMIT{"Kiểm tra số lượng đã theo dõi?<br/>totalTrackQuantity >= 20"}
+  
+  CHECK_LIMIT -- Đã đạt 20 mẫu --> ALERT_MAX["Báo lỗi Pop-up:<br/>You have reached maximum 20 tracking watches.<br/>Please remove old reference number."]
+  
+  CHECK_LIMIT -- Dưới 20 mẫu --> CHECK_TYPE{"Bấm nút Track Ref cụ thể hay Track Text tự do?"}
+  
+  CHECK_TYPE -- Track Ref cụ thể --> MODAL_REF["Dispatch: setInfoTracking(item)<br/>Mở Modal Cấu Hình Theo Dõi Ref (ModalCreateTrackingRule)"]
+  CHECK_TYPE -- Track Text tự do --> MODAL_TEXT["Dispatch: setOpenModalAutoTrackingTextSetting<br/>Mở Modal Theo Dõi Từ Khóa Tự Do"]
+  
+  MODAL_REF --> SAVE_RULE["Người dùng cài ngưỡng giá cảnh báo & Lưu"]
+  MODAL_TEXT --> SAVE_RULE
+  SAVE_RULE --> REFRESH_TRACK["Cập nhật danh sách listIdTracks & Đổi nút thành 'Tracked'"]
+  REFRESH_TRACK --> DONE(["Hoàn tất"])
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- 5.5 API Endpoints -->
+    <h3>5.5 Đặc tả chi tiết API Endpoints</h3>
+
+    <h4>1. Next.js BFF Suggestion Endpoint</h4>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Thuộc tính</th>
+            <th style="width: 75%;">Đặc tả kỹ thuật</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Endpoint &amp; Phương thức</strong></td>
+            <td><code>POST /api/suggest</code> (tương ứng file <code>src/pages/api/suggest.js</code>)</td>
+          </tr>
+          <tr>
+            <td><strong>Xác thực (Authentication)</strong></td>
+            <td>Bắt buộc đọc Cookie <code>StorageKeys.AccessToken</code>; nếu thiếu trả về HTTP <code>403 "must login"</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Request Body (JSON)</strong></td>
+            <td>
+              <code>{ "ref": "1266", "limit": 10 }</code><br>
+              • <code>ref</code> (string): Từ khóa mã số hoặc tên do client gõ.<br>
+              • <code>limit</code> (number, optional, mặc định 10): Số lượng gợi ý tối đa.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Proxy Forwarding</strong></td>
+            <td>Chuyển tiếp đến: <code>${process.env.NEXT_PUBLIC_API_URL}/masterfile_v2/suggest</code> kèm header <code>Authorization: Bearer ${accessToken}</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Response Body thành công (200)</strong></td>
+            <td>
+              <pre style="margin: 0; font-size: 11.5px; font-family: 'IBM Plex Mono', monospace;">
+{
+  "status": "success",
+  "data": [
+    {
+      "ref": "126610LN",
+      "brand": "Rolex",
+      "model": "Submariner Date",
+      "image": "https://img.timedealer.io/watches/rolex/126610ln.png"
+    },
+    {
+      "ref": "126610LV",
+      "brand": "Rolex",
+      "model": "Submariner Date Kermit/Starbucks",
+      "image": "https://img.timedealer.io/watches/rolex/126610lv.png"
+    }
+  ]
+}</pre>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>2. Backend Masterfile Engine Endpoint</h4>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Thuộc tính</th>
+            <th style="width: 75%;">Đặc tả kỹ thuật</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Endpoint nội bộ</strong></td>
+            <td><code>POST /masterfile_v2/suggest</code> (cung cấp bởi <code>DATA_API_URL_2</code>)</td>
+          </tr>
+          <tr>
+            <td><strong>Thuật toán truy vấn ES</strong></td>
+            <td>
+              Sử dụng <strong>Multi-match Query</strong> kết hợp <strong>Prefix Matching</strong> và <strong>Edge N-gram</strong>:<br>
+              • Khớp trường <code>ref_no.edge_ngram</code> với boost factor = 3.0.<br>
+              • Khớp trường <code>brand_name</code> với boost factor = 1.5.<br>
+              • Áp dụng <code>fuzziness: "AUTO"</code> cho phép sai lệch tối đa 1 ký tự khi độ dài chuỗi &gt; 4.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Thời gian phản hồi</strong></td>
+            <td>&le; 45ms trên cụm Elasticsearch nội bộ.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 5.6 Cấu trúc dữ liệu Elasticsearch -->
+    <h3>5.6 Cấu trúc dữ liệu Schema Elasticsearch (Masterfile Index)</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Tên trường (Field)</th>
+            <th>Kiểu dữ liệu ES</th>
+            <th>Mục đích &amp; Cấu hình Analyzer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>ref</code></td>
+            <td><code>keyword</code> / <code>text</code></td>
+            <td>Mã Reference chuẩn quốc tế. Cấu hình <code>edge_ngram_analyzer</code> (min_gram: 2, max_gram: 15) để tìm kiếm khi gõ dở dang.</td>
+          </tr>
+          <tr>
+            <td><code>brand</code></td>
+            <td><code>text</code> &amp; <code>keyword</code></td>
+            <td>Tên thương hiệu (Rolex, Patek Philippe, Audemars Piguet, Omega...). Phục vụ lọc và hiển thị.</td>
+          </tr>
+          <tr>
+            <td><code>model</code></td>
+            <td><code>text</code></td>
+            <td>Tên dòng sản phẩm (Submariner, Daytona, Nautilus, Royal Oak...).</td>
+          </tr>
+          <tr>
+            <td><code>image</code></td>
+            <td><code>keyword</code></td>
+            <td>Đường dẫn URL ảnh sản phẩm đã cắt nền (PNG) tối ưu hóa kích thước cho thumbnail.</td>
+          </tr>
+          <tr>
+            <td><code>search_weight</code></td>
+            <td><code>integer</code></td>
+            <td>Hệ số ưu tiên hiển thị. Mẫu đồng hồ phổ biến / giao dịch nhiều sẽ có trọng số cao để xuất hiện đầu danh sách.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 6. NFR -->
+  <section id="s6-phi-chuc-nang">
+    <h2><span class="hn">6</span>Yêu cầu phi chức năng (Non-Functional Requirements)</h2>
+
+    <h3>6.1 Hiệu năng &amp; Khả năng chịu tải (Performance &amp; Scale)</h3>
+    <ul>
+      <li><strong>Debounce tối ưu:</strong> Client áp dụng debounce 250ms. Chỉ gửi request lên server sau khi người dùng dừng bấm phím 250ms, giảm 70% số lượng request lãng phí.</li>
+      <li><strong>Client-Side SWR Deduplication:</strong> Thư viện SWR lưu cache kết quả tìm kiếm cục bộ trong vòng 5 phút (<code>stale-while-revalidate</code>). Khi người dùng gõ lại từ khóa cũ, kết quả hiển thị tức thì (0ms).</li>
+      <li><strong>Tải đồng thời:</strong> Cụm Elasticsearch và BFF hỗ trợ tối thiểu <strong>2,000 lượt gợi ý mỗi giây (RPS)</strong> với độ trễ p99 &le; 200ms.</li>
+    </ul>
+
+    <h3>6.2 Bảo mật &amp; Toàn vẹn (Security &amp; Sanitization)</h3>
+    <ul>
+      <li><strong>XSS &amp; Regex Injection Prevention:</strong> Phía client bắt buộc bọc từ khóa tìm kiếm qua hàm <code>escapeRegExp(search)</code> trước khi nhúng vào <code>dangerouslySetInnerHTML</code> để tô đậm từ khóa, ngăn chặn tấn công XSS.</li>
+      <li><strong>Kiểm soát Cookie Token:</strong> Request đi qua Next.js BFF luôn kiểm tra tính hợp lệ của JWT token trước khi chuyển tiếp vào hệ thống Core Microservice.</li>
+    </ul>
+
+    <h3>6.3 Độ tin cậy &amp; Dự phòng (Reliability &amp; Fallback)</h3>
+    <ul>
+      <li><strong>Graceful Degradation:</strong> Nếu cụm Elasticsearch tạm thời quá tải hoặc timeout (&gt; 1s), BFF trả về fallback là danh sách các Thương hiệu phổ biến (lấy từ endpoint <code>/masterfile_v2/all_brands</code>) thay vì để giao diện bị crash.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ 7. UX/UI -->
+  <section id="s7-ux-ui">
+    <h2><span class="hn">7</span>Thiết kế giao diện &amp; Trải nghiệm (UX/UI Constraints)</h2>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Thành phần giao diện</th>
+            <th style="width: 45%;">Quy cách hiển thị</th>
+            <th style="width: 30%;">Trạng thái tương tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Khung Popover Gợi ý</strong></td>
+            <td>
+              • Độ rộng cố định: <code>360px</code> trên Desktop (căn mép dưới ô input).<br>
+              • Bo tròn: <code>var(--radius-4)</code>, bóng đổ <code>var(--shadow-4)</code>.<br>
+              • Chiều cao tối đa: <code>400px</code>, có thanh cuộn dọc (<code>overflow-y: auto</code>).
+            </td>
+            <td>Tự động mở khi ô input có text &amp; có kết quả trả về; tự đóng khi click ra ngoài.</td>
+          </tr>
+          <tr>
+            <td><strong>Dòng mục gợi ý (Item)</strong></td>
+            <td>
+              • Thumbnail ảnh: <code>56x56 px</code>, nền xám nhẹ, bo góc 8px.<br>
+              • Dòng 1: Mã Ref với từ khóa đang gõ được <strong>tô đậm</strong> (thẻ <code>&lt;b&gt;</code>).<br>
+              • Dòng 2: Tên thương hiệu (Brand) chữ xám nhỏ.
+            </td>
+            <td>Hiệu ứng hover đổi màu nền nhẹ (<code>var(--surface-2)</code>), con trỏ chuột dạng <code>pointer</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>Nút Ghim Auto-Tracking</strong></td>
+            <td>
+              • Nút dạng viên thuốc (radius full).<br>
+              • Trạng thái chưa theo dõi: Nút sáng, text "Track this ref".<br>
+              • Trạng thái đã theo dõi: Nút xám mờ 50%, text "Tracked".
+            </td>
+            <td>Khi click: kiểm tra hạn mức 20 đồng hồ. Nếu vượt: alert thông báo. Nếu còn: mở modal cài đặt giá.</td>
+          </tr>
+          <tr>
+            <td><strong>Trạng thái Rỗng / Đang tải</strong></td>
+            <td>
+              • Đang tải: Hiển thị thanh xoay loading tinh gọn.<br>
+              • Không có kết quả: Hiển thị dòng chữ "Không tìm thấy mẫu đồng hồ khớp mã. Bấm Enter để tìm bài đăng tự do".
+            </td>
+            <td>Giữ Popover mở để người dùng có tùy chọn Track theo chuỗi ký tự tự do.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 8. MILESTONES -->
+  <section id="s8-ke-hoach">
+    <h2><span class="hn">8</span>Kế hoạch triển khai &amp; Phát hành (Milestones)</h2>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Giai đoạn</th>
+            <th>Nội dung công việc cốt lõi</th>
+            <th>Thời lượng</th>
+            <th>Đầu ra bàn giao (Deliverables)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Sprint 1: Cấu hình ES &amp; Microservice</strong></td>
+            <td>Đồng bộ Masterfile catalog vào Elasticsearch, cấu hình Edge N-gram Analyzer, tối ưu endpoint <code>/masterfile_v2/suggest</code>.</td>
+            <td>Tuần 1</td>
+            <td>Benchmark tra cứu &le; 45ms với tập dữ liệu 50,000 mẫu đồng hồ.</td>
+          </tr>
+          <tr>
+            <td><strong>Sprint 2: Triển khai BFF &amp; Frontend</strong></td>
+            <td>Xây dựng route <code>/api/suggest</code>, hoàn thiện component <code>AutoComplete.js</code> với Popover, Highlight từ khóa, Debounce.</td>
+            <td>Tuần 2</td>
+            <td>Tính năng hiển thị mượt mà trên Marketplace Header và Home Page.</td>
+          </tr>
+          <tr>
+            <td><strong>Sprint 3: Tích hợp Auto-Tracking &amp; Mobile</strong></td>
+            <td>Kết nối Auto-Tracking check limit 20, đồng bộ dữ liệu sang ứng dụng Mobile iOS &amp; Android.</td>
+            <td>Tuần 3</td>
+            <td>Người dùng có thể ghim theo dõi giá ngay trên danh sách gợi ý.</td>
+          </tr>
+          <tr>
+            <td><strong>Sprint 4: Tải thử nghiệm &amp; Production</strong></td>
+            <td>Load test 2,000 RPS, tối ưu hóa Redis cache, kích hoạt giám sát qua Prometheus/Grafana.</td>
+            <td>Tuần 4</td>
+            <td>Phát hành chính thức 100% người dùng trên toàn hệ thống TimeDealer.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 9. RISKS -->
+  <section id="s9-rui-ro">
+    <h2><span class="hn">9</span>Rủi ro, Giả định &amp; Phụ thuộc (Risks &amp; Dependencies)</h2>
+
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Rủi ro tiềm ẩn</th>
+            <th>Mức độ</th>
+            <th>Biện pháp kiểm soát &amp; Giảm thiểu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Nghẽn Elasticsearch do Dealer gõ phím quá nhanh</strong></td>
+            <td>Trung bình</td>
+            <td>Bắt buộc Debounce 250ms ở client + Thêm tầng Redis Caching cho các cụm từ phổ biến (TTL 1 giờ).</td>
+          </tr>
+          <tr>
+            <td><strong>Mã Reference mới ra mắt chưa có trong Masterfile</strong></td>
+            <td>Thấp</td>
+            <td>Cung cấp nút fallback "Track this text" cho phép người dùng theo dõi theo chuỗi văn bản thuần túy kể cả khi chưa có trong catalog.</td>
+          </tr>
+          <tr>
+            <td><strong>Lỗ hổng bảo mật ReDoS / Regex Injection khi highlight</strong></td>
+            <td>Cao</td>
+            <td>Áp dụng triệt để hàm tiện ích <code>escapeRegExp()</code> trước khi khởi tạo biểu thức chính quy (đã chuẩn hóa trong code).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    function stored(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+    var saved = stored("search-prd-theme");
+    if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
+
+    var figures = [].slice.call(document.querySelectorAll(".dgm"));
+    var diagrams = figures.map(function (fig, i) {
+      var srcEl = fig.querySelector(".mmd-src");
+      return {
+        index: i,
+        host: fig.querySelector(".mmd-host"),
+        code: fig.querySelector(".mmd-code"),
+        toggle: fig.querySelector(".mmd-toggle"),
+        source: srcEl ? srcEl.textContent.trim() : ""
+      };
+    });
+
+    diagrams.forEach(function (d) {
+      if (!d.toggle || !d.code) return;
+      d.code.textContent = d.source;
+      d.toggle.addEventListener("click", function () {
+        var show = d.code.hidden;
+        d.code.hidden = !show;
+        d.toggle.textContent = show ? "Ẩn mã mermaid" : "Xem mã mermaid";
+      });
+    });
+
+    function themeVars() {
+      var cs = getComputedStyle(root);
+      function v(name, fallback) {
+        var out = cs.getPropertyValue(name);
+        return (out && out.trim()) || fallback;
+      }
+      var surface = v("--surface", "#ffffff");
+      var ink = v("--ink", "#151920");
+      var ink2 = v("--ink-2", "#414a57");
+      var ink3 = v("--ink-3", "#6d7784");
+      var line = v("--line-strong", "#bfc6d0");
+      var brass = v("--brass", "#8a5f18");
+      return {
+        background: surface,
+        primaryColor: v("--surface-2", "#eaedf1"),
+        primaryTextColor: ink,
+        primaryBorderColor: line,
+        secondaryColor: v("--surface-3", "#dfe4ea"),
+        tertiaryColor: surface,
+        tertiaryTextColor: ink2,
+        mainBkg: v("--surface-2", "#eaedf1"),
+        nodeBorder: line,
+        lineColor: ink3,
+        textColor: ink2,
+        edgeLabelBackground: surface,
+        clusterBkg: v("--ground", "#f4f6f8"),
+        clusterBorder: v("--line", "#dce0e6"),
+        titleColor: ink,
+        fontFamily: '"IBM Plex Sans", system-ui, sans-serif',
+        fontSize: "14px",
+        actorBkg: v("--surface-2", "#eaedf1"),
+        actorBorder: line,
+        actorTextColor: ink,
+        actorLineColor: ink3,
+        signalColor: ink2,
+        signalTextColor: ink2,
+        sequenceNumberColor: surface,
+        labelBoxBkgColor: v("--brass-wash", "#f7f1e4"),
+        labelBoxBorderColor: v("--brass-border", "#e2cfa7"),
+        labelTextColor: brass,
+        loopTextColor: ink2,
+        noteBkgColor: v("--brass-wash", "#f7f1e4"),
+        noteBorderColor: v("--brass-border", "#e2cfa7"),
+        noteTextColor: brass
+      };
+    }
+
+    var pass = 0;
+    function draw() {
+      if (typeof window.mermaid === "undefined") {
+        diagrams.forEach(function (d) { fallback(d); });
+        return;
+      }
+      pass += 1;
+      window.mermaid.initialize({
+        startOnLoad: false,
+        theme: "base",
+        themeVariables: themeVars(),
+        flowchart: { curve: "basis", useMaxWidth: true, padding: 12 },
+        sequence: { useMaxWidth: true, wrap: true, width: 190 },
+        state: { useMaxWidth: true }
+      });
+      diagrams.forEach(function (d) {
+        if (!d.host || !d.source) return;
+        var id = "mmd-" + d.index + "-" + pass;
+        try {
+          var out = window.mermaid.render(id, d.source);
+          if (out && typeof out.then === "function") {
+            out.then(function (res) { d.host.innerHTML = res.svg; })
+               .catch(function () { fallback(d); });
+          } else if (typeof out === "string") {
+            d.host.innerHTML = out;
+          }
+        } catch (e) {
+          fallback(d);
+        }
+      });
+    }
+
+    function fallback(d) {
+      if (d.host) d.host.innerHTML = "";
+      if (d.code) d.code.hidden = false;
+      if (d.toggle) d.toggle.textContent = "Ẩn mã mermaid";
+    }
+
+    draw();
+
+    var btn = document.getElementById("themeBtn");
+    btn.addEventListener("click", function () {
+      var current = root.getAttribute("data-theme");
+      if (!current) {
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        current = prefersDark ? "dark" : "light";
+      }
+      var next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      save("search-prd-theme", next);
+      draw();
+    });
+  })();
+</script>
+
+</body>
+</html>

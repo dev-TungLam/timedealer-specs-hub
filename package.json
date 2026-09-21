@@ -1,0 +1,8 @@
+{
+  "name": "timedealer-specs-hub",
+  "version": "1.0.0",
+  "description": "TimeDealer Technical Requirements & Architecture PRD Portal",
+  "scripts": {
+    "start": "npx serve ."
+  }
+}

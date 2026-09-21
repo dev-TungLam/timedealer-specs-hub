@@ -1,0 +1,1632 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>In-App Support Chat PRD · TimeDealer</title>
+  <meta name="description" content="Tài liệu mô tả yêu cầu chức năng (PRD) hệ thống In-App Chat đa nền tảng (Mobile App iOS/Android &amp; Web Admin) cho TimeDealer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+  <style>
+    :root {
+      --ground: #f4f6f8;
+      --surface: #ffffff;
+      --surface-2: #eaedf1;
+      --surface-3: #dfe4ea;
+      --ink: #151920;
+      --ink-2: #414a57;
+      --ink-3: #6d7784;
+      --line: #dce0e6;
+      --line-strong: #bfc6d0;
+      --brass: #8a5f18;
+      --brass-2: #b8862c;
+      --brass-wash: #f7f1e4;
+      --brass-border: #e2cfa7;
+      --danger: #a12b20;
+      --danger-wash: #fbeeec;
+      --danger-border: #f0c3be;
+      --good: #26614d;
+      --good-wash: #e9f2ee;
+      --good-border: #b8dcce;
+      --blue: #1c5b96;
+      --blue-wash: #eaf2fa;
+      --blue-border: #b8d4f0;
+      --violet: #5b3d8f;
+      --violet-wash: #f1ecf9;
+      --violet-border: #d3c4ea;
+      --shadow: 0 1px 2px rgba(21,25,32,.05), 0 8px 24px -16px rgba(21,25,32,.25);
+      --nav-bg: rgba(244, 246, 248, 0.9);
+      color-scheme: light;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ground: #0f1217;
+        --surface: #161a21;
+        --surface-2: #1e232b;
+        --surface-3: #262c36;
+        --ink: #e7eaef;
+        --ink-2: #b2bbc8;
+        --ink-3: #848f9e;
+        --line: #282e38;
+        --line-strong: #3a424f;
+        --brass: #dcae55;
+        --brass-2: #ecc98a;
+        --brass-wash: #241d10;
+        --brass-border: #4a3a1b;
+        --danger: #e8877a;
+        --danger-wash: #2b1a17;
+        --danger-border: #522923;
+        --good: #74c3a0;
+        --good-wash: #13241e;
+        --good-border: #22473a;
+        --blue: #5ba2e6;
+        --blue-wash: #13202e;
+        --blue-border: #233e5c;
+        --violet: #b69ae4;
+        --violet-wash: #1c1630;
+        --violet-border: #3a2f57;
+        --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+        --nav-bg: rgba(15, 18, 23, 0.9);
+        color-scheme: dark;
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --ground: #0f1217;
+      --surface: #161a21;
+      --surface-2: #1e232b;
+      --surface-3: #262c36;
+      --ink: #e7eaef;
+      --ink-2: #b2bbc8;
+      --ink-3: #848f9e;
+      --line: #282e38;
+      --line-strong: #3a424f;
+      --brass: #dcae55;
+      --brass-2: #ecc98a;
+      --brass-wash: #241d10;
+      --brass-border: #4a3a1b;
+      --danger: #e8877a;
+      --danger-wash: #2b1a17;
+      --danger-border: #522923;
+      --good: #74c3a0;
+      --good-wash: #13241e;
+      --good-border: #22473a;
+      --blue: #5ba2e6;
+      --blue-wash: #13202e;
+      --blue-border: #233e5c;
+      --violet: #b69ae4;
+      --violet-wash: #1c1630;
+      --violet-border: #3a2f57;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+      --nav-bg: rgba(15, 18, 23, 0.9);
+      color-scheme: dark;
+    }
+
+    :root[data-theme="light"] {
+      --ground: #f4f6f8;
+      --surface: #ffffff;
+      --surface-2: #eaedf1;
+      --surface-3: #dfe4ea;
+      --ink: #151920;
+      --ink-2: #414a57;
+      --ink-3: #6d7784;
+      --line: #dce0e6;
+      --line-strong: #bfc6d0;
+      --brass: #8a5f18;
+      --brass-2: #b8862c;
+      --brass-wash: #f7f1e4;
+      --brass-border: #e2cfa7;
+      --danger: #a12b20;
+      --danger-wash: #fbeeec;
+      --danger-border: #f0c3be;
+      --good: #26614d;
+      --good-wash: #e9f2ee;
+      --good-border: #b8dcce;
+      --blue: #1c5b96;
+      --blue-wash: #eaf2fa;
+      --blue-border: #b8d4f0;
+      --violet: #5b3d8f;
+      --violet-wash: #f1ecf9;
+      --violet-border: #d3c4ea;
+      --nav-bg: rgba(244, 246, 248, 0.9);
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: "Newsreader", Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--nav-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .top-bar-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .top-brand {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--brass);
+    }
+    .top-sep { flex: 1 1 auto; }
+    .btn {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-2);
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 6px;
+      padding: 5px 11px;
+      cursor: pointer;
+    }
+    .btn:hover { color: var(--ink); border-color: var(--brass-border); }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding-inline: 20px;
+      padding-block: 0 72px;
+    }
+
+    .masthead { padding-block: 36px 22px; border-bottom: 2px solid var(--ink); }
+    .eyebrow {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11.5px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin: 0 0 12px;
+    }
+    h1 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(28px, 5.5vw, 42px);
+      line-height: 1.12;
+      font-weight: 600;
+      margin: 0 0 10px;
+      text-wrap: balance;
+      letter-spacing: -0.015em;
+    }
+    .standfirst {
+      font-size: 17.5px;
+      color: var(--ink-2);
+      max-width: 62ch;
+      margin: 0 0 18px;
+    }
+    .meta {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12.5px;
+      color: var(--ink-3);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 8px 20px;
+      margin: 0;
+    }
+    .meta div { border-top: 1px solid var(--line); padding-top: 7px; }
+    .meta b { color: var(--ink-2); font-weight: 600; display: block; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 2px; }
+
+    .toc {
+      margin-block: 24px 0;
+      padding: 16px 18px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+    .toc h2 { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 10px; border: 0; padding: 0; }
+    .toc ol { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 6px 18px; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 13.5px; max-width: none; }
+    .toc li { margin: 0; }
+    .toc a { color: var(--ink-2); text-decoration: none; display: flex; gap: 8px; }
+    .toc a:hover { color: var(--brass); }
+    .toc .n { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--brass); min-width: 24px; }
+
+    section { padding-block: 32px 6px; }
+    h2 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(22px, 3.8vw, 28px);
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line-strong);
+      text-wrap: balance;
+    }
+    h2 .hn { font-family: "IBM Plex Mono", monospace; font-size: .6em; color: var(--brass); margin-right: 8px; vertical-align: 1px; }
+    h3 {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 22px 0 8px;
+    }
+    h4 {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin: 18px 0 7px;
+    }
+    p { margin: 0 0 11px; max-width: 68ch; }
+    .lede { font-size: 17px; color: var(--ink-2); max-width: 64ch; margin-bottom: 14px; }
+    ul, ol { max-width: 68ch; padding-left: 20px; margin-top: 4px; margin-bottom: 12px; }
+    li { margin-bottom: 4px; }
+    a { color: var(--brass); }
+    strong { font-weight: 600; }
+    code, .mono {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: .86em;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 1px 4px;
+      word-break: break-word;
+    }
+
+    .dgm {
+      margin: 0 0 20px;
+      padding: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .dgm figcaption {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--surface-2);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-2);
+    }
+    .dgm-id {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: .08em;
+      color: var(--brass);
+      background: var(--brass-wash);
+      border: 1px solid var(--brass-border);
+      border-radius: 4px;
+      padding: 1px 6px;
+    }
+    .dgm-note { font-weight: 400; color: var(--ink-3); font-size: 12px; }
+    .mmd-host { overflow-x: auto; padding: 18px 14px; text-align: center; }
+    .mmd-host svg { max-width: 100%; height: auto; }
+    .dgm-actions { padding: 0 14px 10px; }
+    .mmd-code {
+      margin: 0;
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+      background: var(--surface-2);
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--ink-2);
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .call {
+      border: 1px solid var(--line-strong);
+      border-left: 3px solid var(--ink-3);
+      background: var(--surface);
+      border-radius: 0 8px 8px 0;
+      padding: 11px 14px;
+      margin: 0 0 16px;
+      max-width: 72ch;
+    }
+    .call p { margin: 0; font-size: 15.5px; }
+    .call p + p { margin-top: 6px; }
+    .call ul, .call ol { margin: 5px 0 0; font-size: 15.5px; }
+    .call .call-label {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .call.warn { border-left-color: var(--danger); background: var(--danger-wash); }
+    .call.warn .call-label { color: var(--danger); }
+    .call.rule { border-left-color: var(--brass); background: var(--brass-wash); }
+    .call.rule .call-label { color: var(--brass); }
+    .call.info { border-left-color: var(--blue); background: var(--blue-wash); }
+    .call.info .call-label { color: var(--blue); }
+    .call.ok   { border-left-color: var(--good); background: var(--good-wash); }
+    .call.ok .call-label { color: var(--good); }
+
+    .scroll { overflow-x: auto; margin: 0 0 18px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+    table { border-collapse: collapse; width: 100%; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 13px; min-width: 520px; }
+    thead th {
+      text-align: left;
+      font-size: 10.5px;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      font-weight: 600;
+      padding: 8px 12px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--line-strong);
+      white-space: nowrap;
+    }
+    tbody td { padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--ink-2); line-height: 1.45; }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody td:first-child { color: var(--ink); font-weight: 500; white-space: nowrap; }
+    tbody td.wrap:first-child { white-space: normal; }
+    td code { font-size: 11.5px; }
+    .yes { color: var(--good); font-weight: 600; }
+    .no  { color: var(--ink-3); }
+    .p0 { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--danger); background: var(--danger-wash); border: 1px solid var(--danger-border); border-radius: 4px; padding: 1px 5px; }
+    .p1 { font-family: "IBM Plex Mono", monospace; font-size: 10px; color: var(--brass); background: var(--brass-wash); border: 1px solid var(--brass-border); border-radius: 4px; padding: 1px 5px; }
+
+    .scope-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 14px; margin-bottom: 18px; }
+    .scope-box { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; box-shadow: var(--shadow); }
+    .scope-box h4 { margin-top: 0; }
+    .scope-box.in { border-top: 3px solid var(--good); }
+    .scope-box.in h4 { color: var(--good); }
+    .scope-box.out { border-top: 3px solid var(--danger); }
+    .scope-box.out h4 { color: var(--danger); }
+    .scope-box ul { margin: 0; padding-left: 18px; font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 13.5px; color: var(--ink-2); max-width: none; }
+
+    .story {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--brass);
+      border-radius: 0 7px 7px 0;
+      padding: 10px 14px;
+      margin: 0 0 10px;
+      max-width: 72ch;
+    }
+    .story-id { font-family: "IBM Plex Mono", monospace; font-size: 11px; color: var(--brass); letter-spacing: .06em; display: block; margin-bottom: 3px; font-weight: 600; }
+    .story p { margin: 0; font-size: 15px; }
+    .story .ac { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 12.5px; color: var(--ink-3); margin-top: 5px; line-height: 1.45; }
+
+    .phase { position: relative; padding: 0 0 16px 28px; border-left: 2px solid var(--line-strong); margin: 0; }
+    .phase:last-child { border-left-color: transparent; padding-bottom: 0; }
+    .phase::before {
+      content: "";
+      position: absolute;
+      left: -6px; top: 5px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--brass);
+      border: 2px solid var(--ground);
+    }
+    .phase-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-bottom: 4px; }
+    .phase-id { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; color: var(--brass); font-weight: 600; }
+    .phase-name { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 14px; font-weight: 600; }
+    .phase-when { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 12px; color: var(--ink-3); }
+    .phase p { font-size: 15px; color: var(--ink-2); margin: 0 0 4px; }
+    .phase .out { font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 13px; color: var(--good); }
+
+    .tick-box {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-family: "IBM Plex Sans", sans-serif;
+      font-size: 13px;
+    }
+    .tick-box span { font-weight: 600; font-family: "IBM Plex Mono", monospace; }
+
+    footer {
+      border-top: 1px solid var(--line-strong);
+      margin-top: 36px;
+      padding-top: 16px;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 12.5px;
+      color: var(--ink-3);
+    }
+    footer p { max-width: 70ch; }
+  
+    /* Universal Module Switcher Bar */
+    .specs-hub-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 18, 23, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(220, 224, 230, 0.15);
+      color: #e7eaef;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 13px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    :root[data-theme="light"] .specs-hub-nav {
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid #dce0e6;
+      color: #151920;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .specs-hub-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .specs-hub-logo {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--brass, #dcae55);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-right: 12px;
+      border-right: 1px solid rgba(120,130,140,0.3);
+      white-space: nowrap;
+    }
+    .specs-hub-logo:hover { opacity: 0.9; }
+    .specs-hub-tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      flex: 1 1 auto;
+    }
+    .specs-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-2, #b2bbc8);
+      background: transparent;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    :root[data-theme="light"] .specs-tab-btn {
+      color: #414a57;
+    }
+    .specs-tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    :root[data-theme="light"] .specs-tab-btn:hover {
+      color: #151920;
+      background: #f0f2f5;
+      border-color: #dce0e6;
+    }
+    .specs-tab-btn.active {
+      color: #fff;
+      background: #8a5f18;
+      border-color: #b8862c;
+      font-weight: 600;
+    }
+    :root[data-theme="light"] .specs-tab-btn.active {
+      color: #ffffff;
+      background: #8a5f18;
+      border-color: #724e13;
+    }
+    .specs-tab-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      font-size: 10px;
+      font-family: "IBM Plex Mono", monospace;
+    }
+    .specs-tab-btn.active .specs-tab-num {
+      background: rgba(0,0,0,0.25);
+    }
+    .specs-hub-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .specs-action-btn {
+      font-size: 11.5px;
+      padding: 5px 9px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    :root[data-theme="light"] .specs-action-btn {
+      background: #ffffff;
+      border-color: #dce0e6;
+      color: #414a57;
+    }
+    .specs-action-btn:hover {
+      border-color: var(--brass, #dcae55);
+      color: var(--brass, #dcae55);
+    }
+
+  </style>
+</head>
+<body>
+
+
+<nav class="specs-hub-nav" aria-label="Requirement Modules Switcher">
+  <div class="specs-hub-inner">
+    <a href="index.html" class="specs-hub-logo">
+      <span>⏱️ TimeDealer</span>
+      <span style="font-size:11px; opacity:0.7; font-weight:normal;">PRD Portal</span>
+    </a>
+    <div class="specs-hub-tabs">
+      <a href="index.html" class="specs-tab-btn "><span class="specs-tab-num">0</span> 📊 Hub Overview</a>
+        <a href="inventory-network.html" class="specs-tab-btn "><span class="specs-tab-num">1</span> 📦 Inventory Network</a>
+        <a href="in-app-chat.html" class="specs-tab-btn active"><span class="specs-tab-num">2</span> 💬 In-App Chat</a>
+        <a href="suggestion-search.html" class="specs-tab-btn "><span class="specs-tab-num">3</span> 🔍 Suggestion Search</a>
+        <a href="auth-whatsapp-otp.html" class="specs-tab-btn "><span class="specs-tab-num">4</span> 📱 WhatsApp OTP Auth</a>
+    </div>
+    <div class="specs-hub-actions">
+      <button class="specs-action-btn" id="portalThemeBtn" type="button" title="Chuyển Dark/Light Mode">🌓 Giao diện</button>
+      <a href="javascript:window.print()" class="specs-action-btn" title="In / Xuất PDF">🖨️ PDF</a>
+    </div>
+  </div>
+</nav>
+<script>
+  (function(){
+    var b = document.getElementById('portalThemeBtn');
+    if (b) {
+      b.addEventListener('click', function() {
+        var r = document.documentElement;
+        var cur = r.getAttribute('data-theme');
+        if (!cur) {
+          var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          cur = dark ? 'dark' : 'light';
+        }
+        var next = cur === 'dark' ? 'light' : 'dark';
+        r.setAttribute('data-theme', next);
+        try { localStorage.setItem('td-specs-theme', next); } catch(e){}
+        // trigger theme switch for page mermaid if exists
+        var pageThemeBtn = document.getElementById('themeBtn');
+        if (pageThemeBtn && pageThemeBtn !== b) pageThemeBtn.click();
+      });
+    }
+    // Apply saved theme
+    try {
+      var saved = localStorage.getItem('td-specs-theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch(e){}
+  })();
+</script>
+
+
+<div class="page">
+
+  <header class="masthead">
+    <p class="eyebrow">Tài liệu mô tả yêu cầu chức năng (PRD) · Hệ thống In-App Chat · 21/09/2026</p>
+    <h1>Hệ thống In-App Chat (Mobile App &amp; Admin Web)</h1>
+    <p class="standfirst">
+      Kênh tương tác thời gian thực (Real-time) đa nền tảng giữa Khách hàng (Mobile App iOS &amp; Android) và Đội ngũ Tư vấn viên / Quản trị viên (Web Admin). Cung cấp cơ chế định danh Guest, hợp nhất dữ liệu 1 chiều (Single-merge), bảng điều khiển Admin 2 tab độc lập và gửi tin nhắn hàng loạt (Bulk Messaging).
+    </p>
+    <div class="meta">
+      <div><b>Mã tính năng</b> PRD-CHAT-2026-09-21</div>
+      <div><b>Phạm vi</b> Mobile App (Flutter/React Native) · Web Admin · apiTimeDealer</div>
+      <div><b>Giai đoạn</b> Giai đoạn 1: Chat trực tiếp &amp; Quản lý hội thoại</div>
+      <div><b>Đối tượng</b> Guest (chưa login) &amp; User (đã login)</div>
+      <div><b>Giao thức</b> WebSocket (Socket.io) + REST API Fallback</div>
+      <div><b>Trạng thái</b> Sẵn sàng triển khai kỹ thuật</div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <h2>Mục lục nội dung (9 cấu phần chuẩn)</h2>
+    <ol>
+      <li><a href="#s1-tong-quan"><span class="n">1</span> Tổng quan (Overview)</a></li>
+      <li><a href="#s2-muc-tieu"><span class="n">2</span> Mục tiêu &amp; Chỉ số (Goals &amp; Metrics)</a></li>
+      <li><a href="#s3-pham-vi"><span class="n">3</span> Phạm vi dự án (Scope: In/Out)</a></li>
+      <li><a href="#s4-nguoi-dung"><span class="n">4</span> Người dùng &amp; User Stories</a></li>
+      <li><a href="#s5-chuc-nang"><span class="n">5</span> Yêu cầu tính năng &amp; Sơ đồ luồng (FR &amp; S1–S7)</a></li>
+      <li><a href="#s6-phi-chuc-nang"><span class="n">6</span> Yêu cầu phi chức năng (NFR)</a></li>
+      <li><a href="#s7-giao-dien"><span class="n">7</span> Giao diện &amp; Thiết kế (UX/UI &amp; Wireframes)</a></li>
+      <li><a href="#s8-ke-hoach"><span class="n">8</span> Kế hoạch phát hành (Milestones &amp; Release Plan)</a></li>
+      <li><a href="#s9-rui-ro"><span class="n">9</span> Rủi ro &amp; Giả định (Risks &amp; Assumptions)</a></li>
+    </ol>
+  </nav>
+
+  <!-- ============================================================ 1. OVERVIEW -->
+  <section id="s1-tong-quan">
+    <h2><span class="hn">1</span>Tổng quan (Overview)</h2>
+    <p class="lede">
+      Xây dựng hệ thống chat trực tuyến tích hợp sẵn (In-App Chat) nhằm cung cấp trải nghiệm hỗ trợ khách hàng tức thì, giải quyết triệt để tình trạng phân mảnh thông tin khi hỗ trợ qua các kênh chat ngoài (WhatsApp/Telegram).
+    </p>
+
+    <h3>1.1 Vấn đề cần giải quyết</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Điểm nghẽn</th><th>Thực trạng khi hỗ trợ qua kênh ngoài</th><th>Hệ quả vận hành</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Mất dấu định danh (Identity)</strong></td>
+            <td>Khách hàng nhắn tin qua WhatsApp/Telegram; tư vấn viên luôn phải mở đầu bằng câu hỏi: <em>"Anh/chị đang dùng tài khoản nào trên TimeDealer?"</em>.</td>
+            <td>Tốn thời gian xác minh danh tính; làm chậm thời gian xử lý sự cố.</td>
+          </tr>
+          <tr>
+            <td><strong>Thiếu ngữ cảnh (Context)</strong></td>
+            <td>Tư vấn viên không biết khách hàng đang ở màn hình nào, gặp lỗi ở tác vụ nào, gói cước còn hạn hay hết hạn.</td>
+            <td>Khách phải chụp màn hình gửi lại thủ công; tỷ lệ giải quyết lần đầu thấp.</td>
+          </tr>
+          <tr>
+            <td><strong>Mất lịch sử Guest (Data Loss)</strong></td>
+            <td>Khách tìm hiểu dịch vụ khi chưa đăng ký; sau khi tạo tài khoản thì toàn bộ lịch sử tư vấn trước đó bị mất sạch.</td>
+            <td>Trải nghiệm khách hàng đứt gãy; tư vấn viên phải hỏi lại từ đầu.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>1.2 Bốn khối tính năng cốt lõi</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>#</th><th>Khối tính năng</th><th>Yêu cầu nghiệp vụ</th><th>Ưu tiên</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="wrap"><strong>Chat 2 chế độ (Guest &amp; User)</strong></td><td class="wrap">Hỗ trợ chat tức thì cho cả khách chưa đăng nhập (Guest_Session_ID) và khách đã đăng nhập (User_ID). Đồng bộ lịch sử chat User đa thiết bị.</td><td><span class="p0">P0</span></td></tr>
+          <tr><td>2</td><td class="wrap"><strong>Hợp nhất dữ liệu (Data Merging)</strong></td><td class="wrap">Gộp tự động 1 chiều toàn bộ tin nhắn từ phiên Guest sang tài khoản User mới đăng ký/đăng nhập. Khóa phiên Guest cũ bằng cờ <code>is_merged = true</code>.</td><td><span class="p0">P0</span></td></tr>
+          <tr><td>3</td><td class="wrap"><strong>Admin Console 2 Tab &amp; Bulk Messaging</strong></td><td class="wrap">Tách biệt 2 tab quản lý: User Chat &amp; Guest Chat. Chế độ hiển thị Group-Like View. Tính năng gửi hàng loạt (Bulk Messaging) cho User Chat.</td><td><span class="p0">P0</span></td></tr>
+          <tr><td>4</td><td class="wrap"><strong>Chỉ báo trạng thái &amp; Kiểm soát Media</strong></td><td class="wrap">Bộ 3 trạng thái tin nhắn (1 tích xám, 2 tích xám, 2 tích xanh). Phân quyền gửi media khắt khe (Guest chỉ gửi Text 1k ký tự + Ảnh 2MB; User gửi thêm Video/Tệp).</td><td><span class="p0">P0</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="call rule">
+      <span class="call-label">6 Quy tắc kiến trúc bắt buộc</span>
+      <ol>
+        <li>Giao thức truyền dẫn thời gian thực là <strong>WebSocket (Socket.io)</strong>; dự phòng bằng REST API polling khi mạng chập chờn.</li>
+        <li>Định danh Guest bằng <strong>Guest_Session_ID lưu tại bộ nhớ cục bộ (SharedPreferences/UserDefaults)</strong>; tự động reset khi Logout hoặc Merge thành công.</li>
+        <li>Cơ chế <strong>Single-merge Flag</strong>: Mỗi phiên Guest chỉ được merge đúng 1 lần duy nhất; sau khi merge, phiên Guest chuyển trạng thái <code>status = 'MERGED'</code> và khóa khung chat.</li>
+        <li>Ẩn danh tư vấn viên: Khách hàng chỉ nhìn thấy tên <strong>Đại diện thương hiệu/Hệ thống</strong>; chỉ trong nội bộ Web Admin mới nhìn thấy tiền tố <code>[Tên Admin]</code>.</li>
+        <li>Gửi tin hàng loạt (Bulk Messaging) <strong>chỉ áp dụng cho tab User Chat</strong>; backend tự động tách thành N tin nhắn đơn lẻ gửi vào từng luồng riêng, cấm tạo Group Chat chung.</li>
+        <li>Kiểm soát chống spam/DDoS: Guest bị giới hạn tần suất gửi tin <strong>(tối đa 5 tin / 30s hoặc 30 tin / phiên)</strong> và socket tự ngắt kết nối sau 30–60s không có heartbeat.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================================================ 2. GOALS & METRICS -->
+  <section id="s2-muc-tieu">
+    <h2><span class="hn">2</span>Mục tiêu &amp; Chỉ số (Goals &amp; Metrics)</h2>
+
+    <h3>2.1 Mục tiêu sản phẩm (G1 – G6)</h3>
+    <ul>
+      <li><strong>G1:</strong> Khách hàng (cả Guest và User) chat trực tiếp với đội ngũ hỗ trợ ngay trong Mobile App không cần chuyển sang ứng dụng khác.</li>
+      <li><strong>G2:</strong> Tự động gộp toàn bộ lịch sử tư vấn từ Guest sang User khi đăng nhập/đăng ký thành công, tỷ lệ thành công 100%.</li>
+      <li><strong>G3:</strong> Admin quản lý hội thoại tập trung trên 2 tab riêng biệt, nắm bắt trạng thái online/offline của khách thời gian thực.</li>
+      <li><strong>G4:</strong> Minh bạch hoá trạng thái gửi nhận tin nhắn thông qua biểu tượng trực quan (1 tích xám, 2 tích xám, 2 tích xanh).</li>
+      <li><strong>G5:</strong> Cho phép tư vấn viên gửi thông báo/chăm sóc hàng loạt (Bulk Messaging) cho User theo phân quyền phụ trách.</li>
+      <li><strong>G6:</strong> Ngăn chặn 100% nguy cơ spam bot và quá tải băng thông từ người dùng Guest thông qua Rate Limit và giới hạn media.</li>
+    </ul>
+
+    <h3>2.2 Chỉ số đo lường sau 30 ngày (KPIs/OKRs)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Chỉ số</th><th>Mục tiêu</th><th>Nguồn dữ liệu / Cách đo</th></tr></thead>
+        <tbody>
+          <tr><td>Tỷ lệ giải quyết lần đầu (FCR)</td><td>≥ 70% tổng phiên chat</td><td>Khảo sát đánh giá sau phiên hoặc không mở lại trong 24h</td></tr>
+          <tr><td>Thời gian phản hồi đầu tiên (FRT)</td><td>p90 ≤ 60 giây (trong giờ làm việc)</td><td>Thời gian từ tin nhắn đầu của khách đến tin phản hồi đầu của Admin</td></tr>
+          <tr><td>Tỷ lệ gộp dữ liệu thành công (Merge Rate)</td><td>≥ 99.5%</td><td>Số phiên Guest chuyển <code>is_merged = true</code> thành công trên tổng lượt login có session</td></tr>
+          <tr><td>Tỷ lệ chuyển phát tin nhắn thành công</td><td>≥ 99.9%</td><td>Socket ACK và trạng thái chuyển từ 1 tích xám sang 2 tích xám</td></tr>
+          <tr><td>Tỷ lệ chuyển đổi Guest → Đăng ký tài khoản</td><td>≥ 20% tổng số Guest có chat</td><td>Số Guest tạo tài khoản sau khi nhận tư vấn</td></tr>
+          <tr><td>Tỷ lệ hài lòng khách hàng (CSAT)</td><td>≥ 4.5 / 5.0 sao</td><td>Đánh giá sao sau khi đóng phiên chat</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="call warn">
+      <span class="call-label">Anti-Metric (Chỉ số tối kỵ)</span>
+      <p>
+        Tỷ lệ khiếu nại mất lịch sử chat khi chuyển đổi từ Guest sang User = 0; Tỷ lệ sự cố sập kết nối socket gateway do bot spam tin nhắn Guest = 0.
+      </p>
+    </div>
+
+    <h3>2.3 Hai chỉ số Dashboard giám sát từ Ngày 1</h3>
+    <ul>
+      <li><strong>First Response Time (FRT):</strong> Đo lường tốc độ phản hồi của đội ngũ tư vấn viên theo từng ca trực.</li>
+      <li><strong>Guest-to-User Conversion Rate:</strong> Đánh giá hiệu quả chốt đơn và chuyển đổi khách hàng từ kênh tư vấn Guest.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ 3. SCOPE -->
+  <section id="s3-pham-vi">
+    <h2><span class="hn">3</span>Phạm vi dự án (Scope: In/Out)</h2>
+
+    <div class="scope-grid">
+      <div class="scope-box in">
+        <h4>Trong phạm vi (In-Scope v1)</h4>
+        <ul>
+          <li>Mobile App (iOS &amp; Android) tích hợp widget chat real-time.</li>
+          <li>Web Admin quản trị chat chia 2 tab: User Chat &amp; Guest Chat.</li>
+          <li>Định danh Guest qua <code>Guest_Session_ID</code>; vòng đời lưu trữ SharedPreferences/UserDefaults.</li>
+          <li>Logic gộp dữ liệu 1 chiều (Single-merge) khi Guest đăng nhập hoặc đăng ký tài khoản.</li>
+          <li>Chế độ Group-Like View cho Admin (hiển thị <code>[Tên Admin]</code>).</li>
+          <li>Bộ 3 chỉ báo trạng thái tin nhắn (1 tích xám, 2 tích xám, 2 tích xanh).</li>
+          <li>Gửi tin nhắn hàng loạt (Bulk Messaging) dành riêng cho tab User Chat.</li>
+          <li>Thông báo: Unread Badge, In-app sound/vibration, Push Notification (FCM/APNs).</li>
+          <li>Phân quyền upload media &amp; Rate limiting chống spam cho Guest.</li>
+        </ul>
+      </div>
+      <div class="scope-box out">
+        <h4>Ngoài phạm vi (Out-of-Scope v1)</h4>
+        <ul>
+          <li>Hệ thống Ticket hỗ trợ nâng cao (SLA phân tầng, escalations đa cấp — phát triển giai đoạn sau).</li>
+          <li>Cuộc gọi thoại (VoIP Call) hoặc gọi Video trực tiếp trong app.</li>
+          <li>Chatbot AI tự động phản hồi theo kịch bản (FAQ bot).</li>
+          <li>Cầu nối tích hợp vào tài khoản WhatsApp cá nhân của khách hàng.</li>
+          <li>Tính năng chat nội bộ riêng giữa các Admin với nhau.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>3.1 Danh mục tài sản tái sử dụng</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Tài sản kỹ thuật</th><th>Vị trí mã nguồn</th><th>Chức năng cung cấp cho In-App Chat</th></tr></thead>
+        <tbody>
+          <tr><td>Authenticated Socket.io Server</td><td><code>apiTimeDealer/src/index.js:60</code></td><td>Hạ tầng WebSocket real-time, xác thực JWT, quản lý room và socket ID.</td></tr>
+          <tr><td>Cơ chế Presence (Online Users)</td><td>Content type <code>online_users</code></td><td>Quản lý trạng thái online/offline, heartbeat pong và tự động ngắt kết nối stale.</td></tr>
+          <tr><td>Plugin Upload Media</td><td><code>plugin::upload.content-api.upload</code></td><td>Tiếp nhận và xử lý lưu trữ file ảnh/video/tệp đính kèm.</td></tr>
+          <tr><td>Phân quyền RBAC Admin</td><td><code>permision</code> / <code>permision-group</code></td><td>Cấu hình quyền truy cập của Admin (All user / Only my own / No access).</td></tr>
+          <tr><td>Hạ tầng Push Notification</td><td>Firebase Admin SDK (FCM)</td><td>Đẩy thông báo về màn hình khoá điện thoại khi khách đóng app.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>3.2 Thành phần cấm tái sử dụng</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Thành phần</th><th>Lý do cấm dùng lại</th></tr></thead>
+        <tbody>
+          <tr><td>Hạ tầng WhatsApp Autoposting</td><td class="wrap">Là hạ tầng riêng của user để đăng bài (bị giới hạn &le;50 msg/h). Không được biến thành kênh CSKH vì rủi ro khoá số.</td></tr>
+          <tr><td>Bảng <code>list-notification</code></td><td class="wrap">Hệ thống thông báo 1 chiều từ hệ thống đến user; không hỗ trợ luồng hội thoại 2 chiều và trạng thái tin nhắn.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 4. USERS & STORIES -->
+  <section id="s4-nguoi-dung">
+    <h2><span class="hn">4</span>Người dùng &amp; User Stories</h2>
+
+    <h3>4.1 Nhóm đối tượng người dùng (Personas)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Persona</th><th>Định danh</th><th>Thiết bị sử dụng</th><th>Quyền hạn &amp; Đặc điểm</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Guest</strong></td><td><code>Guest_Session_ID</code></td><td>Mobile App (iOS/Android)</td><td>Chưa đăng nhập. Chỉ gửi Text (1k ký tự) + Ảnh (2MB). Bị giới hạn Rate limit.</td></tr>
+          <tr><td><strong>User</strong></td><td><code>User_ID</code></td><td>Mobile App (iOS/Android)</td><td>Đã đăng nhập (Trial/Paid). Gửi Text (3k), Ảnh, Video, Tệp. Lịch sử đồng bộ đa thiết bị.</td></tr>
+          <tr><td><strong>Tư vấn viên (Agent)</strong></td><td><code>Admin_ID</code></td><td>Web Admin</td><td>Trực chat, phản hồi khách, xem lịch sử, phân loại khách theo danh sách được gán.</td></tr>
+          <tr><td><strong>Quản trị viên (Lead)</strong></td><td><code>Admin_ID</code> (Super)</td><td>Web Admin</td><td>Toàn quyền xem mọi hội thoại, gửi tin hàng loạt (Bulk Messaging), giám sát SLA.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>4.2 Kịch bản người dùng (User Stories &amp; Acceptance Criteria)</h3>
+    <div class="story">
+      <span class="story-id">US-01 [P0] Guest chat tư vấn không cần đăng nhập</span>
+      <p>Là người dùng vừa cài app, tôi muốn mở khung chat và nhắn tin hỏi giá ngay mà không cần tạo tài khoản.</p>
+      <div class="ac"><strong>AC:</strong> App tự sinh <code>Guest_Session_ID</code> lưu vào bộ nhớ máy; gửi được text và ảnh; không hiện popup ép đăng nhập.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-02 [P0] Tự động gộp lịch sử khi Guest đăng ký/đăng nhập</span>
+      <p>Là Guest đã chat hỏi hàng, khi tôi bấm đăng ký tài khoản, tôi muốn toàn bộ tin nhắn trước đó chuyển vào tài khoản mới.</p>
+      <div class="ac"><strong>AC:</strong> API Login gửi kèm <code>Guest_Session_ID</code>; Backend gán toàn bộ tin sang <code>User_ID</code>, đặt <code>is_merged = true</code>; phiên Guest cũ bên Admin chuyển Closed/Merged.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-03 [P0] User chat đa thiết bị và gửi video/tệp</span>
+      <p>Là User đã đăng nhập, tôi muốn gửi video quay cận cảnh đồng hồ và xem lại tin nhắn trên bất kỳ thiết bị nào.</p>
+      <div class="ac"><strong>AC:</strong> Cho phép đính kèm video &le;50MB; lịch sử chat đồng bộ tự động theo <code>User_ID</code> khi đăng nhập máy mới.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-04 [P0] Nhận biết trạng thái gửi/nhận tin nhắn</span>
+      <p>Là người gửi tin nhắn, tôi muốn nhìn thấy biểu tượng tích để biết tin đã gửi đi, đã đến máy người nhận hay đã được đọc.</p>
+      <div class="ac"><strong>AC:</strong> Hiển thị 1 tích xám (lên server), 2 tích xám (đã tới máy nhận), 2 tích xanh (đã mở đọc) thời gian thực.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-05 [P0] Nhận thông báo khi có tin nhắn mới</span>
+      <p>Là khách hàng đang đóng app, tôi muốn nhận Push Notification khi tư vấn viên trả lời.</p>
+      <div class="ac"><strong>AC:</strong> App nhận Push Notification kèm nội dung tin nhắn; bấm vào mở thẳng màn hình chat; có badge số chưa đọc.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-06 [P0] Admin quản lý 2 tab User và Guest riêng biệt</span>
+      <p>Là tư vấn viên, tôi muốn giao diện Admin phân tách rõ khách đã có tài khoản và khách vãng lai.</p>
+      <div class="ac"><strong>AC:</strong> Web Admin có 2 tab riêng biệt; tab Guest hiển thị phiên kèm trạng thái online/offline (chấm xanh/xám).</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-07 [P0] Hiển thị người trực trả lời dạng Group-Like View</span>
+      <p>Là tư vấn viên trong ca trực, tôi muốn biết đồng nghiệp nào vừa trả lời khách trong luồng hội thoại chung.</p>
+      <div class="ac"><strong>AC:</strong> Admin nhìn thấy tiền tố <code>[Tên Admin]</code> ở đầu tin nhắn; phía Khách hàng chỉ thấy tên thương hiệu đại diện.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-08 [P1] Admin gửi tin nhắn hàng loạt (Bulk Messaging)</span>
+      <p>Là quản trị viên, tôi muốn gửi thông báo ưu đãi cho 50 khách hàng cùng lúc mà không phải nhắn từng người.</p>
+      <div class="ac"><strong>AC:</strong> Chỉ mở ở tab User Chat; chọn checkbox nhiều user; soạn 1 lần; hệ thống tự tách thành 50 tin nhắn riêng lẻ.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-09 [P0] Khóa phiên Guest sau khi đã gộp dữ liệu</span>
+      <p>Là tư vấn viên, khi một phiên Guest đã được khách gộp vào tài khoản User, tôi muốn phiên Guest đó tự động đóng lại.</p>
+      <div class="ac"><strong>AC:</strong> Phiên Guest hiển thị nhãn Closed/Merged, khóa ô nhập tin nhắn, có banner điều hướng sang luồng chat User tương ứng.</div>
+    </div>
+
+    <div class="story">
+      <span class="story-id">US-10 [P0] Tự động chặn spam từ Guest</span>
+      <p>Là quản trị viên hệ thống, tôi muốn khống chế tần suất gửi tin của Guest để tránh bị spam phá hoại.</p>
+      <div class="ac"><strong>AC:</strong> Guest gửi quá 5 tin/30s bị chặn gửi tạm thời kèm thông báo đếm ngược thời gian chờ; cấm gửi video/tệp.</div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 5. FUNCTIONAL REQUIREMENTS & FLOWS -->
+  <section id="s5-chuc-nang">
+    <h2><span class="hn">5</span>Yêu cầu tính năng &amp; Sơ đồ luồng (FR &amp; S1–S7)</h2>
+
+    <h3>5.1 Chỉ mục yêu cầu chức năng (FR Index)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã FR</th><th>Tên yêu cầu chức năng</th><th>Ưu tiên</th><th>Mô đun kỹ thuật</th></tr></thead>
+        <tbody>
+          <tr><td><strong>FR-1.1</strong></td><td class="wrap">Khởi tạo và quản lý vòng đời <code>Guest_Session_ID</code> trên local storage mobile app</td><td><span class="p0">P0</span></td><td>Client Storage / Session Engine</td></tr>
+          <tr><td><strong>FR-1.2</strong></td><td class="wrap">Gửi tin nhắn 2 chiều thời gian thực qua WebSocket (Socket.io) cho Guest và User</td><td><span class="p0">P0</span></td><td>Socket Gateway / Messaging</td></tr>
+          <tr><td><strong>FR-1.3</strong></td><td class="wrap">Logic hợp nhất dữ liệu 1 chiều (Single-merge) khi Guest đăng nhập hoặc đăng ký tài khoản</td><td><span class="p0">P0</span></td><td>Auth Bridge / Data Merge Engine</td></tr>
+          <tr><td><strong>FR-1.4</strong></td><td class="wrap">Khóa phiên Guest đã gộp (<code>is_merged = true</code>, status = 'MERGED') bên Web Admin</td><td><span class="p0">P0</span></td><td>Admin Console / Session State</td></tr>
+          <tr><td><strong>FR-2.1</strong></td><td class="wrap">Giao diện Admin phân chia 2 tab độc lập: Tab User Chat &amp; Tab Guest Chat</td><td><span class="p0">P0</span></td><td>Admin Web / Tab Navigation</td></tr>
+          <tr><td><strong>FR-2.2</strong></td><td class="wrap">Cơ chế hiển thị Group-Like View: Admin thấy <code>[Tên Admin]</code>, Khách chỉ thấy tên thương hiệu</td><td><span class="p0">P0</span></td><td>Message Formatter / Identity Mask</td></tr>
+          <tr><td><strong>FR-2.3</strong></td><td class="wrap">Phân quyền Admin quản lý hội thoại: All user / Only my own / No access</td><td><span class="p0">P0</span></td><td>Admin RBAC Engine</td></tr>
+          <tr><td><strong>FR-2.4</strong></td><td class="wrap">Chức năng Gửi hàng loạt (Bulk Messaging) dành riêng cho Tab User Chat (tách tin đơn lẻ)</td><td><span class="p1">P1</span></td><td>Admin Bulk Messaging Dispatcher</td></tr>
+          <tr><td><strong>FR-3.1</strong></td><td class="wrap">Hệ thống chỉ báo 3 trạng thái tin nhắn (1 tích xám, 2 tích xám, 2 tích xanh) real-time</td><td><span class="p0">P0</span></td><td>Message State Tracker</td></tr>
+          <tr><td><strong>FR-3.2</strong></td><td class="wrap">Quản lý trạng thái hiện diện Online/Offline (chấm xanh/chấm xám) qua heartbeat socket</td><td><span class="p0">P0</span></td><td>Presence Service</td></tr>
+          <tr><td><strong>FR-4.1</strong></td><td class="wrap">Đánh nhãn chưa đọc (Unread Badge) và âm thanh/rung thông báo trong app</td><td><span class="p0">P0</span></td><td>Notification Center</td></tr>
+          <tr><td><strong>FR-4.2</strong></td><td class="wrap">Gửi thông báo đẩy (Push Notification) qua FCM/APNs khi app ở chế độ nền hoặc đóng</td><td><span class="p0">P0</span></td><td>Push Service Gateway</td></tr>
+          <tr><td><strong>FR-5.1</strong></td><td class="wrap">Kiểm soát định dạng và dung lượng media theo phân loại đối tượng (Guest vs User vs Admin)</td><td><span class="p0">P0</span></td><td>Media Upload Validator</td></tr>
+          <tr><td><strong>FR-5.2</strong></td><td class="wrap">Giới hạn tần suất gửi tin nhắn (Rate Limiting) chống spam/DDoS cho đối tượng Guest</td><td><span class="p0">P0</span></td><td>Rate Limiter Middleware</td></tr>
+          <tr><td><strong>FR-5.3</strong></td><td class="wrap">Cho phép Guest xem video và tải file đính kèm khi được Admin chủ động gửi tới</td><td><span class="p0">P0</span></td><td>Media Download Handler</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- S1 -->
+    <h3>5.2 S1 · Kiến trúc tổng thể hệ thống Realtime In-App Chat</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S1</span> Kiến trúc kết nối đa nền tảng Mobile App &amp; Web Admin</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart TD
+  subgraph CLIENTS["Mặt Người Dùng (Mobile App)"]
+    G["Khách Guest (Guest_Session_ID)"]
+    U["Khách User (User_ID)"]
+  end
+
+  subgraph GATEWAY["Cổng Kết Nối & Xác Thực (Realtime Gateway)"]
+    SOCK["Socket.io Server (WSS Transport)"]
+    AUTH{"Xác Thực Token / Session"}
+    RL["Rate Limiter (Chặn Spam Guest)"]
+  end
+
+  subgraph CORE["Tầng Xử Lý Trung Tâm (apiTimeDealer)"]
+    SRV["Chat Service (Strapi)"]
+    MERGE["Data Merging Engine"]
+    PUSH["Push Notification Dispatcher (FCM/APNs)"]
+  end
+
+  subgraph DB["Cơ Sở Dữ Liệu"]
+    MYSQL[("MySQL: chat_sessions, messages")]
+    REDIS[("Redis: Socket Presence, Rate Limits")]
+  end
+
+  subgraph ADMIN["Mặt Quản Trị (Admin Web)"]
+    TAB_G["Tab Guest Chat (Chấm xanh/xám, Closed)"]
+    TAB_U["Tab User Chat (Group-like view, Bulk Send)"]
+  end
+
+  G -->|"Gửi Text/Ảnh (Kèm Session ID)"| RL
+  RL --> SOCK
+  U -->|"Gửi Text/Ảnh/Video (Kèm JWT)"| SOCK
+  SOCK --> AUTH
+  AUTH --> SRV
+  SRV --> MYSQL
+  SRV --> REDIS
+  SRV -->|"Realtime Event"| TAB_G
+  SRV -->|"Realtime Event"| TAB_U
+  AUTH -->|"Trigger Login có Guest ID"| MERGE
+  MERGE -->|"Chuyển toàn bộ tin sang User ID"| MYSQL
+  MERGE -->|"Đổi status Guest thành MERGED"| TAB_G
+  SRV -->|"App đóng / Background"| PUSH
+  PUSH -->|"Bắn Push Notification"| CLIENTS
+  TAB_U -->|"Bulk Messaging (N tin đơn lẻ)"| SRV
+  classDef acc fill:#f7f1e4,stroke:#8a5f18,color:#6b4a12
+  classDef err fill:#fbeeec,stroke:#a12b20,color:#7b1f14
+  class SOCK,SRV,MERGE acc
+  class RL err
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S2 -->
+    <h3>5.3 S2 · Vòng đời của Guest_Session_ID trên Mobile App</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S2</span> Quản lý vòng đời Guest_Session_ID tại bộ nhớ máy</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+stateDiagram-v2
+  direction TB
+  state "Chưa có Session ID" as none
+  state "Guest Active (Lưu SharedPreferences / UserDefaults)" as active
+  state "Background / Chuyển Màn Hình (Giữ nguyên ID)" as pause
+  state "Đăng Nhập Thành Công (is_merged = true)" as merged
+  state "Đăng Xuất (Reset session cũ, sinh ID mới)" as logout
+
+  [*] --> none: Cài app mới / Re-install
+  none --> active: Mở app lần đầu (Tự sinh UUID v4)
+  active --> pause: Đóng app / Chạy ngầm
+  pause --> active: Mở lại app (Đọc lại ID cũ)
+  active --> merged: Đăng nhập / Đăng ký thành công
+  merged --> logout: Người dùng bấm Logout
+  logout --> active: Sinh Guest_Session_ID mới hoàn toàn
+  active --> [*]: Gỡ app (Xoá local storage)
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S3 -->
+    <h3>5.4 S3 · Luồng Hợp nhất dữ liệu (Data Merging Sequence)</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S3</span> Trình tự gộp dữ liệu 1 chiều từ Guest sang User</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+sequenceDiagram
+  autonumber
+  actor G as Guest (Mobile App)
+  participant API as Backend Auth API
+  participant DB as Cơ Sở Dữ Liệu
+  actor A as Admin (Web Console)
+
+  Note over G,A: Khách đang có lịch sử chat với Guest_Session_ID = "G-123"
+  G->>API: POST /api/auth/login { username, password, guest_session_id: "G-123" }
+  API->>DB: Xác thực tài khoản hợp lệ -> Trả về User_ID = "U-456"
+  API->>DB: UPDATE chat_messages SET user_id = "U-456" WHERE session_id = "G-123"
+  API->>DB: UPDATE chat_sessions SET is_merged = true, status = 'MERGED' WHERE id = "G-123"
+  API-->>G: Login Success { token, user_id, merged: true }
+  
+  par Phía Mobile App
+    G->>G: Xoá "G-123" khỏi SharedPreferences/UserDefaults
+    G->>G: Cập nhật giao diện Chat thành User_ID "U-456" (Đủ lịch sử cũ)
+  and Phía Web Admin
+    API-)A: Socket Event: session_merged { guest_id: "G-123", user_id: "U-456" }
+    A->>A: Tab Guest: Phiên "G-123" đổi nhãn MERGED, khoá khung chat
+    A->>A: Tab User: Tự động mở/nạp luồng chat "U-456" với đầy đủ tin đã gộp
+  end
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S4 -->
+    <h3>5.5 S4 · Kiểm soát định dạng Media &amp; Rate Limiting</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S4</span> Cửa kiểm định dạng tệp và giới hạn chống spam</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart TD
+  IN["Client gửi tin nhắn"] --> Q1{"Đối tượng gửi là ai?"}
+  
+  Q1 -->|"Guest (Chưa đăng nhập)"| G_RL{"Vượt Rate Limit? (5 tin/30s hoặc 30 tin/phiên)"}
+  G_RL -->|"Có"| ERR_RL["Báo lỗi: Thao tác quá nhanh, chờ X giây"]
+  G_RL -->|"Không"| G_TYPE{"Kiểu dữ liệu gửi lên?"}
+  G_TYPE -->|"Video / File đính kèm"| ERR_G_MEDIA["Từ chối: Guest chỉ được gửi Text và Ảnh"]
+  G_TYPE -->|"Text (&le; 1.000 ký tự)"| G_OK["Hợp lệ -> Gửi qua Socket"]
+  G_TYPE -->|"Ảnh (.jpg/.png/webp &le; 2MB, max 2 ảnh)"| G_OK
+  G_TYPE -->|"Vượt ký tự hoặc dung lượng"| ERR_SIZE["Báo lỗi vượt dung lượng"]
+
+  Q1 -->|"User (Đã đăng nhập)"| U_TYPE{"Kiểu dữ liệu gửi lên?"}
+  U_TYPE -->|"Text (&le; 3.000 ký tự)"| U_OK["Hợp lệ -> Gửi qua Socket"]
+  U_TYPE -->|"Ảnh (&le; 5MB, max 5 ảnh)"| U_OK
+  U_TYPE -->|"Video (&le; 50MB)"| U_OK
+  U_TYPE -->|"Tệp đính kèm (&le; 20MB)"| U_OK
+  U_TYPE -->|"Vượt ngưỡng dung lượng"| ERR_SIZE
+
+  Q1 -->|"Admin (Web Console)"| A_OK["Cho phép gửi: Text (5k), Ảnh (10MB), Video/File"]
+
+  classDef err fill:#fbeeec,stroke:#a12b20,color:#7b1f14
+  classDef ok fill:#e9f2ee,stroke:#26614d,color:#1b4a3a
+  class ERR_RL,ERR_G_MEDIA,ERR_SIZE err
+  class G_OK,U_OK,A_OK ok
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S5 -->
+    <h3>5.6 S5 · Máy trạng thái chỉ báo tin nhắn (1 Tích / 2 Tích)</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S5</span> Vòng đời trạng thái gửi nhận (1 tích xám &rarr; 2 tích xám &rarr; 2 tích xanh)</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+stateDiagram-v2
+  direction LR
+  state "Đang gửi (Pending)" as pending
+  state "1 Tích Xám (Đã lên Server)" as sent
+  state "2 Tích Xám (Đã đến thiết bị nhận)" as delivered
+  state "2 Tích Xanh (Đã mở đọc)" as read
+
+  [*] --> pending: Bấm nút gửi
+  pending --> sent: Server phản hồi Socket ACK (Lưu DB xong)
+  sent --> delivered: Thiết bị người nhận tải về qua Socket
+  delivered --> read: Người nhận mở màn hình chat / khung xem
+  read --> [*]
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S6 -->
+    <h3>5.7 S6 · Luồng gửi tin hàng loạt (Bulk Messaging của Admin)</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S6</span> Cơ chế gửi tin hàng loạt cho User Chat</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+flowchart LR
+  A["Admin bật chế độ Gửi hàng loạt"] --> B["Chọn User: Multi-select hoặc Select All"]
+  B --> C["Bộ đếm: Đã chọn [X] User"]
+  C --> D["Soạn thảo 1 nội dung chung"]
+  D --> E["Bấm nút: Gửi cho [X] người"]
+  E --> F["Backend Dispatcher: Lặp tách thành [X] tin nhắn riêng lẻ"]
+  F --> G1["Gửi vào luồng Chat User 1 (Tin nhắn đơn)"]
+  F --> G2["Gửi vào luồng Chat User 2 (Tin nhắn đơn)"]
+  F --> G3["Gửi vào luồng Chat User N (Tin nhắn đơn)"]
+  classDef acc fill:#f7f1e4,stroke:#8a5f18,color:#6b4a12
+  class A,E,F acc
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <!-- S7 -->
+    <h3>5.8 S7 · Lược đồ quan hệ thực thể (ERD)</h3>
+    <figure class="dgm">
+      <figcaption><span class="dgm-id">S7</span> Cấu trúc các bảng dữ liệu cốt lõi</figcaption>
+      <div class="mmd-host"></div>
+      <script type="text/plain" class="mmd-src">
+erDiagram
+  UP_USERS ||--o{ CHAT_SESSIONS : "sở hữu sau khi login"
+  CHAT_SESSIONS ||--o{ CHAT_MESSAGES : "chứa các tin nhắn"
+  UP_USERS ||--o{ CHAT_MESSAGES : "người gửi hoặc nhận"
+  CHAT_SESSIONS ||--o{ CHAT_BULK_LOGS : "được gửi qua chiến dịch"
+
+  CHAT_SESSIONS {
+    string id PK "UUID session"
+    string guest_session_id "UUID local máy"
+    int user_id FK "up_users.id (null nếu guest)"
+    enum session_type "GUEST hoặc USER"
+    enum status "ACTIVE, CLOSED, MERGED"
+    boolean is_merged "Mặc định false"
+    int assigned_admin_id "Admin phụ trách"
+    datetime last_message_at "Sắp xếp danh sách"
+    int unread_count_user "Số tin chưa đọc của khách"
+    int unread_count_admin "Số tin chưa đọc của admin"
+  }
+
+  CHAT_MESSAGES {
+    bigint id PK "Tự tăng"
+    string session_id FK "Tham chiếu session"
+    enum sender_type "GUEST, USER, ADMIN"
+    int sender_id "ID người gửi (hoặc admin_id)"
+    string sender_admin_name "Tên Admin hiển thị nội bộ"
+    enum message_type "TEXT, IMAGE, VIDEO, FILE"
+    text content "Nội dung văn bản"
+    string media_url "Đường dẫn tệp đính kèm"
+    int media_size "Dung lượng tệp (bytes)"
+    enum delivery_status "PENDING, SENT, DELIVERED, READ"
+    datetime sent_at
+    datetime delivered_at
+    datetime read_at
+  }
+
+  CHAT_BULK_LOGS {
+    int id PK
+    int admin_id "Admin thực hiện gửi"
+    text broadcast_content "Nội dung gửi chung"
+    int total_recipients "Tổng số user nhận"
+    int success_count
+    datetime created_at
+  }
+      </script>
+      <div class="dgm-actions"><button class="btn mmd-toggle" type="button">Xem mã mermaid</button></div>
+      <pre class="mmd-code" hidden></pre>
+    </figure>
+
+    <h3>5.9 Chi tiết chức năng Trang Admin Chat</h3>
+    
+    <h4>5.9.1 Cấu trúc 2 Tab riêng biệt</h4>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 22%;">Tiêu chí / Đặc tả</th>
+            <th style="width: 39%;">Tab User Chat</th>
+            <th style="width: 39%;">Tab Guest Chat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Đối tượng quản lý</strong></td>
+            <td>Khách hàng đã đăng ký tài khoản (định danh theo <code>User_ID</code>, họ tên, số điện thoại, email).</td>
+            <td>Khách vãng lai chưa đăng nhập (định danh theo <code>Guest_Session_ID</code>, thiết bị, IP).</td>
+          </tr>
+          <tr>
+            <td><strong>Khởi tạo phiên</strong></td>
+            <td>Khởi tạo khi User gửi tin nhắn đầu tiên hoặc khi hoàn tất gộp dữ liệu từ Guest.</td>
+            <td>Tự động tạo phiên mới ngay khi có <code>Guest_Session_ID</code> gửi tin từ Mobile App.</td>
+          </tr>
+          <tr>
+            <td><strong>Trạng thái hoạt động (Presence)</strong></td>
+            <td>Hiển thị chấm xanh (Online) / xám (Offline) theo trạng thái kết nối tài khoản.</td>
+            <td>Hiển thị chấm xanh (Online) / xám (Offline) theo kết nối Socket Heartbeat (timeout 30–60s).</td>
+          </tr>
+          <tr>
+            <td><strong>Thứ tự sắp xếp</strong></td>
+            <td colspan="2">Sắp xếp theo thời gian tin nhắn mới nhất (<code>last_message_at</code>) giảm dần; ưu tiên ghim phiên có tin chưa đọc lên đầu.</td>
+          </tr>
+          <tr>
+            <td><strong>Phân quyền quản trị (RBAC)</strong></td>
+            <td>
+              • <code>All user</code>: Xem &amp; phản hồi mọi khách hàng.<br>
+              • <code>Only my own</code>: Chỉ xem hội thoại được phân công/tiếp nhận.<br>
+              • <code>No access</code>: Ẩn hoàn toàn module.
+            </td>
+            <td>
+              Áp dụng chung quyền hạn ca trực (mọi tư vấn viên có quyền hỗ trợ đều có thể tiếp nhận giải đáp nhanh cho Guest).
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Xử lý phiên đã gộp (is_merged = true)</strong></td>
+            <td>Tiếp nhận toàn bộ lịch sử trò chuyện từ phiên Guest cũ, cho phép chat tiếp tục bình thường.</td>
+            <td>
+              • Đổi nhãn trạng thái thành <strong>Closed / Merged</strong>.<br>
+              • Chuyển sang chế độ chỉ đọc (View-only), khóa khung soạn thảo.<br>
+              • Hiển thị banner điều hướng nhanh tới luồng User Chat tương ứng.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Tính năng nâng cao</strong></td>
+            <td>Hỗ trợ nút bật chế độ <strong>Gửi hàng loạt (Bulk Messaging)</strong> cho phép chọn nhiều hoặc chọn tất cả user.</td>
+            <td>Chỉ hỗ trợ chat 1-1 trực tiếp; <strong>khóa hoàn toàn</strong> tính năng gửi tin hàng loạt.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>5.9.2 Quy tắc hiển thị Group-Like View</h4>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Góc nhìn / Thiết bị</th>
+            <th style="width: 45%;">Quy tắc hiển thị tin nhắn Admin / Tư vấn viên</th>
+            <th style="width: 30%;">Mục đích &amp; Trải nghiệm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Phía Admin Web Console<br><span style="font-size: 11px; color: var(--ink-3); font-weight: normal;">(Nội bộ nhóm trực ca)</span></strong></td>
+            <td>
+              Tin nhắn từ tư vấn viên hiển thị rõ tên định danh cá nhân <code>[Tên Admin]</code> ở đầu bóng chat.<br>
+              <em>Ví dụ:</em> <code>[Admin Minh] Em chào anh ạ, mẫu Submariner bên em đang sẵn hàng.</code>
+            </td>
+            <td>
+              Giúp toàn bộ đội ngũ trực ca phân biệt rõ ràng ai đang phụ trách phản hồi khách, tránh trả lời trùng lặp hoặc mâu thuẫn thông tin.
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Phía Khách hàng Mobile App<br><span style="font-size: 11px; color: var(--ink-3); font-weight: normal;">(User &amp; Guest)</span></strong></td>
+            <td>
+              Hoàn toàn ẩn danh tính cá nhân của Admin. Mọi tin nhắn phản hồi đều hiển thị dưới tên đại diện thương hiệu duy nhất: <code>TimeDealer Support</code> kèm avatar logo chính thức.
+            </td>
+            <td>
+              Tạo hình ảnh thương hiệu nhất quán, chuyên nghiệp và bảo mật thông tin cá nhân của đội ngũ nhân sự tư vấn.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5.10 Hệ thống chỉ báo trạng thái tin nhắn (Message Status Indicators)</h3>
+    <div class="tick-box">
+      <strong>Phía Mobile App (Khách xem tin nhắn của mình gửi):</strong><br>
+      • <span>1 Tích xám (Sent):</span> Tin nhắn đã gửi thành công từ App lên Server.<br>
+      • <span>2 Tích xám (Delivered):</span> Tin nhắn đã đến Web Admin (Server chuyển tiếp và máy Admin đã tải về).<br>
+      • <span>2 Tích xanh (Read):</span> Admin đã bấm mở khung chat và đọc nội dung.
+    </div>
+    <div class="tick-box">
+      <strong>Phía Web Admin (Admin xem tin nhắn gửi cho Khách):</strong><br>
+      • <span>1 Tích xám (Sent):</span> Tin nhắn gửi thành công từ Web Admin lên Server.<br>
+      • <span>2 Tích xám (Delivered):</span> Tin nhắn đã được chuyển sang thiết bị Mobile App của khách.<br>
+      • <span>2 Tích xanh (Read):</span> Khách hàng đã mở khung chat trên App và đọc tin nhắn.
+    </div>
+
+    <h3>5.11 API Endpoint chi tiết</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Phương thức</th><th>Endpoint / Socket Event</th><th>Xác thực</th><th>Chức năng &amp; Ràng buộc</th></tr></thead>
+        <tbody>
+          <tr><td>POST</td><td><code>/api/chat/guest/session</code></td><td>Public</td><td>Khởi tạo hoặc kiểm tra trạng thái <code>Guest_Session_ID</code>.</td></tr>
+          <tr><td>POST</td><td><code>/api/auth/login</code> (hoặc register)</td><td>Public</td><td>Nhận thêm param <code>guest_session_id</code> để kích hoạt logic gộp dữ liệu.</td></tr>
+          <tr><td>GET</td><td><code>/api/chat/messages?session_id=&amp;page=</code></td><td>Session / JWT</td><td>Tải lịch sử chat phân trang (50 tin/lần).</td></tr>
+          <tr><td>POST</td><td><code>/api/chat/upload</code></td><td>Rate-limited</td><td>Tải lên hình ảnh/video/tệp (kiểm tra chặt theo phân loại Guest/User/Admin).</td></tr>
+          <tr><td>POST</td><td><code>/api/chat/admin/bulk-send</code></td><td>Admin JWT</td><td>Gửi tin nhắn hàng loạt cho danh sách <code>user_ids</code> (tách tin đơn lẻ).</td></tr>
+          <tr><td>Socket.io</td><td><code>join_session { session_id }</code></td><td>Client/Admin</td><td>Tham gia room hội thoại theo ID phiên.</td></tr>
+          <tr><td>Socket.io</td><td><code>send_message { session_id, content, type }</code></td><td>Client/Admin</td><td>Gửi tin nhắn thời gian thực (Server trả ACK kèm 1 tích xám).</td></tr>
+          <tr><td>Socket.io</td><td><code>message_delivered { message_id }</code></td><td>Client/Admin</td><td>Báo nhận tin nhắn (Server cập nhật 2 tích xám).</td></tr>
+          <tr><td>Socket.io</td><td><code>message_read { message_id }</code></td><td>Client/Admin</td><td>Báo đã đọc tin nhắn (Server cập nhật 2 tích xanh).</td></tr>
+          <tr><td>Socket.io</td><td><code>heartbeat { session_id }</code></td><td>Client Socket</td><td>Duy trì trạng thái Online (timeout 30–60s chuyển Chấm xám Offline).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5.12 Ma trận phân quyền tính năng</h3>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Quyền hạn &amp; Tính năng</th>
+            <th>Guest</th>
+            <th>User</th>
+            <th>Admin (Only My Own)</th>
+            <th>Admin (All User / Lead)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Gửi văn bản (Text)</td><td class="yes">&le; 1.000 ký tự</td><td class="yes">&le; 3.000 ký tự</td><td class="yes">&le; 5.000 ký tự</td><td class="yes">&le; 5.000 ký tự</td></tr>
+          <tr><td>Gửi hình ảnh (Image)</td><td class="yes">&le; 2MB (max 2 ảnh)</td><td class="yes">&le; 5MB (max 5 ảnh)</td><td class="yes">&le; 10MB</td><td class="yes">&le; 10MB</td></tr>
+          <tr><td>Gửi Video &amp; Tệp đính kèm</td><td class="no">Không được gửi</td><td class="yes">Có (Video 50MB, File 20MB)</td><td class="yes">Có</td><td class="yes">Có</td></tr>
+          <tr><td>Nhận &amp; xem Video/File từ Admin</td><td class="yes">Có</td><td class="yes">Có</td><td class="yes">Có</td><td class="yes">Có</td></tr>
+          <tr><td>Đồng bộ lịch sử đa thiết bị</td><td class="no">Không (theo máy)</td><td class="yes">Có (theo User ID)</td><td>—</td><td>—</td></tr>
+          <tr><td>Xem danh sách User Chat</td><td class="no">Không</td><td class="no">Không</td><td class="yes">Chỉ hội thoại được gán</td><td class="yes">Toàn bộ User</td></tr>
+          <tr><td>Gửi hàng loạt (Bulk Messaging)</td><td class="no">Không</td><td class="no">Không</td><td class="no">Không</td><td class="yes">Có</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 6. NON-FUNCTIONAL REQUIREMENTS -->
+  <section id="s6-phi-chuc-nang">
+    <h2><span class="hn">6</span>Yêu cầu phi chức năng (Non-Functional Requirements)</h2>
+
+    <h3>6.1 Hiệu năng Realtime &amp; Hạn mức Quota</h3>
+    <ul>
+      <li><strong>Độ trễ truyền nhận (p95 latency):</strong> &le; 200 ms từ khi client gửi đến khi server broadcast qua WebSocket.</li>
+      <li><strong>Tải tin nhắn cũ:</strong> Phân trang 50 tin/lần, thời gian tải &le; 500 ms.</li>
+      <li><strong>Rate Limiting đối với Guest:</strong> Tối đa <strong>5 tin / 30 giây</strong> hoặc <strong>30 tin / phiên</strong>. Vượt ngưỡng trả về cảnh báo đếm ngược thời gian chờ.</li>
+      <li><strong>Socket Timeout:</strong> Tự động ngắt kết nối và đổi trạng thái sang Chấm xám (Offline) sau 30–60 giây không nhận được Heartbeat.</li>
+    </ul>
+
+    <h3>6.2 An toàn, Bảo mật &amp; Hỗ trợ Media</h3>
+    <ul>
+      <li><strong>Bảo mật thông tin Admin:</strong> Toàn bộ dữ liệu gửi ra client mobile đều được lọc bỏ ID và tên thật của tư vấn viên.</li>
+      <li><strong>Định dạng hỗ trợ:</strong>
+        <ul>
+          <li><strong>Guest:</strong> Text (Plain, Emoji); Ảnh (.jpg, .jpeg, .png, .webp). Cấm Video và Tệp.</li>
+          <li><strong>User:</strong> Text (Markdown, Emoji); Ảnh; Video (.mp4, .mov &le; 50MB); Tệp (.pdf, .doc, .xlsx &le; 20MB).</li>
+        </ul>
+      </li>
+      <li><strong>Lưu trữ dữ liệu:</strong> Lịch sử User lưu trữ vĩnh viễn; lịch sử Guest không merge lưu trữ tối đa 90 ngày.</li>
+    </ul>
+  </section>
+
+  <!-- ============================================================ 7. UX/UI & WIREFRAMES -->
+  <section id="s7-giao-dien">
+    <h2><span class="hn">7</span>Giao diện và thiết kế (UX/UI &amp; Wireframes)</h2>
+
+    <h3>7.1 Cấu trúc màn hình Mobile App</h3>
+    <ul>
+      <li><strong>Nút kích hoạt Chat:</strong> Floating Action Button hoặc Icon trên thanh Navigation Bar kèm <strong>Unread Badge đỏ</strong> hiển thị số tin chưa đọc.</li>
+      <li><strong>Khung hội thoại:</strong> Bong bóng chat dạng chuẩn; góc dưới bên phải mỗi tin nhắn hiển thị giờ và biểu tượng chỉ báo (1 tích xám, 2 tích xám, 2 tích xanh).</li>
+      <li><strong>Bộ chọn Media:</strong> Chỉ hiển thị nút chọn Ảnh đối với Guest; hiển thị thêm nút Video và Tệp đính kèm đối với User.</li>
+    </ul>
+
+    <h3>7.2 Cấu trúc màn hình Web Admin</h3>
+    <ul>
+      <li><strong>Bố cục 2 Tab:</strong> Header chia 2 tab rõ ràng <code>User Chat (N)</code> và <code>Guest Chat (M)</code> kèm số tin chưa đọc.</li>
+      <li><strong>Danh sách hội thoại:</strong> Hiển thị tên khách / Guest ID, tin nhắn cuối, thời gian, chấm xanh (Online) / chấm xám (Offline).</li>
+      <li><strong>Khung chat chi tiết:</strong> Tin nhắn Admin có nhãn tiền tố <code>[Tên Admin]</code>; phiên Guest đã gộp bị làm mờ và khóa khung soạn thảo kèm banner: <em>"Phiên chat này đã được gộp vào User [Tên User]. Bấm vào đây để chuyển tiếp."</em></li>
+      <li><strong>Modal Gửi hàng loạt:</strong> Bật chế độ multi-select với checkbox cạnh mỗi User, bộ đếm "Đã chọn [X] User" và ô soạn thảo tập trung.</li>
+    </ul>
+
+    <h3>7.3 Bảy màn hình bắt buộc thiết kế</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>#</th><th>Tên màn hình</th><th>Nền tảng</th><th>Thành phần cốt lõi</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="wrap">Khung chat Guest</td><td>Mobile App</td><td>Danh sách tin nhắn, ô gõ text &le;1.000 ký tự, nút gửi ảnh (max 2), tích trạng thái.</td></tr>
+          <tr><td>2</td><td class="wrap">Khung chat User</td><td>Mobile App</td><td>Danh sách tin, ô text &le;3.000 ký tự, đính kèm ảnh/video/tệp, tích trạng thái.</td></tr>
+          <tr><td>3</td><td class="wrap">Thông báo Push &amp; In-app Badge</td><td>Mobile App</td><td>Badge đỏ bottom bar, popup banner thông báo in-app khi đang mở app.</td></tr>
+          <tr><td>4</td><td class="wrap">Admin — Tab User Chat</td><td>Web Admin</td><td>Danh sách User, chấm online, Group-like view <code>[Tên Admin]</code>, bộ lọc gán việc.</td></tr>
+          <tr><td>5</td><td class="wrap">Admin — Tab Guest Chat</td><td>Web Admin</td><td>Danh sách Guest, chấm online/offline, phiên Merged bị khóa có banner link.</td></tr>
+          <tr><td>6</td><td class="wrap">Admin — Modal Bulk Messaging</td><td>Web Admin</td><td>Danh sách checkbox chọn User, bộ đếm đã chọn, khung gõ tin gửi hàng loạt.</td></tr>
+          <tr><td>7</td><td class="wrap">Màn hình xem trước Media</td><td>Mobile &amp; Web</td><td>Xem ảnh phóng to, phát video, tải file tài liệu đính kèm.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ 8. MILESTONES & RELEASE PLAN -->
+  <section id="s8-ke-hoach">
+    <h2><span class="hn">8</span>Kế hoạch phát hành và mốc thời gian (Milestones &amp; Release Plan)</h2>
+
+    <div style="margin: 20px 0 8px;">
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-id">Giai đoạn P0</span>
+          <span class="phase-name">Hạ tầng Realtime, Chat User &amp; Guest</span>
+          <span class="phase-when">Tuần 1 – Tuần 2</span>
+        </div>
+        <p>Xây dựng hạ tầng Socket.io Gateway · Lưu trữ Guest_Session_ID trên mobile · Chat 2 chiều Text/Ảnh · Cơ chế chỉ báo 1 tích / 2 tích · Web Admin 2 tab User và Guest cơ bản.</p>
+        <div class="out">→ <strong>Bàn giao:</strong> Khách Guest và User chat được trực tiếp với Admin trên Web.</div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-id">Giai đoạn P1</span>
+          <span class="phase-name">Data Merging, Kiểm soát Media &amp; Thông báo</span>
+          <span class="phase-when">Tuần 2 – Tuần 3</span>
+        </div>
+        <p>Logic gộp dữ liệu 1 chiều (Single-merge) khi đăng nhập · Khóa phiên Merged bên Admin · Phân quyền gửi video/tệp · Rate limiter chống spam Guest · Tích hợp Push Notification (FCM/APNs) và Unread Badge.</p>
+        <div class="out">→ <strong>Bàn giao:</strong> Hoàn thiện vòng đời chuyển đổi Guest sang User; bảo vệ hệ thống khỏi spam.</div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-head">
+          <span class="phase-id">Giai đoạn P2</span>
+          <span class="phase-name">Bulk Messaging, Phân quyền Admin &amp; Tối ưu</span>
+          <span class="phase-when">Tuần 3 – Tuần 4</span>
+        </div>
+        <p>Tính năng gửi hàng loạt (Bulk Messaging) cho User Chat · Phân quyền Admin (All user / Only my own) · Heartbeat socket hiển thị chấm xanh/xám · Tối ưu hiệu năng tải lịch sử chat.</p>
+        <div class="out">→ <strong>Bàn giao:</strong> Hệ thống hoàn chỉnh sẵn sàng phục vụ đội ngũ CSKH và chiến dịch tiếp thị.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ 9. RISKS & ASSUMPTIONS -->
+  <section id="s9-rui-ro">
+    <h2><span class="hn">9</span>Rủi ro và giả định (Risks &amp; Assumptions)</h2>
+
+    <h3>9.1 Giả định nền tảng (Assumptions)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã</th><th>Nội dung giả định</th><th>Kịch bản ứng phó nếu giả định sai</th></tr></thead>
+        <tbody>
+          <tr><td>A-1</td><td>Bộ nhớ cục bộ (SharedPreferences/UserDefaults) không bị hệ điều hành tự động xoá trong quá trình dùng app bình thường.</td><td>Nếu bị xoá, Guest sẽ sinh session mới; dữ liệu cũ không mất trên server nhưng cần đăng nhập để tìm lại.</td></tr>
+          <tr><td>A-2</td><td>Hạ tầng WebSocket chịu tải tốt 2.000 kết nối đồng thời mà không bị nghẽn socket server.</td><td>Thiết lập Redis Adapter để mở rộng cụm Socket.io theo chiều ngang khi lượng tải tăng cao.</td></tr>
+          <tr><td>A-3</td><td>Firebase Cloud Messaging (FCM) chuyển phát Push Notification ổn định trên cả thiết bị Android chạy ngầm.</td><td>Cài đặt thêm cơ chế In-app Badge và kiểm tra tin nhắn mới ngay khi app quay lại Foreground.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>9.2 Rủi ro trọng yếu &amp; Phương án giảm thiểu (Risks Matrix)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã</th><th>Rủi ro tiềm ẩn</th><th>Mức độ</th><th>Phương án giảm thiểu kỹ thuật</th></tr></thead>
+        <tbody>
+          <tr><td>R1</td><td>Người dùng gỡ app rồi cài lại làm mất <code>Guest_Session_ID</code> cũ.</td><td>Trung bình</td><td>Khuyến khích đăng ký tài khoản sớm để lưu lịch sử vĩnh viễn; chấp nhận reset session đối với Guest khi xoá app.</td></tr>
+          <tr><td>R2</td><td>Gộp nhầm lịch sử chat của 2 người khác nhau nếu dùng chung thiết bị đăng nhập.</td><td><span class="p0">Nghiêm trọng</span></td><td>Cơ chế Single-merge flag: <code>is_merged = true</code> khoá 1 chiều ngay lập tức và app xoá bỏ session ID cũ khỏi bộ nhớ.</td></tr>
+          <tr><td>R3</td><td>Nghẽn socket gateway khi Admin bấm gửi hàng loạt cho hàng ngàn User.</td><td>Cao</td><td>Dispatcher tách tin nhắn và đẩy vào hàng đợi (Queue) phân phối tuần tự, không bắn ồ ạt cùng một mili-giây.</td></tr>
+          <tr><td>R4</td><td>Guest liên tục gửi tin nhắn rác hoặc spam ảnh dung lượng lớn làm đầy dung lượng ổ cứng.</td><td>Cao</td><td>Khống chế Rate limit chặt (5 tin/30s); giới hạn kích thước ảnh &le;2MB; quét và từ chối tệp không đúng định dạng.</td></tr>
+          <tr><td>R5</td><td>Khách hàng phát hiện danh tính cá nhân của tư vấn viên gây ảnh hưởng quyền riêng tư.</td><td>Trung bình</td><td>Mặt nạ hiển thị (Identity Masking): Backend loại bỏ tên Admin khỏi payload gửi về client Mobile; chỉ giữ tên thương hiệu chung.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>9.3 Bảng quyết định chính sách kỹ thuật (Decisions Log)</h3>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>Mã</th><th>Nội dung quyết định</th><th>Đề xuất &amp; Khuyến nghị chốt</th><th>Giai đoạn</th></tr></thead>
+        <tbody>
+          <tr><td>D1</td><td>Cho phép Guest gửi Video và File không?</td><td><strong>Tuyệt đối không.</strong> Chỉ cho phép gửi Text và Ảnh để tiết kiệm băng thông và chống spam.</td><td>P0</td></tr>
+          <tr><td>D2</td><td>Bulk Messaging có áp dụng cho Guest Chat không?</td><td><strong>Không.</strong> Do Guest thiếu định danh vĩnh viễn và dễ gây phản cảm vi phạm chống spam.</td><td>P1</td></tr>
+          <tr><td>D3</td><td>Admin có gửi được Video/File cho Guest không?</td><td><strong>Có cho phép.</strong> Tư vấn viên chủ động gửi tài liệu/video hướng dẫn thì Guest vẫn xem và tải được.</td><td>P1</td></tr>
+          <tr><td>D4</td><td>Gộp dữ liệu Guest khi nào?</td><td><strong>Ngay khi đăng nhập/đăng ký thành công</strong> qua tham số <code>guest_session_id</code>.</td><td>P0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================================================ FOOTER -->
+  <footer>
+    <p>
+      <strong>In-App Support Chat PRD</strong> · Mã tài liệu: PRD-CHAT-2026-09-21 · TimeDealer Product &amp; Engineering.
+      Tài liệu bao gồm 7 sơ đồ Mermaid tương tác và chuẩn hoá đầy đủ 9 cấu phần PRD; bấm <em>Xem mã mermaid</em> dưới mỗi sơ đồ để sao chép mã nguồn sơ đồ.
+    </p>
+  </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>
+  (function () {
+    var root = document.documentElement;
+
+    function stored(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+    function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+    var saved = stored("chat-prd-theme");
+    if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
+
+    var figures = [].slice.call(document.querySelectorAll(".dgm"));
+    var diagrams = figures.map(function (fig, i) {
+      var srcEl = fig.querySelector(".mmd-src");
+      return {
+        index: i,
+        host: fig.querySelector(".mmd-host"),
+        code: fig.querySelector(".mmd-code"),
+        toggle: fig.querySelector(".mmd-toggle"),
+        source: srcEl ? srcEl.textContent.trim() : ""
+      };
+    });
+
+    diagrams.forEach(function (d) {
+      if (!d.toggle || !d.code) return;
+      d.code.textContent = d.source;
+      d.toggle.addEventListener("click", function () {
+        var show = d.code.hidden;
+        d.code.hidden = !show;
+        d.toggle.textContent = show ? "Ẩn mã mermaid" : "Xem mã mermaid";
+      });
+    });
+
+    function themeVars() {
+      var cs = getComputedStyle(root);
+      function v(name, fallback) {
+        var out = cs.getPropertyValue(name);
+        return (out && out.trim()) || fallback;
+      }
+      var surface = v("--surface", "#ffffff");
+      var ink = v("--ink", "#151920");
+      var ink2 = v("--ink-2", "#414a57");
+      var ink3 = v("--ink-3", "#6d7784");
+      var line = v("--line-strong", "#bfc6d0");
+      var brass = v("--brass", "#8a5f18");
+      return {
+        background: surface,
+        primaryColor: v("--surface-2", "#eaedf1"),
+        primaryTextColor: ink,
+        primaryBorderColor: line,
+        secondaryColor: v("--surface-3", "#dfe4ea"),
+        tertiaryColor: surface,
+        tertiaryTextColor: ink2,
+        mainBkg: v("--surface-2", "#eaedf1"),
+        nodeBorder: line,
+        lineColor: ink3,
+        textColor: ink2,
+        edgeLabelBackground: surface,
+        clusterBkg: v("--ground", "#f4f6f8"),
+        clusterBorder: v("--line", "#dce0e6"),
+        titleColor: ink,
+        fontFamily: '"IBM Plex Sans", system-ui, sans-serif',
+        fontSize: "14px",
+        actorBkg: v("--surface-2", "#eaedf1"),
+        actorBorder: line,
+        actorTextColor: ink,
+        actorLineColor: ink3,
+        signalColor: ink2,
+        signalTextColor: ink2,
+        sequenceNumberColor: surface,
+        labelBoxBkgColor: v("--brass-wash", "#f7f1e4"),
+        labelBoxBorderColor: v("--brass-border", "#e2cfa7"),
+        labelTextColor: brass,
+        loopTextColor: ink2,
+        noteBkgColor: v("--brass-wash", "#f7f1e4"),
+        noteBorderColor: v("--brass-border", "#e2cfa7"),
+        noteTextColor: brass,
+        attributeBackgroundColorOdd: surface,
+        attributeBackgroundColorEven: v("--surface-2", "#eaedf1")
+      };
+    }
+
+    var pass = 0;
+    function draw() {
+      if (typeof window.mermaid === "undefined") {
+        diagrams.forEach(function (d) { fallback(d); });
+        return;
+      }
+      pass += 1;
+      window.mermaid.initialize({
+        startOnLoad: false,
+        theme: "base",
+        themeVariables: themeVars(),
+        flowchart: { curve: "basis", useMaxWidth: true, padding: 12 },
+        sequence: { useMaxWidth: true, wrap: true, width: 190 },
+        state: { useMaxWidth: true },
+        er: { useMaxWidth: true }
+      });
+      diagrams.forEach(function (d) {
+        if (!d.host || !d.source) return;
+        var id = "mmd-" + d.index + "-" + pass;
+        try {
+          var out = window.mermaid.render(id, d.source);
+          if (out && typeof out.then === "function") {
+            out.then(function (res) { d.host.innerHTML = res.svg; })
+               .catch(function () { fallback(d); });
+          } else if (typeof out === "string") {
+            d.host.innerHTML = out;
+          }
+        } catch (e) {
+          fallback(d);
+        }
+      });
+    }
+
+    function fallback(d) {
+      if (d.host) d.host.innerHTML = "";
+      if (d.code) d.code.hidden = false;
+      if (d.toggle) d.toggle.textContent = "Ẩn mã mermaid";
+    }
+
+    draw();
+
+    var btn = document.getElementById("themeBtn");
+    btn.addEventListener("click", function () {
+      var current = root.getAttribute("data-theme");
+      if (!current) {
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        current = prefersDark ? "dark" : "light";
+      }
+      var next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      save("chat-prd-theme", next);
+      draw();
+    });
+  })();
+</script>
+
+</body>
+</html>

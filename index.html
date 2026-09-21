@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>TimeDealer · Cổng Yêu Cầu Kỹ Thuật (Technical Specs &amp; PRD Hub)</title>
+  <meta name="description" content="Cổng tổng hợp 4 tài liệu yêu cầu chức năng (PRD) và luồng dữ liệu kiến trúc của TimeDealer phục vụ PM và Engineering Review.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+  <style>
+    :root {
+      --ground: #f4f6f8;
+      --surface: #ffffff;
+      --surface-2: #eaedf1;
+      --surface-3: #dfe4ea;
+      --ink: #151920;
+      --ink-2: #414a57;
+      --ink-3: #6d7784;
+      --line: #dce0e6;
+      --line-strong: #bfc6d0;
+      --brass: #8a5f18;
+      --brass-2: #b8862c;
+      --brass-wash: #f7f1e4;
+      --brass-border: #e2cfa7;
+      --danger: #a12b20;
+      --danger-wash: #fbeeec;
+      --good: #26614d;
+      --good-wash: #e9f2ee;
+      --good-border: #b8dcce;
+      --blue: #1c5b96;
+      --blue-wash: #eaf2fa;
+      --blue-border: #b8d4f0;
+      --shadow: 0 1px 2px rgba(21,25,32,.05), 0 8px 24px -16px rgba(21,25,32,.25);
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --ground: #0f1217;
+        --surface: #161a21;
+        --surface-2: #1e232b;
+        --surface-3: #262c36;
+        --ink: #e7eaef;
+        --ink-2: #b2bbc8;
+        --ink-3: #848f9e;
+        --line: #282e38;
+        --line-strong: #3a424f;
+        --brass: #dcae55;
+        --brass-2: #ecc98a;
+        --brass-wash: #241d10;
+        --brass-border: #4a3a1b;
+        --danger: #e8877a;
+        --danger-wash: #2b1a17;
+        --good: #74c3a0;
+        --good-wash: #13241e;
+        --good-border: #22473a;
+        --blue: #5ba2e6;
+        --blue-wash: #13202e;
+        --blue-border: #233e5c;
+        --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --ground: #0f1217;
+      --surface: #161a21;
+      --surface-2: #1e232b;
+      --surface-3: #262c36;
+      --ink: #e7eaef;
+      --ink-2: #b2bbc8;
+      --ink-3: #848f9e;
+      --line: #282e38;
+      --line-strong: #3a424f;
+      --brass: #dcae55;
+      --brass-2: #ecc98a;
+      --brass-wash: #241d10;
+      --brass-border: #4a3a1b;
+      --good: #74c3a0;
+      --good-wash: #13241e;
+      --good-border: #22473a;
+      --blue: #5ba2e6;
+      --blue-wash: #13202e;
+      --blue-border: #233e5c;
+      color-scheme: dark;
+    }
+    :root[data-theme="light"] {
+      --ground: #f4f6f8;
+      --surface: #ffffff;
+      --surface-2: #eaedf1;
+      --surface-3: #dfe4ea;
+      --ink: #151920;
+      --ink-2: #414a57;
+      --ink-3: #6d7784;
+      --line: #dce0e6;
+      --line-strong: #bfc6d0;
+      --brass: #8a5f18;
+      --brass-2: #b8862c;
+      --brass-wash: #f7f1e4;
+      --brass-border: #e2cfa7;
+      --good: #26614d;
+      --good-wash: #e9f2ee;
+      --good-border: #b8dcce;
+      --blue: #1c5b96;
+      --blue-wash: #eaf2fa;
+      --blue-border: #b8d4f0;
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--ground);
+      color: var(--ink);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    
+    /* Universal Module Switcher Bar */
+    .specs-hub-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 18, 23, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(220, 224, 230, 0.15);
+      color: #e7eaef;
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      font-size: 13px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    :root[data-theme="light"] .specs-hub-nav {
+      background: rgba(255, 255, 255, 0.96);
+      border-bottom: 1px solid #dce0e6;
+      color: #151920;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    }
+    .specs-hub-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .specs-hub-logo {
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--brass, #dcae55);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-right: 12px;
+      border-right: 1px solid rgba(120,130,140,0.3);
+      white-space: nowrap;
+    }
+    .specs-hub-logo:hover { opacity: 0.9; }
+    .specs-hub-tabs {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      flex: 1 1 auto;
+    }
+    .specs-tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-2, #b2bbc8);
+      background: transparent;
+      border: 1px solid transparent;
+      transition: all 0.15s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    :root[data-theme="light"] .specs-tab-btn {
+      color: #414a57;
+    }
+    .specs-tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    :root[data-theme="light"] .specs-tab-btn:hover {
+      color: #151920;
+      background: #f0f2f5;
+      border-color: #dce0e6;
+    }
+    .specs-tab-btn.active {
+      color: #fff;
+      background: #8a5f18;
+      border-color: #b8862c;
+      font-weight: 600;
+    }
+    :root[data-theme="light"] .specs-tab-btn.active {
+      color: #ffffff;
+      background: #8a5f18;
+      border-color: #724e13;
+    }
+    .specs-tab-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      font-size: 10px;
+      font-family: "IBM Plex Mono", monospace;
+    }
+    .specs-tab-btn.active .specs-tab-num {
+      background: rgba(0,0,0,0.25);
+    }
+    .specs-hub-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .specs-action-btn {
+      font-size: 11.5px;
+      padding: 5px 9px;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    :root[data-theme="light"] .specs-action-btn {
+      background: #ffffff;
+      border-color: #dce0e6;
+      color: #414a57;
+    }
+    .specs-action-btn:hover {
+      border-color: var(--brass, #dcae55);
+      color: var(--brass, #dcae55);
+    }
+
+
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 42px 20px 24px;
+    }
+    .hero-eyebrow {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11.5px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 8px;
+    }
+    .hero h1 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: clamp(32px, 4.5vw, 44px);
+      font-weight: 600;
+      margin: 0 0 12px;
+      line-height: 1.15;
+    }
+    .hero-desc {
+      font-size: 17px;
+      color: var(--ink-2);
+      max-width: 68ch;
+      margin: 0 0 24px;
+    }
+
+    .grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 64px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--brass-border);
+    }
+    .card-top { margin-bottom: 16px; }
+    .card-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--brass-wash);
+      color: var(--brass);
+      border: 1px solid var(--brass-border);
+      margin-bottom: 12px;
+    }
+    .card h2 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 21px;
+      font-weight: 600;
+      margin: 0 0 8px;
+      line-height: 1.25;
+      color: var(--ink);
+    }
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--ink-2);
+      margin: 0 0 14px;
+      line-height: 1.45;
+    }
+    .card-meta {
+      font-size: 12px;
+      font-family: "IBM Plex Mono", monospace;
+      color: var(--ink-3);
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--brass);
+    }
+
+    .summary-section {
+      max-width: 1200px;
+      margin: 0 auto 48px;
+      padding: 0 20px;
+    }
+    .summary-box {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .summary-box h3 {
+      font-family: "Newsreader", Georgia, serif;
+      font-size: 20px;
+      margin: 0 0 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th {
+      text-align: left;
+      padding: 8px 12px;
+      background: var(--surface-2);
+      border-bottom: 2px solid var(--line-strong);
+      font-weight: 600;
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-2);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--surface-2); }
+    .tag {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-family: "IBM Plex Mono", monospace;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+    }
+  </style>
+</head>
+<body>
+
+
+<nav class="specs-hub-nav" aria-label="Requirement Modules Switcher">
+  <div class="specs-hub-inner">
+    <a href="index.html" class="specs-hub-logo">
+      <span>⏱️ TimeDealer</span>
+      <span style="font-size:11px; opacity:0.7; font-weight:normal;">PRD Portal</span>
+    </a>
+    <div class="specs-hub-tabs">
+      <a href="index.html" class="specs-tab-btn active"><span class="specs-tab-num">0</span> 📊 Hub Overview</a>
+        <a href="inventory-network.html" class="specs-tab-btn "><span class="specs-tab-num">1</span> 📦 Inventory Network</a>
+        <a href="in-app-chat.html" class="specs-tab-btn "><span class="specs-tab-num">2</span> 💬 In-App Chat</a>
+        <a href="suggestion-search.html" class="specs-tab-btn "><span class="specs-tab-num">3</span> 🔍 Suggestion Search</a>
+        <a href="auth-whatsapp-otp.html" class="specs-tab-btn "><span class="specs-tab-num">4</span> 📱 WhatsApp OTP Auth</a>
+    </div>
+    <div class="specs-hub-actions">
+      <button class="specs-action-btn" id="portalThemeBtn" type="button" title="Chuyển Dark/Light Mode">🌓 Giao diện</button>
+      <a href="javascript:window.print()" class="specs-action-btn" title="In / Xuất PDF">🖨️ PDF</a>
+    </div>
+  </div>
+</nav>
+<script>
+  (function(){
+    var b = document.getElementById('portalThemeBtn');
+    if (b) {
+      b.addEventListener('click', function() {
+        var r = document.documentElement;
+        var cur = r.getAttribute('data-theme');
+        if (!cur) {
+          var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+          cur = dark ? 'dark' : 'light';
+        }
+        var next = cur === 'dark' ? 'light' : 'dark';
+        r.setAttribute('data-theme', next);
+        try { localStorage.setItem('td-specs-theme', next); } catch(e){}
+        // trigger theme switch for page mermaid if exists
+        var pageThemeBtn = document.getElementById('themeBtn');
+        if (pageThemeBtn && pageThemeBtn !== b) pageThemeBtn.click();
+      });
+    }
+    // Apply saved theme
+    try {
+      var saved = localStorage.getItem('td-specs-theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch(e){}
+  })();
+</script>
+
+
+<div class="hero">
+  <div class="hero-eyebrow">TimeDealer Product Management · Architecture &amp; Requirements Hub</div>
+  <h1>Cổng Hồ Sơ Yêu Cầu Kỹ Thuật (PRD Technical Portal)</h1>
+  <p class="hero-desc">Tổng hợp 4 tài liệu PRD kỹ thuật cốt lõi chuẩn hóa cho TimeDealer. Bấm vào từng thẻ hoặc sử dụng thanh điều hướng phía trên để chuyển đổi linh hoạt giữa các module.</p>
+</div>
+
+<div class="grid">
+  <!-- Card 1 -->
+  <a href="inventory-network.html" class="card">
+    <div class="card-top">
+      <span class="card-badge">PRD-TD-INV-01</span>
+      <h2>1. Inventory Network &amp; Stock Sharing</h2>
+      <p class="card-desc">Cơ chế mạng lưới kho hàng đối tác B2B, phân quyền đa tầng (Owner, Manager, Staff), bảo toàn bí mật nhà cung cấp (Zero-Vendor-Leak) và kiểm tra Fail-Closed.</p>
+    </div>
+    <div class="card-meta">
+      <span>12 Mermaid Flows</span>
+      <span class="card-link-btn">Xem PRD &rarr;</span>
+    </div>
+  </a>
+
+  <!-- Card 2 -->
+  <a href="in-app-chat.html" class="card">
+    <div class="card-top">
+      <span class="card-badge" style="color:var(--blue); background:var(--blue-wash); border-color:var(--blue-border);">PRD-TD-CHAT-01</span>
+      <h2>2. In-App Support Chat (Mobile &amp; Web)</h2>
+      <p class="card-desc">Hệ thống chat 1-1 thời gian thực giữa Khách hàng (App) và CSKH (Admin). Quản lý phiên Guest, luồng Hợp nhất dữ liệu (Data Merging), Group-Like View và Bulk Messaging.</p>
+    </div>
+    <div class="card-meta">
+      <span>7 Mermaid Flows</span>
+      <span class="card-link-btn">Xem PRD &rarr;</span>
+    </div>
+  </a>
+
+  <!-- Card 3 -->
+  <a href="suggestion-search.html" class="card">
+    <div class="card-top">
+      <span class="card-badge" style="color:var(--good); background:var(--good-wash); border-color:var(--good-border);">PRD-TD-SEARCH-01</span>
+      <h2>3. Suggestion Search &amp; AutoComplete</h2>
+      <p class="card-desc">Gợi ý tìm kiếm thời gian thực mã Reference và Thương hiệu (&le; 100ms). Luồng đa tầng Next.js BFF &rarr; Strapi Gateway &rarr; Elasticsearch Masterfile index và ghim Auto-Tracking.</p>
+    </div>
+    <div class="card-meta">
+      <span>4 Mermaid Flows</span>
+      <span class="card-link-btn">Xem PRD &rarr;</span>
+    </div>
+  </a>
+
+  <!-- Card 4 -->
+  <a href="auth-whatsapp-otp.html" class="card">
+    <div class="card-top">
+      <span class="card-badge">PRD-TD-AUTH-02</span>
+      <h2>4. Đăng Ký &amp; Đăng Nhập OTP WhatsApp</h2>
+      <p class="card-desc">Giải pháp xác thực người dùng thay thế SMS bằng WhatsApp Business API / WAHA. Xóa bỏ rào cản A2P 10DLC, tiết kiệm 85% chi phí viễn thông, nhận mã &le; 3s và fallback skipOtp.</p>
+    </div>
+    <div class="card-meta">
+      <span>6 Mermaid Flows</span>
+      <span class="card-link-btn">Xem PRD &rarr;</span>
+    </div>
+  </a>
+</div>
+
+<div class="summary-section">
+  <div class="summary-box">
+    <h3>Bảng Đối Soát Tổng Hợp Các Chỉ Số Kỹ Thuật (SLA &amp; KPIs)</h3>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Module Tính Năng</th>
+            <th>Mã PRD</th>
+            <th>Đối tượng phục vụ</th>
+            <th>Cam kết SLA Kỹ thuật</th>
+            <th>Mục tiêu Kinh doanh (KPIs)</th>
+            <th>Trạng thái Triển khai</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong><a href="inventory-network.html" style="color:inherit; text-decoration:none;">📦 Inventory Network</a></strong></td>
+            <td><code>PRD-TD-INV-01</code></td>
+            <td>Dealer B2B, Chủ chuỗi showroom</td>
+            <td>Đồng bộ kho &le; 1s; Fail-closed 100%</td>
+            <td>Tăng 30% thanh khoản hàng tồn kho</td>
+            <td><span class="tag" style="background:var(--good-wash); color:var(--good);">Ready for Sprint</span></td>
+          </tr>
+          <tr>
+            <td><strong><a href="in-app-chat.html" style="color:inherit; text-decoration:none;">💬 In-App Support Chat</a></strong></td>
+            <td><code>PRD-TD-CHAT-01</code></td>
+            <td>Guest, User, Đội ngũ CSKH Admin</td>
+            <td>Trễ WebSocket &le; 150ms; Uptime 99.9%</td>
+            <td>FRT &le; 2 phút; Chuyển đổi Lead +15%</td>
+            <td><span class="tag" style="background:var(--good-wash); color:var(--good);">Approved</span></td>
+          </tr>
+          <tr>
+            <td><strong><a href="suggestion-search.html" style="color:inherit; text-decoration:none;">🔍 Suggestion Search</a></strong></td>
+            <td><code>PRD-TD-SEARCH-01</code></td>
+            <td>Khách mua Marketplace, Trader</td>
+            <td>p95 Latency &le; 100ms; Debounce 250ms</td>
+            <td>CTR gợi ý &ge; 45%; Zero-result &le; 2.5%</td>
+            <td><span class="tag" style="background:var(--good-wash); color:var(--good);">Production Aligned</span></td>
+          </tr>
+          <tr>
+            <td><strong><a href="auth-whatsapp-otp.html" style="color:inherit; text-decoration:none;">📱 WhatsApp OTP Auth</a></strong></td>
+            <td><code>PRD-TD-AUTH-02</code></td>
+            <td>Tất cả thành viên &amp; Đại lý toàn cầu</td>
+            <td>Nhận mã &le; 3s; Xác thực Redis &le; 20ms</td>
+            <td>Đăng ký thành công &ge; 95%; Tiết kiệm 85% chi phí</td>
+            <td><span class="tag" style="background:var(--good-wash); color:var(--good);">Ready for Sprint</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<footer style="text-align:center; padding: 24px; font-size:12px; color:var(--ink-3); border-top:1px solid var(--line);">
+  TimeDealer Engineering &amp; Product Management · 2026 · Confidential &amp; Proprietary
+</footer>
+
+</body>
+</html>
